@@ -1,3 +1,8 @@
+В программе ссылка была на учебный проект в котором сделали Create React App: https://up.htmlacademy.ru/profession/fullstack/4/react/12/module/1/item/5
+
+Так вот, я все сделал в первом таске
+оказывается. Это надо было сделать во втором.
+
 # Руководство по работе с проектом
 
 Данный проект создан с помощью [Create React App](https://github.com/facebook/create-react-app).
