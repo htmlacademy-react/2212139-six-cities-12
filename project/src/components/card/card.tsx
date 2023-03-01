@@ -1,4 +1,4 @@
-function Article(): JSX.Element {
+function Card(): JSX.Element {
   return (
     <article className="cities__card place-card">
       <div className="place-card__mark">
@@ -43,4 +43,4 @@ function Article(): JSX.Element {
   );
 }
 
-export default Article;
+export default Card;

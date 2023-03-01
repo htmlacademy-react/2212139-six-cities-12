@@ -1,7 +1,11 @@
 import MainScreen from '../../pages/main-screen/main-screen';
 
-function App(): JSX.Element {
-  return <MainScreen />;
+type AppScreenProps = {
+  cardsCount: number;
+}
+
+function App({cardsCount}: AppScreenProps): JSX.Element {
+  return <MainScreen cardsCount={cardsCount} />;
 }
 
 export default App;
