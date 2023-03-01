@@ -5,6 +5,13 @@ type MainScreenProps = {
 }
 
 function MainPage({cardsCount}: MainScreenProps): JSX.Element {
+
+  const cards = [];
+
+  for (let i = 0; i < cardsCount; i++) {
+    cards.push(<Card key={i} />);
+  }
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -116,11 +123,7 @@ function MainPage({cardsCount}: MainScreenProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
+                {cards}
               </div>
             </section>
             <div className="cities__right-section">
