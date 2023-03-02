@@ -7,6 +7,7 @@ import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import PrivateRoute from '../private-route/private-route';
 import Page404 from '../../pages/page-404/page-404';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
+import Layout from '../layout/layout';
 
 type AppProps = {
   cardsCount: number;
@@ -17,20 +18,19 @@ function App({cardsCount}: AppProps): JSX.Element {
     <BrowserRouter>
       <ScrollToTop/>
       <Routes>
-        <Route
-          path={AppRoute.Root}
-          element={<MainPage cardsCount={cardsCount} />}
-        />
-        <Route path={AppRoute.Login} element={<LoginPage />} />
-        <Route path={AppRoute.Favorites}
-          element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              <FavoritesPage />
-            </PrivateRoute>
-          }
-        />
-        <Route path={AppRoute.Room} element={<PropertyPage />} />
-        <Route path="*" element={<Page404 />} />
+        <Route path={AppRoute.Root} element={<Layout />}>
+          <Route index element={<MainPage cardsCount={cardsCount} />} />
+          <Route path={AppRoute.Login} element={<LoginPage />} />
+          <Route path={AppRoute.Favorites}
+            element={
+              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+                <FavoritesPage />
+              </PrivateRoute>
+            }
+          />
+          <Route path={AppRoute.Room} element={<PropertyPage />} />
+          <Route path="*" element={<Page404 />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
