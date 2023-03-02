@@ -6,6 +6,7 @@ import PropertyPage from '../../pages/property-page/property-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import PrivateRoute from '../private-route/private-route';
 import Page404 from '../../pages/page-404/page-404';
+import ScrollToTop from '../scroll-to-top/scroll-to-top';
 
 type AppProps = {
   cardsCount: number;
@@ -14,6 +15,7 @@ type AppProps = {
 function App({cardsCount}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
+      <ScrollToTop/>
       <Routes>
         <Route
           path={AppRoute.Root}
