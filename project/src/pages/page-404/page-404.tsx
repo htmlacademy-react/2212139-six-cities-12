@@ -1,11 +1,11 @@
+import Layout from '../../components/layout/layout';
 import styles from './page-404.module.css';
 
 
 function Page404(): JSX.Element {
+
   return (
-    <div className="page page--gray page--main">
-
-
+    <Layout classNameProps="page--gray page--main">
       <main className="page__main page__main--index page__main--index-empty">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
@@ -48,7 +48,7 @@ function Page404(): JSX.Element {
           <div className="cities__places-container cities__places-container--empty container">
             <section className="cities__no-places">a
               <div className="cities__status-wrapper tabs__content">
-                <b className={styles.cities__status}>404</b>
+                <b className={styles.status}>404</b>
                 <p className="cities__status-description">This page does not exist</p>
               </div>
             </section>
@@ -56,7 +56,7 @@ function Page404(): JSX.Element {
           </div>
         </div>
       </main>
-    </div>
+    </Layout>
   );
 }
 

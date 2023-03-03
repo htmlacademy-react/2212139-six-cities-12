@@ -1,9 +1,9 @@
 import Card from '../../components/card/card';
+import Layout from '../../components/layout/layout';
 
 function FavoritesPage(): JSX.Element {
   return (
-    <div className="page">
-
+    <Layout classNameProps="">
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
@@ -12,7 +12,7 @@ function FavoritesPage(): JSX.Element {
               <li className="favorites__locations-items">
                 <div className="favorites__locations locations locations--current">
                   <div className="locations__item">
-                    <a className="locations__item-link" href="#">
+                    <a className="locations__item-link" href="/#">
                       <span>Amsterdam</span>
                     </a>
                   </div>
@@ -26,7 +26,7 @@ function FavoritesPage(): JSX.Element {
               <li className="favorites__locations-items">
                 <div className="favorites__locations locations locations--current">
                   <div className="locations__item">
-                    <a className="locations__item-link" href="#">
+                    <a className="locations__item-link" href="/#">
                       <span>Cologne</span>
                     </a>
                   </div>
@@ -44,7 +44,7 @@ function FavoritesPage(): JSX.Element {
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
         </a>
       </footer>
-    </div>
+    </Layout>
   );
 }
 

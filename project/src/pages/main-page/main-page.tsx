@@ -1,14 +1,14 @@
 import Card from '../../components/card/card';
+import Layout from '../../components/layout/layout';
 
-type MainScreenProps = {
+type MainPageProps = {
   cardsCount: number;
 }
 
-function MainPage({cardsCount}: MainScreenProps): JSX.Element {
+function MainPage({cardsCount}: MainPageProps): JSX.Element {
 
   return (
-    <div className="page page--gray page--main">
-
+    <Layout classNameProps="page--gray page--main" >
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
@@ -89,7 +89,7 @@ function MainPage({cardsCount}: MainScreenProps): JSX.Element {
           </div>
         </div>
       </main>
-    </div>
+    </Layout>
   );
 }
 
