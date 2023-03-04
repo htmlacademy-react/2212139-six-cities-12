@@ -4,9 +4,6 @@ import App from './components/app/app';
 import { offers } from './mocks/offers';
 import { reviews } from './mocks/reviews';
 
-const Setting = {
-  cardsCount: 8,
-} as const;
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -17,7 +14,6 @@ root.render(
     <App
       offers={offers}
       reviews={reviews}
-      cardsCount = {Setting.cardsCount}
     />
   </React.StrictMode>,
 );

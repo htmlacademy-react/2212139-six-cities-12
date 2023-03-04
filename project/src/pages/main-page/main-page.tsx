@@ -3,11 +3,10 @@ import Layout from '../../components/layout/layout';
 import { Offers } from '../../types/offer';
 
 type MainPageProps = {
-  cardsCount: number;
   offers: Offers;
 }
 
-function MainPage({offers, cardsCount}: MainPageProps): JSX.Element {
+function MainPage({offers }: MainPageProps): JSX.Element {
 
   return (
     <Layout classNameProps="page--gray page--main" >
@@ -82,7 +81,7 @@ function MainPage({offers, cardsCount}: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {Array.from({length: cardsCount}, (_, i) => <Card key={i} />)}
+                {offers.map((offer) => <Card key={offer.id} offer={offer} />) }
               </div>
             </section>
             <div className="cities__right-section">
