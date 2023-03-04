@@ -1,5 +1,6 @@
 import Card from '../../components/card/card';
 import Layout from '../../components/layout/layout';
+import OfferList from '../../components/offer-list/offer-list';
 import { Offers } from '../../types/offer';
 
 type MainPageProps = {
@@ -80,9 +81,7 @@ function MainPage({offers }: MainPageProps): JSX.Element {
                   </li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {offers.map((offer) => <Card key={offer.id} offer={offer} />) }
-              </div>
+              <OfferList offers={offers}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>

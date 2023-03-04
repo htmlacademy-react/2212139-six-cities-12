@@ -8,7 +8,7 @@ import PrivateRoute from '../private-route/private-route';
 import Page404 from '../../pages/page-404/page-404';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
 import { Offers } from '../../types/offer';
-import { AllReview } from '../../types/allReview';
+import { AllReview } from '../../types/review';
 
 type AppProps = {
   offers: Offers;
@@ -22,14 +22,13 @@ function App({offers, reviews}: AppProps): JSX.Element {
       <Routes>
         <Route path={AppRoute.Root} element={<MainPage offers={offers} />} />
         <Route path={AppRoute.Login} element={<LoginPage />} />
-        <Route path={AppRoute.Favorites}
+        <Route path={AppRoute.Room}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
               <FavoritesPage />
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Room} element={<PropertyPage />} />
         <Route path="*" element={<Page404 />} />
       </Routes>
     </BrowserRouter>

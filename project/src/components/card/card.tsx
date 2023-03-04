@@ -5,13 +5,18 @@ import { calculateRatingWidth, upperFirstLetter } from '../../utils';
 
 type CardProps = {
   offer: Offer;
+  onCardHover: (id: number | null) => void;
 }
 
-function Card({offer}: CardProps): JSX.Element {
+function Card({offer, onCardHover}: CardProps): JSX.Element {
 
 
   return (
-    <article className="cities__card place-card">
+    <article
+      className="cities__card place-card"
+      onMouseEnter={() => onCardHover(offer.id)}
+      onMouseLeave={() => onCardHover(null)}
+    >
 
       { offer.isPremium &&
       <div className="place-card__mark">

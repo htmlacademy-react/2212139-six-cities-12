@@ -1,4 +1,4 @@
-export type review = {
+export type Review = {
   id: number;
   comment: string;
   date: string;
@@ -9,8 +9,10 @@ export type review = {
           isPro: boolean;
           name: string;
         };
-}
+};
+
+export type Reviews = Array<Review>;
 
 export type AllReview ={
-  [id: number]: review[];
+  [id: number]: Review[];
 };
