@@ -1,11 +1,13 @@
 import Card from '../../components/card/card';
 import Layout from '../../components/layout/layout';
+import { Offers } from '../../types/offer';
 
 type MainPageProps = {
   cardsCount: number;
+  offers: Offers;
 }
 
-function MainPage({cardsCount}: MainPageProps): JSX.Element {
+function MainPage({offers, cardsCount}: MainPageProps): JSX.Element {
 
   return (
     <Layout classNameProps="page--gray page--main" >
