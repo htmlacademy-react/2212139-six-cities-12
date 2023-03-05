@@ -81,7 +81,7 @@ function MainPage({offers }: MainPageProps): JSX.Element {
                   </li>
                 </ul>
               </form>
-              <OfferList offers={offers}/>
+              <OfferList offers={offers} className={'places__list cities__places-list tabs__content'} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>

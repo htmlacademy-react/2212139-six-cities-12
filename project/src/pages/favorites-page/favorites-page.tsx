@@ -24,12 +24,8 @@ function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
                     </a>
                   </div>
                 </div>
-                <div className="favorites__places">
-
-                  <OfferList offers={offers} />
-                </div>
+                <OfferList offers={offers} className={'favorites__places'} />
               </li>
-
               <li className="favorites__locations-items">
                 <div className="favorites__locations locations locations--current">
                   <div className="locations__item">
@@ -38,9 +34,8 @@ function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
                     </a>
                   </div>
                 </div>
-                <div className="favorites__places">
-                  <OfferList offers={offers} />
-                </div>
+
+                <OfferList offers={offers} className={'favorites__places'} />
               </li>
             </ul>
           </section>

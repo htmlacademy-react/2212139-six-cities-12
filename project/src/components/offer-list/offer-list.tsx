@@ -4,15 +4,16 @@ import Card from '../card/card';
 
 type OfferListProps = {
   offers: Offers;
+  className: string;
 }
 
-export default function OfferList({offers}: OfferListProps): JSX.Element {
+export default function OfferList({offers, className}: OfferListProps): JSX.Element {
 
   const [activeCard, setActiveCard] = useState<number | null>(null);
 
   return (
 
-    <div className="cities__places-list places__list tabs__content" data-active-card={activeCard}>
+    <div className={`${className}`} data-active-card={activeCard}>
       {offers && offers.map((offer) => (
         <Card
           key={offer.id}
