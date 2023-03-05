@@ -12,21 +12,32 @@ import { AllReview } from '../../types/review';
 
 type AppProps = {
   offers: Offers;
+  nearOffers: Offers;
   reviews: AllReview;
 }
 
-function App({offers, reviews}: AppProps): JSX.Element {
+function App({offers, nearOffers, reviews}: AppProps): JSX.Element {
+
+
   return (
     <BrowserRouter>
       <ScrollToTop/>
       <Routes>
         <Route path={AppRoute.Root} element={<MainPage offers={offers} />} />
         <Route path={AppRoute.Login} element={<LoginPage />} />
-        <Route path={AppRoute.Room}
+        <Route path={AppRoute.Favorites}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              <FavoritesPage />
+              <FavoritesPage offers={offers} />
             </PrivateRoute>
+          }
+        />
+        <Route path={`${AppRoute.Room}/:id`}
+          element={
+            <PropertyPage offers={offers}
+              nearOffers={nearOffers}
+              reviews={reviews}
+            />
           }
         />
         <Route path="*" element={<Page404 />} />

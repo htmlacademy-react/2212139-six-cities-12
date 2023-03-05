@@ -11,7 +11,7 @@ export type Review = {
         };
 };
 
-export type Reviews = Array<Review>;
+export type Reviews = Review[];
 
 export type AllReview ={
   [id: number]: Review[];

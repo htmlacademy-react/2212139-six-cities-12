@@ -3,7 +3,7 @@ import {Offers} from '../../types/offer';
 import Card from '../card/card';
 
 type OfferListProps = {
-offers: Offers;
+  offers: Offers;
 }
 
 export default function OfferList({offers}: OfferListProps): JSX.Element {

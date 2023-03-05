@@ -1,15 +1,14 @@
-import Card from '../../components/card/card';
+
 import Layout from '../../components/layout/layout';
-import { AllReview } from '../../types/review';
+import OfferList from '../../components/offer-list/offer-list';
 import { Offers } from '../../types/offer';
 
 type FavoritesPageProps = {
   offers: Offers;
-  reviews: AllReview;
 };
 
 
-function FavoritesPage({ offers, reviews }: FavoritesPageProps): JSX.Element {
+function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
   return (
     <Layout classNameProps="">
       <main className="page__main page__main--favorites">
@@ -27,7 +26,7 @@ function FavoritesPage({ offers, reviews }: FavoritesPageProps): JSX.Element {
                 </div>
                 <div className="favorites__places">
 
-                  <Card />
+                  <OfferList offers={offers} />
                 </div>
               </li>
 
@@ -40,7 +39,7 @@ function FavoritesPage({ offers, reviews }: FavoritesPageProps): JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <Card offer={offer} />
+                  <OfferList offers={offers} />
                 </div>
               </li>
             </ul>

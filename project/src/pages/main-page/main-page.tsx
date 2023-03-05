@@ -1,4 +1,4 @@
-import Card from '../../components/card/card';
+
 import Layout from '../../components/layout/layout';
 import OfferList from '../../components/offer-list/offer-list';
 import { Offers } from '../../types/offer';

@@ -219,3 +219,5 @@ export const offers: Offers = [
     },
     'id': 10
   }];
+
+export const nearOffers: Offers = offers.slice(0, 2);
