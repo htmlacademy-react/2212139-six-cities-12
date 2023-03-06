@@ -21,7 +21,7 @@ function PropertyPage({offers, nearOffers, reviews}: PropertyPageProps): JSX.Ele
 
 
   return (
-    <Layout classNameProps="">
+    <Layout className="">
       <main className="page__main page__main--property">
         <section className="property">
           <PropertyGallery offer={offer}/>

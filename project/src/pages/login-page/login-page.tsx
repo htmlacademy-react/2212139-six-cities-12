@@ -2,7 +2,7 @@ import Layout from '../../components/layout/layout';
 
 function LoginPage(): JSX.Element {
   return (
-    <Layout classNameProps='page--gray page--login'>
+    <Layout className='page--gray page--login'>
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">

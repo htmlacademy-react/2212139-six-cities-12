@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 
 type LogoProps = {
-  type: 'heder' | 'footer';
+  type: 'header' | 'footer';
 };
 
 const sizes = {
-  heder: {
+  header: {
     width: 81,
     height: 41,
   },
@@ -20,7 +20,7 @@ const Logo = ({ type }: LogoProps) => {
   const { width, height } = sizes[type];
 
   return (
-    <Link className={`${type}__logo-link`} to="/">
+    <Link className={`${type}__logo-link ${type}__logo-link--active`} to="/">
 
       <img
         className={`${type}__logo`}

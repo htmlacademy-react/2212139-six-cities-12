@@ -1,5 +1,6 @@
 
 import Layout from '../../components/layout/layout';
+import Logo from '../../components/logo/logo';
 import OfferList from '../../components/offer-list/offer-list';
 import { Offers } from '../../types/offer';
 
@@ -9,7 +10,7 @@ type FavoritesPageProps = {
 
 function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
   return (
-    <Layout classNameProps="">
+    <Layout className="">
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
@@ -41,9 +42,7 @@ function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
         </div>
       </main>
       <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
-          <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
-        </a>
+        <Logo type="footer" />
       </footer>
     </Layout>
   );

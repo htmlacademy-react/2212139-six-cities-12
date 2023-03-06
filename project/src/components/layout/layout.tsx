@@ -2,16 +2,16 @@ import React, { PropsWithChildren } from 'react';
 import Header from '../header/header';
 
 type LayoutProps = PropsWithChildren<{
-  classNameProps: string;
+  className: string;
 }>
 
 
 function Layout(props: LayoutProps): JSX.Element {
 
-  const { children, classNameProps } = props;
+  const { children, className } = props;
 
   return(
-    <div className={`page ${classNameProps}`}>
+    <div className={`page ${className}`}>
       <Header/>
       {children}
     </div>
