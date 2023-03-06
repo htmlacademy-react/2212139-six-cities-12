@@ -8,17 +8,15 @@ import PrivateRoute from '../private-route/private-route';
 import Page404 from '../../pages/page-404/page-404';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
 import { Offers } from '../../types/offer';
-import { AllReview } from '../../types/review';
+import { Reviews } from '../../types/review';
 
 type AppProps = {
   offers: Offers;
   nearOffers: Offers;
-  reviews: AllReview;
+  reviews: Reviews;
 }
 
 function App({offers, nearOffers, reviews}: AppProps): JSX.Element {
-
-
   return (
     <BrowserRouter>
       <ScrollToTop/>

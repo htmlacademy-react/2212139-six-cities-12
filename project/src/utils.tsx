@@ -1,5 +1,5 @@
 export const calculateRatingWidth = (rating: number, maxRating = 5): string =>
-  `${rating / maxRating * 100}%`;
+  `${Math.round( rating ) * 20}%`;
 
 export const upperFirstLetter = (text: string): string =>
   text.charAt(0).toUpperCase() + text.slice(1);

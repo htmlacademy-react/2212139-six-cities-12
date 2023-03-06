@@ -30,10 +30,10 @@ export default function PropertyList({offer}: PropertyListProps): JSX.Element {
           {upperFirstLetter(offer.type)}
         </li>
         <li className="property__feature property__feature--bedrooms">
-          {`${offer.bedrooms} Bedrooms`}
+          {`${offer.bedrooms}`} Bedrooms
         </li>
         <li className="property__feature property__feature--adults">
-          {`Max ${offer.maxAdults} adults`}
+          Max {`${offer.maxAdults}`} adults
         </li>
       </ul>
 

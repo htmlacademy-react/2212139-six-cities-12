@@ -3,21 +3,18 @@ import { calculateRatingWidth, formatDate } from '../../utils';
 import ReviewForm from '../review-form/review-form';
 
 type ReviewListProps = {
-reviews: Reviews;
+  reviews: Reviews;
 };
 
-
 export default function ReviewList({reviews}: ReviewListProps): JSX.Element {
-
   return (
     <section className="property__reviews reviews">
       <h2 className="reviews__title">
         Reviews &middot;
         <span className="reviews__amount">{reviews.length}</span>
       </h2>
-
       <ul className="reviews__list">
-        {reviews && reviews.map((review) => (
+        { reviews.map((review) => (
           <li className="reviews__item" key={review.id}>
             <div className="reviews__user user">
               <div className="reviews__avatar-wrapper user__avatar-wrapper">
@@ -50,9 +47,7 @@ export default function ReviewList({reviews}: ReviewListProps): JSX.Element {
           </li>
         ))}
       </ul>
-
       <ReviewForm />
-
     </section>
   );
 }

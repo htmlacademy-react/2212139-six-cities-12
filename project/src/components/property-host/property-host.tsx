@@ -5,11 +5,9 @@ type PropertyHostProps = {
 };
 
 export default function PropertyHost({offer}: PropertyHostProps): JSX.Element {
-
   const {host, description} = offer;
 
   return (
-
     <div className="property__host">
       <h2 className="property__host-title">Meet the host</h2>
       <div className="property__host-user user">
@@ -25,7 +23,6 @@ export default function PropertyHost({offer}: PropertyHostProps): JSX.Element {
         <span className="property__user-name">
           {host.name}
         </span>
-
         { host.isPro &&
         <span className="property__user-status">
             Pro
@@ -33,9 +30,7 @@ export default function PropertyHost({offer}: PropertyHostProps): JSX.Element {
       </div>
       <div className="property__description">
         <p className="property__text">
-
           {description}
-
         </p>
       </div>
     </div>

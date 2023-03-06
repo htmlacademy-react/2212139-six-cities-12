@@ -19,3 +19,6 @@ export const RATING_STARS: string[] = [
   'badly',
   'terribly'
 ];
+
+export const MAX_IMAGES_PROPERTIES = 6;
+

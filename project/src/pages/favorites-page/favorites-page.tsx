@@ -7,7 +7,6 @@ type FavoritesPageProps = {
   offers: Offers;
 };
 
-
 function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
   return (
     <Layout classNameProps="">
@@ -24,7 +23,7 @@ function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
                     </a>
                   </div>
                 </div>
-                <OfferList offers={offers} className={'favorites__places'} />
+                <OfferList offers={offers} classNames={'favorites__places'} />
               </li>
               <li className="favorites__locations-items">
                 <div className="favorites__locations locations locations--current">
@@ -35,7 +34,7 @@ function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
                   </div>
                 </div>
 
-                <OfferList offers={offers} className={'favorites__places'} />
+                <OfferList offers={offers} classNames={'favorites__places'} />
               </li>
             </ul>
           </section>

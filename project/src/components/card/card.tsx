@@ -9,8 +9,6 @@ type CardProps = {
 }
 
 function Card({offer, onCardHover}: CardProps): JSX.Element {
-
-
   return (
     <article
       className="cities__card place-card"
