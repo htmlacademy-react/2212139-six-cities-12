@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Logo from '../logo/logo';
 
-function Header(): JSX.Element {
+export default function Header(): JSX.Element {
   return (
     <header className="header">
       <div className="container">
@@ -36,4 +36,4 @@ function Header(): JSX.Element {
     </header>
   );
 }
-export default Header;
+

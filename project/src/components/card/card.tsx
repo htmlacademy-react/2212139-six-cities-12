@@ -1,49 +1,45 @@
-import { Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Offer } from '../../types/offer';
 import { calculateRatingWidth, upperFirstLetter } from '../../utils';
+import ButtonCard from '../button-card/button-card';
+import { CardType } from '../../const';
 
 type CardProps = {
   offer: Offer;
+  cardType: CardType;
   onCardHover: (id: number | null) => void;
 }
 
-function Card({offer, onCardHover}: CardProps): JSX.Element {
+export default function Card({offer, cardType, onCardHover}: CardProps): JSX.Element {
   return (
     <article
-      className="cities__card place-card"
+      className={`${cardType}__card place-card`}
       onMouseEnter={() => onCardHover(offer.id)}
       onMouseLeave={() => onCardHover(null)}
     >
-
-      { offer.isPremium &&
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div> }
-
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`${AppRoute.Room}/${offer.id}`}>
+      { offer.isPremium && (
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div> )}
+      <div className={`place-card__image-wrapper ${cardType}__image-wrapper`}>
+        <Link to={generatePath(AppRoute.Room, { id: `${offer.id}` })}>
           <img
             className="place-card__image"
             src={offer.previewImage}
-            width="260"
-            height="200"
+            width={!(cardType === CardType.Favorites) ? '260' : '150'}
+            height={!(cardType === CardType.Favorites) ? '200' : '110'}
             alt={offer.title}
           />
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className={`place-card__info ${cardType}__card-info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <ButtonCard />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -52,7 +48,9 @@ function Card({offer, onCardHover}: CardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.Room}/${offer.id}`} >{offer.title}</Link>
+          <Link to={generatePath(AppRoute.Room, { id: `${offer.id}` })}>
+            {offer.title}
+          </Link>
         </h2>
         <p className="place-card__type">{upperFirstLetter(offer.type)}</p>
       </div>
@@ -60,4 +58,3 @@ function Card({offer, onCardHover}: CardProps): JSX.Element {
   );
 }
 
-export default Card;

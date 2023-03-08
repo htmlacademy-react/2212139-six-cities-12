@@ -16,7 +16,7 @@ type AppProps = {
   reviews: Reviews;
 }
 
-function App({offers, nearOffers, reviews}: AppProps): JSX.Element {
+export default function App({offers, nearOffers, reviews}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <ScrollToTop/>
@@ -30,7 +30,7 @@ function App({offers, nearOffers, reviews}: AppProps): JSX.Element {
             </PrivateRoute>
           }
         />
-        <Route path={`${AppRoute.Room}/:id`}
+        <Route path={`${AppRoute.Room}`}
           element={
             <PropertyPage offers={offers}
               nearOffers={nearOffers}
@@ -44,4 +44,3 @@ function App({offers, nearOffers, reviews}: AppProps): JSX.Element {
   );
 }
 
-export default App;

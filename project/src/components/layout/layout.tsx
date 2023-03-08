@@ -5,8 +5,7 @@ type LayoutProps = PropsWithChildren<{
   className: string;
 }>
 
-
-function Layout(props: LayoutProps): JSX.Element {
+export default function Layout(props: LayoutProps): JSX.Element {
 
   const { children, className } = props;
 
@@ -19,4 +18,3 @@ function Layout(props: LayoutProps): JSX.Element {
   );
 }
 
-export default Layout;

@@ -15,7 +15,7 @@ const sizes = {
   },
 };
 
-const Logo = ({ type }: LogoProps) => {
+export default function Logo({ type }: LogoProps): JSX.Element {
 
   const { width, height } = sizes[type];
 
@@ -31,6 +31,4 @@ const Logo = ({ type }: LogoProps) => {
       />
     </Link>
   );
-};
-
-export default Logo;
+}

@@ -2,7 +2,7 @@ export enum AppRoute {
   Root = '/',
   Login = '/login',
   Favorites = '/favorites',
-  Room = '/offer',
+  Room = '/offer/:id',
 
 }
 
@@ -19,6 +19,12 @@ export const RATING_STARS: string[] = [
   'badly',
   'terribly'
 ];
+
+export enum CardType {
+  Cities = 'cities',
+  Favorites = 'favorites',
+  NearPlaces = 'near-places'
+}
 
 export const MAX_IMAGES_PROPERTIES = 6;
 
