@@ -1,51 +1,60 @@
-import Card from '../../components/card/card';
+import { CardType } from '../../const';
+import { Link } from 'react-router-dom';
 import Layout from '../../components/layout/layout';
+import Logo from '../../components/logo/logo';
+import OfferList from '../../components/offer-list/offer-list';
+import { AppRoute } from '../../const';
+import { Offer, Offers } from '../../types/offer';
 
-function FavoritesPage(): JSX.Element {
+type FavoritesPageProps = {
+  offers: Offers;
+};
+type OfferGroupedByCity = {
+  [city: string]: Offers;
+}
+
+export default function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
+
+  const offersGroupedByCity = offers.reduce((acc: OfferGroupedByCity, offer: Offer) => {
+    const cityName = offer.city.name;
+
+    if (!acc[cityName]) {
+      acc[cityName] = [];
+    }
+    acc[cityName].push(offer);
+    return acc;
+  }, {});
+
   return (
-    <Layout classNameProps="">
+    <Layout className="">
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="/#">
-                      <span>Amsterdam</span>
-                    </a>
+              { Object.entries(offersGroupedByCity).map(([cityName, offersMap]) => (
+                <li key={cityName} className="favorites__locations-items">
+                  <div className="favorites__locations locations locations--current">
+                    <div className="locations__item">
+                      <Link className="locations__item-link" to={AppRoute.Root}>
+                        <span>{cityName}</span>
+                      </Link>
+                    </div>
                   </div>
-                </div>
-                <div className="favorites__places">
-                  <Card />
-                  <Card />
-                </div>
-              </li>
-
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="/#">
-                      <span>Cologne</span>
-                    </a>
-                  </div>
-                </div>
-                <div className="favorites__places">
-                  <Card />
-                </div>
-              </li>
+                  <OfferList
+                    offers={offersMap}
+                    cardType={CardType.Favorites}
+                    classNames="favorites__places"
+                  />
+                </li>
+              ))}
             </ul>
           </section>
         </div>
       </main>
       <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
-          <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
-        </a>
+        <Logo type="footer" />
       </footer>
     </Layout>
   );
 }
-
-export default FavoritesPage;

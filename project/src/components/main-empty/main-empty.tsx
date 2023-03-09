@@ -1,4 +1,4 @@
-function MainEmpty(){
+export default function MainEmpty(){
   return (
     <div className="cities">
       <div className="cities__places-container cities__places-container--empty container">
@@ -13,5 +13,3 @@ function MainEmpty(){
     </div>
   );
 }
-
-export default MainEmpty;
