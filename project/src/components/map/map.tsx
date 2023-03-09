@@ -1,4 +1,4 @@
-import cn from 'classnames';
+import clsx from 'clsx';
 
 type MapProps = {
   className: string;
@@ -6,7 +6,7 @@ type MapProps = {
 
 export default function Map({className}: MapProps): JSX.Element {
   return (
-    <section className={cn('map', className)} ></section>
+    <section className={clsx('map', {className})} ></section>
   );
 }
 
