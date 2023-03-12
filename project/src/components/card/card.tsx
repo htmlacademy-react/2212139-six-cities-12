@@ -8,15 +8,15 @@ import { CardType } from '../../const';
 type CardProps = {
   offer: Offer;
   cardType: CardType;
-  onCardHover: (id: number | null) => void;
+  onCardHover?: ((id: number | null ) => void) | undefined;
 }
 
 export default function Card({offer, cardType, onCardHover}: CardProps): JSX.Element {
   return (
     <article
       className={`${cardType}__card place-card`}
-      onMouseEnter={() => onCardHover(offer.id)}
-      onMouseLeave={() => onCardHover(null)}
+      onMouseEnter={() => onCardHover !== undefined ? onCardHover(offer.id) : undefined}
+      onMouseLeave={() => onCardHover !== undefined ? onCardHover(null) : undefined}
     >
       { offer.isPremium && (
         <div className="place-card__mark">

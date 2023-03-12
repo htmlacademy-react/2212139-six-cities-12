@@ -5,13 +5,13 @@ type User = {
   avatarUrl: string;
 };
 
-type Location = {
+export type Location = {
   zoom: number;
   latitude: number;
   longitude: number;
 };
 
-type City = {
+export type City = {
   name: string;
   location: Location;
 };
@@ -34,5 +34,13 @@ export type Offer = {
   city: City;
   location: Location;
 };
+
+export type Point = {
+  title: string;
+  lat: number;
+  lng: number;
+};
+
+export type Points = Point[];
 
 export type Offers = Offer[];
