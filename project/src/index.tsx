@@ -16,5 +16,5 @@ root.render(
       nearOffers={nearOffers}
       reviews={reviews}
     />
-  </React.StrictMode>,
+  </React.StrictMode>
 );

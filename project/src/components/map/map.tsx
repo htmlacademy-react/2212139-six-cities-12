@@ -1,8 +1,8 @@
 import clsx from 'clsx';
-import {useRef, useEffect} from 'react';
+import {useEffect, useRef} from 'react';
 import {Icon, Marker} from 'leaflet';
 import useMap from '../../hooks/useMap/useMap';
-import {Offers, Location} from '../../types/offer';
+import {Location, Offers} from '../../types/offer';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
