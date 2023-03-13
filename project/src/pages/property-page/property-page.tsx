@@ -8,7 +8,7 @@ import {Offers} from '../../types/offer';
 import ReviewList from '../../components/review-list/review-list';
 import OfferList from '../../components/offer-list/offer-list';
 import Map from '../../components/map/map';
-import {CardType} from '../../const';
+import {AppRoute, CardType} from '../../const';
 
 type PropertyPageProps = {
   offers: Offers;
@@ -22,7 +22,7 @@ export default function PropertyPage({offers, nearOffers, reviews}: PropertyPage
   const offer = offers.find((item) => item.id === Number(id));
 
   if (!offer) {
-    return (<Navigate to="/"/>);
+    return (<Navigate to={AppRoute.Root} />);
   }
 
   return (
