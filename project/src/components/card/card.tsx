@@ -2,7 +2,7 @@ import {generatePath, Link} from 'react-router-dom';
 import {AppRoute, CardType} from '../../const';
 import {Offer} from '../../types/offer';
 import {calculateRatingWidth, upperFirstLetter} from '../../utils';
-import ButtonCard from '../button-card/button-card';
+import BookmarkButton from '../bookmark-button/bookmark-button';
 
 type CardProps = {
   offer: Offer;
@@ -38,7 +38,7 @@ export default function Card({offer, cardType, onCardHover}: CardProps): JSX.Ele
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <ButtonCard/>
+          <BookmarkButton/>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
