@@ -1,4 +1,3 @@
-
 import Layout from '../../components/layout/layout';
 import OfferList from '../../components/offer-list/offer-list';
 import Sort from '../../components/sort/sort';
@@ -6,12 +5,19 @@ import Tabs from '../../components/tabs/tabs';
 import Map from '../../components/map/map';
 import { Offers } from '../../types/offer';
 import { CardType } from '../../const';
+import {useState} from 'react';
+
 
 type MainPageProps = {
   offers: Offers;
 }
 
 export default function MainPage({offers }: MainPageProps): JSX.Element {
+  const [activeCardId, setActiveCardId] = useState<number | null>(null);
+
+  const onCardHover = ( id: number | null ) => {
+    setActiveCardId(id);
+  };
 
   return (
     <Layout className="page--gray page--main" >
@@ -28,10 +34,16 @@ export default function MainPage({offers }: MainPageProps): JSX.Element {
                 offers={offers}
                 classNames={'places__list cities__places-list'}
                 cardType={CardType.Cities}
+                onCardHover={onCardHover}
               />
             </section>
             <div className="cities__right-section">
-              <Map className="cities__map" />
+              <Map
+                className="cities__map"
+                city={offers[0].city.location}
+                offers={offers}
+                selectedOffer={activeCardId}
+              />
             </div>
           </div>
         </div>

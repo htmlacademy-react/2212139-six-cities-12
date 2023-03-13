@@ -10,7 +10,6 @@ import OfferList from '../../components/offer-list/offer-list';
 import Map from '../../components/map/map';
 import { CardType } from '../../const';
 
-
 type PropertyPageProps = {
   offers: Offers;
   nearOffers: Offers;
@@ -38,7 +37,12 @@ export default function PropertyPage({offers, nearOffers, reviews}: PropertyPage
               <ReviewList reviews={reviews} />
             </div>
           </div>
-          <Map className="property__map" />
+          <Map
+            className="property__map"
+            city={offers[0].city.location}
+            offers={offers}
+            selectedOffer={null}
+          />
         </section>
         <div className="container" >
           <section className="near-places places">

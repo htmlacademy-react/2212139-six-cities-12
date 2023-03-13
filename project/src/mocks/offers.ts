@@ -3,12 +3,12 @@ import { Offers } from '../types/offer';
 export const offers: Offers = [
   {
     'city': {
-      'name': 'Paris',
       'location': {
-        'latitude': 48.85661,
-        'longitude': 2.351499,
-        'zoom': 13
-      }
+        'latitude': 52.370216,
+        'longitude': 4.895168,
+        'zoom': 10
+      },
+      'name': 'Amsterdam'
     },
     'previewImage': 'https://12.react.pages.academy/static/hotel/10.jpg',
     'images': [
@@ -48,20 +48,20 @@ export const offers: Offers = [
     },
     'description': 'Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.',
     'location': {
-      'latitude': 48.858610000000006,
-      'longitude': 2.330499,
+      'latitude': 52.3809553943508,
+      'longitude': 4.939309666406198,
       'zoom': 16
     },
     'id': 7
   },
   {
     'city': {
-      'name': 'Paris',
       'location': {
-        'latitude': 48.85661,
-        'longitude': 2.351499,
-        'zoom': 13
-      }
+        'latitude': 52.370216,
+        'longitude': 4.895168,
+        'zoom': 10
+      },
+      'name': 'Amsterdam'
     },
     'previewImage': 'https://12.react.pages.academy/static/hotel/2.jpg',
     'images': [
@@ -108,20 +108,20 @@ export const offers: Offers = [
     },
     'description': 'This is a place for dreamers to reset, reflect, and create. Designed with a \'slow\' pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
     'location': {
-      'latitude': 48.83861,
-      'longitude': 2.350499,
+      'latitude': 52.3909553943508,
+      'longitude': 4.929309666406198,
       'zoom': 16
     },
     'id': 8
   },
   {
     'city': {
-      'name': 'Dusseldorf',
       'location': {
-        'latitude': 51.225402,
-        'longitude': 6.776314,
-        'zoom': 13
-      }
+        'latitude': 52.370216,
+        'longitude': 4.895168,
+        'zoom': 10
+      },
+      'name': 'Amsterdam'
     },
     'previewImage': 'https://12.react.pages.academy/static/hotel/6.jpg',
     'images': [
@@ -161,20 +161,20 @@ export const offers: Offers = [
     },
     'description': 'A new spacious villa, one floor. All commodities, jacuzzi and beautiful scenery. Ideal for families or friends.',
     'location': {
-      'latitude': 51.232402,
-      'longitude': 6.800314,
+      'latitude': 52.3609553943508,
+      'longitude': 4.85309666406198,
       'zoom': 16
     },
     'id': 9
   },
   {
     'city': {
-      'name': 'Dusseldorf',
       'location': {
-        'latitude': 51.225402,
-        'longitude': 6.776314,
-        'zoom': 13
-      }
+        'latitude': 52.370216,
+        'longitude': 4.895168,
+        'zoom': 10
+      },
+      'name': 'Amsterdam'
     },
     'previewImage': 'https://12.react.pages.academy/static/hotel/6.jpg',
     'images': [
@@ -213,8 +213,8 @@ export const offers: Offers = [
     },
     'description': 'Relax, rejuvenate and unplug in this ultimate rustic getaway experience in the country. In our beautiful screened Pondhouse, you can gaze at the stars and listen to the sounds of nature from your cozy warm bed.',
     'location': {
-      'latitude': 51.239402000000005,
-      'longitude': 6.756314000000001,
+      'latitude': 52.3909553943508,
+      'longitude': 4.85309666406198,
       'zoom': 16
     },
     'id': 10
