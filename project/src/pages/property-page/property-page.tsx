@@ -1,14 +1,14 @@
-import { Navigate, useParams } from 'react-router-dom';
+import {Navigate, useParams} from 'react-router-dom';
 import Layout from '../../components/layout/layout';
 import PropertyGallery from '../../components/property-gallery/property-gallery';
 import PropertyHost from '../../components/property-host/property-host';
 import PropertyList from '../../components/property-list/property-list';
-import { Reviews } from '../../types/review';
-import { Offers } from '../../types/offer';
+import {Reviews} from '../../types/review';
+import {Offers} from '../../types/offer';
 import ReviewList from '../../components/review-list/review-list';
 import OfferList from '../../components/offer-list/offer-list';
 import Map from '../../components/map/map';
-import { CardType } from '../../const';
+import {AppRoute, CardType} from '../../const';
 
 type PropertyPageProps = {
   offers: Offers;
@@ -21,8 +21,8 @@ export default function PropertyPage({offers, nearOffers, reviews}: PropertyPage
   const {id} = useParams();
   const offer = offers.find((item) => item.id === Number(id));
 
-  if(!offer){
-    return (<Navigate to="/" />);
+  if (!offer) {
+    return (<Navigate to={AppRoute.Root} />);
   }
 
   return (
@@ -32,19 +32,19 @@ export default function PropertyPage({offers, nearOffers, reviews}: PropertyPage
           <PropertyGallery offer={offer}/>
           <div className="property__container container">
             <div className="property__wrapper">
-              <PropertyList offer={offer} />
-              <PropertyHost offer={offer} />
-              <ReviewList reviews={reviews} />
+              <PropertyList offer={offer}/>
+              <PropertyHost offer={offer}/>
+              <ReviewList reviews={reviews}/>
             </div>
           </div>
           <Map
             className="property__map"
-            city={offers[0].city.location}
-            offers={offers}
+            city={nearOffers[0].city.location}
+            offers={nearOffers}
             selectedOffer={null}
           />
         </section>
-        <div className="container" >
+        <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <OfferList
