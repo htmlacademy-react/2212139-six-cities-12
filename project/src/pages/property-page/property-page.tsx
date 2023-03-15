@@ -41,7 +41,6 @@ export default function PropertyPage({offers, nearOffers, reviews}: PropertyPage
             className="property__map"
             city={nearOffers[0].city.location}
             offers={nearOffers}
-            selectedOffer={null}
           />
         </section>
         <div className="container">

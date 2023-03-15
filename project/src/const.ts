@@ -35,5 +35,14 @@ export enum Location {
   Dusseldorf = 'Dusseldorf'
 }
 
+export const LOCATIONS = [
+  'paris',
+  'cologne',
+  'brussels',
+  'amsterdam',
+  'hamburg',
+  'dusseldorf'
+];
+
 export const MAX_IMAGES_PROPERTIES = 6;
 

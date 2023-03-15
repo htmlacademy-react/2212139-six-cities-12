@@ -4,11 +4,11 @@ import {Icon, Marker} from 'leaflet';
 import useMap from '../../hooks/useMap/useMap';
 import {Location, Offers} from '../../types/offer';
 import 'leaflet/dist/leaflet.css';
+import {useAppSelector} from '../../hooks';
 
 type MapProps = {
   city: Location;
   offers: Offers;
-  selectedOffer: number | null;
   className: string;
 }
 
@@ -24,10 +24,11 @@ const activeMarkerIcon = new Icon({
   iconAnchor: [14, 40]
 });
 
-function Map({city, offers, selectedOffer, className}: MapProps): JSX.Element {
+function Map({city, offers, className}: MapProps): JSX.Element {
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
+  const selectedOfferId = useAppSelector((state) => state.selectedOfferId);
 
   useEffect(() => {
     if (map) {
@@ -39,14 +40,14 @@ function Map({city, offers, selectedOffer, className}: MapProps): JSX.Element {
 
         marker
           .setIcon(
-            selectedOffer !== null && offer.id === selectedOffer
+            selectedOfferId !== null && offer.id === selectedOfferId
               ? activeMarkerIcon
               : defaultMarkerIcon
           )
           .addTo(map);
       });
     }
-  }, [map, offers, selectedOffer]);
+  }, [map, offers, selectedOfferId]);
 
   return (
     <section

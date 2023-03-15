@@ -6,10 +6,9 @@ type OfferListProps = {
   offers: Offers;
   classNames: string;
   cardType: CardType;
-  onCardHover?: (id: number | null) => void;
 }
 
-export default function OfferList({offers, cardType, classNames, onCardHover}: OfferListProps): JSX.Element {
+export default function OfferList({offers, cardType, classNames}: OfferListProps): JSX.Element {
   return (
     <div className={classNames}>
       {offers.map((offer) => (
@@ -17,7 +16,6 @@ export default function OfferList({offers, cardType, classNames, onCardHover}: O
           key={offer.id}
           offer={offer}
           cardType={cardType}
-          onCardHover={onCardHover}
         />
       ))}
     </div>
