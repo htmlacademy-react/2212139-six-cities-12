@@ -1,4 +1,4 @@
-import { Offers } from '../types/offer';
+import { City, Offers } from '../types/offer';
 
 export const offers: Offers = [
   {
@@ -219,5 +219,14 @@ export const offers: Offers = [
     },
     'id': 10
   }];
+
+export const city: City = {
+  'name': 'Amsterdam',
+  'location': {
+    'latitude': 52.370216,
+    'longitude': 4.895168,
+    'zoom': 10
+  },
+};
 
 export const nearOffers: Offers = offers.slice(0, 3);
