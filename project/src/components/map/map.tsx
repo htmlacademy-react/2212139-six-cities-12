@@ -27,15 +27,15 @@ function Map({className}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const selectedOfferId = useAppSelector((state) => state.selectedOfferId);
   const offers = useAppSelector((state) => state.offersByLocation);
-  const city = offers[0].city.location;
-  const map = useMap(mapRef, city);
+  const cityLocation = offers[0].city.location;
+  const map = useMap(mapRef, cityLocation);
 
   useEffect(() => {
     if (map) {
-      const { latitude, longitude, zoom } = city;
+      const { latitude, longitude, zoom } = cityLocation;
       map.setView([latitude, longitude], zoom);
     }
-  }, [map, city]);
+  }, [map, cityLocation]);
 
 
   useEffect(() => {
