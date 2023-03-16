@@ -2,18 +2,17 @@ import { CardType } from '../../const';
 import { Link } from 'react-router-dom';
 import Layout from '../../components/layout/layout';
 import Logo from '../../components/logo/logo';
-import OfferList from '../../components/offer-list/offer-list';
 import { AppRoute } from '../../const';
 import { Offer, Offers } from '../../types/offer';
+import { offers } from '../../mocks/offers';
+import OfferListFavorites from '../../components/offer-list-favorites/offer-list-favorites';
 
-type FavoritesPageProps = {
-  offers: Offers;
-};
+
 type OfferGroupedByCity = {
   [city: string]: Offers;
 }
 
-export default function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
+export default function FavoritesPage(): JSX.Element {
 
   const offersGroupedByCity = offers.reduce((acc: OfferGroupedByCity, offer: Offer) => {
     const cityName = offer.city.name;
@@ -41,7 +40,7 @@ export default function FavoritesPage({ offers }: FavoritesPageProps): JSX.Eleme
                       </Link>
                     </div>
                   </div>
-                  <OfferList
+                  <OfferListFavorites
                     offers={offersMap}
                     cardType={CardType.Favorites}
                     classNames="favorites__places"

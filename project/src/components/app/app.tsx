@@ -21,21 +21,18 @@ export default function App({offers, nearOffers, reviews}: AppProps): JSX.Elemen
     <BrowserRouter>
       <ScrollToTop/>
       <Routes>
-        <Route path={AppRoute.Root} element={<MainPage offers={offers} />} />
+        <Route path={AppRoute.Root} element={<MainPage />} />
         <Route path={AppRoute.Login} element={<LoginPage />} />
         <Route path={AppRoute.Favorites}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-              <FavoritesPage offers={offers} />
+              <FavoritesPage />
             </PrivateRoute>
           }
         />
         <Route path={`${AppRoute.Room}`}
           element={
-            <PropertyPage offers={offers}
-              nearOffers={nearOffers}
-              reviews={reviews}
-            />
+            <PropertyPage reviews={reviews} />
           }
         />
         <Route path="*" element={<Page404 />} />

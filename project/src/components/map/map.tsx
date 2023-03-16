@@ -2,13 +2,10 @@ import clsx from 'clsx';
 import {useEffect, useRef} from 'react';
 import {Icon, Marker} from 'leaflet';
 import useMap from '../../hooks/useMap/useMap';
-import {Location, Offers} from '../../types/offer';
 import 'leaflet/dist/leaflet.css';
 import {useAppSelector} from '../../hooks';
 
 type MapProps = {
-  city: Location;
-  offers: Offers;
   className: string;
 }
 
@@ -24,11 +21,13 @@ const activeMarkerIcon = new Icon({
   iconAnchor: [14, 40]
 });
 
-function Map({city, offers, className}: MapProps): JSX.Element {
+function Map({className}: MapProps): JSX.Element {
 
   const mapRef = useRef(null);
-  const map = useMap(mapRef, city);
   const selectedOfferId = useAppSelector((state) => state.selectedOfferId);
+  const offers = useAppSelector((state) => state.offersByLocation);
+  const city = offers[0].city.location;
+  const map = useMap(mapRef, city);
 
   useEffect(() => {
     if (map) {

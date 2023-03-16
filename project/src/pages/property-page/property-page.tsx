@@ -4,20 +4,19 @@ import PropertyGallery from '../../components/property-gallery/property-gallery'
 import PropertyHost from '../../components/property-host/property-host';
 import PropertyList from '../../components/property-list/property-list';
 import {Reviews} from '../../types/review';
-import {Offers} from '../../types/offer';
 import ReviewList from '../../components/review-list/review-list';
 import OfferList from '../../components/offer-list/offer-list';
 import Map from '../../components/map/map';
 import {AppRoute, CardType} from '../../const';
+import { useAppSelector } from '../../hooks';
 
 type PropertyPageProps = {
-  offers: Offers;
-  nearOffers: Offers;
   reviews: Reviews;
 };
 
-export default function PropertyPage({offers, nearOffers, reviews}: PropertyPageProps): JSX.Element {
+export default function PropertyPage({ reviews}: PropertyPageProps): JSX.Element {
 
+  const offers = useAppSelector((state) => state.offersByLocation);
   const {id} = useParams();
   const offer = offers.find((item) => item.id === Number(id));
 
@@ -39,15 +38,12 @@ export default function PropertyPage({offers, nearOffers, reviews}: PropertyPage
           </div>
           <Map
             className="property__map"
-            city={nearOffers[0].city.location}
-            offers={nearOffers}
           />
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <OfferList
-              offers={nearOffers}
               classNames={'near-places__list places__list'}
               cardType={CardType.NearPlaces}
             />

@@ -1,5 +1,4 @@
 import {createAction} from '@reduxjs/toolkit';
-import { Offers } from '../types/offer';
 
 
 export const changeLocation = createAction(
@@ -8,8 +7,7 @@ export const changeLocation = createAction(
 );
 
 export const updateOffersByLocation = createAction(
-  'offer/updateOffersByLocation',
-  (offers: Offers) => ({payload: offers})
+  'offer/updateOffersByLocation'
 );
 
 export const selectOffer = createAction(
