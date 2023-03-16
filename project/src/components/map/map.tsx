@@ -5,6 +5,7 @@ import useMap from '../../hooks/useMap/useMap';
 import 'leaflet/dist/leaflet.css';
 import {useAppSelector} from '../../hooks';
 
+
 type MapProps = {
   className: string;
 }
@@ -28,6 +29,14 @@ function Map({className}: MapProps): JSX.Element {
   const offers = useAppSelector((state) => state.offersByLocation);
   const city = offers[0].city.location;
   const map = useMap(mapRef, city);
+
+  useEffect(() => {
+    if (map) {
+      const { latitude, longitude, zoom } = city;
+      map.setView([latitude, longitude], zoom);
+    }
+  }, [map, city]);
+
 
   useEffect(() => {
     if (map) {

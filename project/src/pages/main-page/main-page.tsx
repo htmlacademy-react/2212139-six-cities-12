@@ -4,9 +4,14 @@ import Sort from '../../components/sort/sort';
 import Map from '../../components/map/map';
 import { CardType } from '../../const';
 import LocationList from '../../components/location-list/location-list';
+import { useAppSelector } from '../../hooks';
 
 
 export default function MainPage(): JSX.Element {
+
+  const location = useAppSelector((state) => state.location);
+  const offersLength = useAppSelector((state) => state.offersByLocation).length;
+
   return (
     <Layout className="page--gray page--main" >
       <main className="page__main page__main--index">
@@ -18,7 +23,9 @@ export default function MainPage(): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">
+                {offersLength} places to stay in {location}
+              </b>
               <Sort/>
               <OfferList
                 classNames={'places__list cities__places-list'}
