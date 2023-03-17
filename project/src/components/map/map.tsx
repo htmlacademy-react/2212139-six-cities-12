@@ -7,7 +7,6 @@ import 'leaflet/dist/leaflet.css';
 import {useAppSelector} from '../../hooks';
 import { Offers } from '../../types/offer';
 
-
 type MapProps = {
   className: string;
   offers: Offers;
@@ -34,17 +33,9 @@ function Map({className, offers}: MapProps): JSX.Element {
 
   useEffect(() => {
     if (map) {
+      const markerGroup = leaflet.layerGroup().addTo(map);
       const { latitude, longitude, zoom } = cityLocation;
       map.setView([latitude, longitude], zoom);
-    }
-  }, [map, cityLocation]);
-
-
-  useEffect(() => {
-    if (map) {
-
-      const markerGroup = leaflet.layerGroup().addTo(map);
-
 
       offers.forEach((offer) => {
         const marker = new Marker({
@@ -65,7 +56,7 @@ function Map({className, offers}: MapProps): JSX.Element {
         markerGroup.clearLayers();
       };
     }
-  }, [map, offers, selectedOfferId]);
+  }, [map, offers, selectedOfferId, cityLocation]);
 
   return (
     <section

@@ -1,16 +1,15 @@
 
 import Card from '../card/card';
 import {CardType} from '../../const';
-import { useAppSelector } from '../../hooks';
+import { Offers } from '../../types/offer';
 
 type OfferListProps = {
   classNames: string;
   cardType: CardType;
+  offers: Offers;
 }
 
-export default function OfferList({cardType, classNames}: OfferListProps): JSX.Element {
-
-  const offers = useAppSelector((state) => state.offersByLocation);
+export default function OfferList({cardType, classNames, offers}: OfferListProps): JSX.Element {
 
   return (
     <div className={classNames}>

@@ -13,7 +13,6 @@ export default function LocationItem({location}: LocationItemProps): JSX.Element
   const dispatch = useAppDispatch();
   const currentLocation = useAppSelector((state) => state.location);
 
-
   return (
     <li className="locations__item">
       <Link
@@ -22,7 +21,6 @@ export default function LocationItem({location}: LocationItemProps): JSX.Element
         })} to="#/"
         onClick={(event) => {
           event.preventDefault();
-
           dispatch(changeLocation(location));
         }}
       >

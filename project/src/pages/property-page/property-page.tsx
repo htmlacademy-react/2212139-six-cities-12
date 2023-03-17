@@ -49,6 +49,7 @@ export default function PropertyPage({ reviews}: PropertyPageProps): JSX.Element
             <OfferList
               classNames={'near-places__list places__list'}
               cardType={CardType.NearPlaces}
+              offers={offersByLocation}
             />
           </section>
         </div>

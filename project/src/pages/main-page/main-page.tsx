@@ -29,6 +29,7 @@ export default function MainPage(): JSX.Element {
               <OfferList
                 classNames={'places__list cities__places-list'}
                 cardType={CardType.Cities}
+                offers={offersByLocation}
               />
             </section>
             <div className="cities__right-section">
