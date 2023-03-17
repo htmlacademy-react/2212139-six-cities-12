@@ -35,7 +35,7 @@ function Map({className, offers}: MapProps): JSX.Element {
     if (map) {
       const markerGroup = leaflet.layerGroup().addTo(map);
       const { latitude, longitude, zoom } = cityLocation;
-      map.setView([latitude, longitude], zoom);
+      map.flyTo([latitude, longitude], zoom);
 
       offers.forEach((offer) => {
         const marker = new Marker({
