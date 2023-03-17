@@ -2,7 +2,7 @@ import {createReducer} from '@reduxjs/toolkit';
 import { DEFAULT_LOCATION } from '../const';
 import { Offers } from '../types/offer';
 import { getOffersByLocation } from '../utils';
-import {changeLocation, updateOffersByLocation, selectOffer} from './actions';
+import {changeLocation, selectOffer} from './actions';
 
 type InitialState = {
   offersByLocation: Offers;
@@ -18,9 +18,10 @@ const initialState: InitialState = {
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(changeLocation, (state, action) => {state.location = action.payload;})
-    .addCase(updateOffersByLocation, (state) => {
-      state.offersByLocation = getOffersByLocation(state.location);})
+    .addCase(changeLocation, (state, action) => {
+      state.location = action.payload;
+    })
+
     .addCase(selectOffer, (state, action) => {state.selectedOfferId = action.payload;});
 });
 

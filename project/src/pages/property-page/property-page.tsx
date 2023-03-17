@@ -9,6 +9,7 @@ import OfferList from '../../components/offer-list/offer-list';
 import Map from '../../components/map/map';
 import {AppRoute, CardType} from '../../const';
 import { useAppSelector } from '../../hooks';
+import { getOffersByLocation } from '../../utils';
 
 type PropertyPageProps = {
   reviews: Reviews;
@@ -16,9 +17,10 @@ type PropertyPageProps = {
 
 export default function PropertyPage({ reviews}: PropertyPageProps): JSX.Element {
 
-  const offers = useAppSelector((state) => state.offersByLocation);
+  const location = useAppSelector((state) => state.location);
+  const offersByLocation = getOffersByLocation(location);
   const {id} = useParams();
-  const offer = offers.find((item) => item.id === Number(id));
+  const offer = offersByLocation.find((item) => item.id === Number(id));
 
   if (!offer) {
     return (<Navigate to={AppRoute.Root} />);
@@ -38,6 +40,7 @@ export default function PropertyPage({ reviews}: PropertyPageProps): JSX.Element
           </div>
           <Map
             className="property__map"
+            offers={offersByLocation}
           />
         </section>
         <div className="container">

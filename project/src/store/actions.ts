@@ -6,10 +6,6 @@ export const changeLocation = createAction(
   (location: string) => ({payload: location})
 );
 
-export const updateOffersByLocation = createAction(
-  'offer/updateOffersByLocation'
-);
-
 export const selectOffer = createAction(
   'offer/selectOffer',
   (offerId: number | null) => ({payload: offerId})

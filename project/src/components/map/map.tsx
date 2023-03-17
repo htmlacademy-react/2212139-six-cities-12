@@ -2,12 +2,15 @@ import clsx from 'clsx';
 import {useEffect, useRef} from 'react';
 import {Icon, Marker} from 'leaflet';
 import useMap from '../../hooks/useMap/useMap';
+import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {useAppSelector} from '../../hooks';
+import { Offers } from '../../types/offer';
 
 
 type MapProps = {
   className: string;
+  offers: Offers;
 }
 
 const defaultMarkerIcon = new Icon({
@@ -22,11 +25,10 @@ const activeMarkerIcon = new Icon({
   iconAnchor: [14, 40]
 });
 
-function Map({className}: MapProps): JSX.Element {
+function Map({className, offers}: MapProps): JSX.Element {
 
   const mapRef = useRef(null);
   const selectedOfferId = useAppSelector((state) => state.selectedOfferId);
-  const offers = useAppSelector((state) => state.offersByLocation);
   const cityLocation = offers[0].city.location;
   const map = useMap(mapRef, cityLocation);
 
@@ -40,6 +42,10 @@ function Map({className}: MapProps): JSX.Element {
 
   useEffect(() => {
     if (map) {
+
+      const markerGroup = leaflet.layerGroup().addTo(map);
+
+
       offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
@@ -52,8 +58,12 @@ function Map({className}: MapProps): JSX.Element {
               ? activeMarkerIcon
               : defaultMarkerIcon
           )
-          .addTo(map);
+          .addTo(markerGroup);
       });
+
+      return () => {
+        markerGroup.clearLayers();
+      };
     }
   }, [map, offers, selectedOfferId]);
 

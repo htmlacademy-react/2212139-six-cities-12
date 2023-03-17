@@ -1,7 +1,7 @@
 import clsx from 'clsx';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeLocation, updateOffersByLocation } from '../../store/actions';
+import { changeLocation } from '../../store/actions';
 
 
 type LocationItemProps = {
@@ -16,7 +16,7 @@ export default function LocationItem({location}: LocationItemProps): JSX.Element
 
   return (
     <li className="locations__item">
-      <NavLink
+      <Link
         className={clsx('locations__item-link tabs__item', {
           'tabs__item--active': location === currentLocation
         })} to="#/"
@@ -24,11 +24,10 @@ export default function LocationItem({location}: LocationItemProps): JSX.Element
           event.preventDefault();
 
           dispatch(changeLocation(location));
-          dispatch(updateOffersByLocation());
         }}
       >
         <span>{location}</span>
-      </NavLink>
+      </Link>
     </li>
   );
 }

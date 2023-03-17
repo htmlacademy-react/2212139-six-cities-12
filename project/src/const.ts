@@ -26,18 +26,10 @@ export enum CardType {
   NearPlaces = 'near-places'
 }
 
-export enum Location {
-  Paris = 'Paris',
-  Cologne = 'Cologne',
-  Brussels = 'Brussels',
-  Amsterdam = 'Amsterdam',
-  Hamburg = 'Hamburg',
-  Dusseldorf = 'Dusseldorf'
-}
 
 export const LOCATIONS = [
   'Paris',
-  'cologne',
+  'Cologne',
   'Brussels',
   'Amsterdam',
   'Hamburg',
