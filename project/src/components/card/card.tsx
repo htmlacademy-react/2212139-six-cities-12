@@ -1,5 +1,7 @@
 import {generatePath, Link} from 'react-router-dom';
 import {AppRoute, CardType} from '../../const';
+import { useAppDispatch } from '../../hooks';
+import { selectOffer } from '../../store/actions';
 import {Offer} from '../../types/offer';
 import {calculateRatingWidth, upperFirstLetter} from '../../utils';
 import BookmarkButton from '../bookmark-button/bookmark-button';
@@ -7,15 +9,17 @@ import BookmarkButton from '../bookmark-button/bookmark-button';
 type CardProps = {
   offer: Offer;
   cardType: CardType;
-  onCardHover?: (id: number | null) => void;
 }
 
-export default function Card({offer, cardType, onCardHover}: CardProps): JSX.Element {
+export default function Card({offer, cardType }: CardProps): JSX.Element {
+
+  const dispatch = useAppDispatch();
+
   return (
     <article
       className={`${cardType}__card place-card`}
-      onMouseEnter={() => onCardHover?.(offer.id)}
-      onMouseLeave={() => onCardHover?.(null)}
+      onMouseEnter={() => dispatch(selectOffer(offer.id))}
+      onMouseLeave={() => dispatch(selectOffer(null))}
     >
       {offer.isPremium && (
         <div className="place-card__mark">

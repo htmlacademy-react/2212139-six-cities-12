@@ -4,12 +4,12 @@ import {CardType} from '../../const';
 import { Offers } from '../../types/offer';
 
 type OfferListProps = {
+  offers: Offers;
   classNames: string;
   cardType: CardType;
-  offers: Offers;
 }
 
-export default function OfferList({cardType, classNames, offers}: OfferListProps): JSX.Element {
+export default function OfferListFavorites({offers, cardType, classNames}: OfferListProps): JSX.Element {
 
   return (
     <div className={classNames}>

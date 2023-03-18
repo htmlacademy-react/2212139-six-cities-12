@@ -1,5 +1,5 @@
 import Layout from '../../components/layout/layout';
-import Tabs from '../../components/tabs/tabs';
+import LocationList from '../../components/location-list/location-list';
 import styles from './page-404.module.css';
 
 
@@ -9,7 +9,9 @@ function Page404(): JSX.Element {
     <Layout className="page--gray page--main">
       <main className="page__main page__main--index page__main--index-empty">
         <h1 className="visually-hidden">Cities</h1>
-        <Tabs />
+        <div className="tabs">
+          <LocationList />
+        </div>
         <div className="cities">
           <div className="cities__places-container cities__places-container--empty container">
             <section className="cities__no-places">a
