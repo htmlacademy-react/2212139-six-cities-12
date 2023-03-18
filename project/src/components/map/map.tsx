@@ -33,10 +33,14 @@ function Map({className, offers}: MapProps): JSX.Element {
 
   useEffect(() => {
     if (map) {
-      const markerGroup = leaflet.layerGroup().addTo(map);
       const { latitude, longitude, zoom } = cityLocation;
       map.flyTo([latitude, longitude], zoom);
+    }
+  }, [map, cityLocation]);
 
+  useEffect(() => {
+    if (map) {
+      const markerGroup = leaflet.layerGroup().addTo(map);
       offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
@@ -53,7 +57,7 @@ function Map({className, offers}: MapProps): JSX.Element {
       });
 
       return () => {
-        markerGroup.clearLayers();
+        map.removeLayer(markerGroup);
       };
     }
   }, [map, offers, selectedOfferId, cityLocation]);
@@ -62,7 +66,7 @@ function Map({className, offers}: MapProps): JSX.Element {
     <section
       className={clsx('map', {className})}
       ref={mapRef}
-      style={{height: '500px', width: '100%'}}
+      style={{height: '500px', maxWidth: '1144px', margin: '0 auto'}}
     >
     </section>
   );
