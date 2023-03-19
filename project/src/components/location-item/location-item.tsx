@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeLocation } from '../../store/actions';
+import { changeLocation, changeSort, updateOffers } from '../../store/actions';
 
 
 type LocationItemProps = {
@@ -12,6 +12,7 @@ export default function LocationItem({location}: LocationItemProps): JSX.Element
 
   const dispatch = useAppDispatch();
   const currentLocation = useAppSelector((state) => state.location);
+  const sortType = useAppSelector((state) => state.sortType);
 
   return (
     <li className="locations__item">
@@ -22,6 +23,8 @@ export default function LocationItem({location}: LocationItemProps): JSX.Element
         onClick={(event) => {
           event.preventDefault();
           dispatch(changeLocation(location));
+          dispatch(changeSort(sortType));
+          dispatch(updateOffers());
         }}
       >
         <span>{location}</span>

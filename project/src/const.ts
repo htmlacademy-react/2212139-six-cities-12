@@ -40,3 +40,11 @@ export const DEFAULT_LOCATION = LOCATIONS[0];
 
 export const MAX_IMAGES_PROPERTIES = 6;
 
+export enum SortType {
+  Popular = 'Popular',
+  lowPrice = 'Price: low to high',
+  hightPrice = 'Price: high to low',
+  rating = 'Top rated first'
+}
+
+export const DEFAULT_SORT = SortType.Popular;

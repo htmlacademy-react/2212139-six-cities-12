@@ -9,7 +9,6 @@ import OfferList from '../../components/offer-list/offer-list';
 import Map from '../../components/map/map';
 import {AppRoute, CardType} from '../../const';
 import { useAppSelector } from '../../hooks';
-import { getOffersByLocation } from '../../utils';
 
 type PropertyPageProps = {
   reviews: Reviews;
@@ -17,8 +16,8 @@ type PropertyPageProps = {
 
 export default function PropertyPage({ reviews}: PropertyPageProps): JSX.Element {
 
-  const location = useAppSelector((state) => state.location);
-  const offersByLocation = getOffersByLocation(location);
+  const offersByLocation = useAppSelector((state) => state.offers);
+
   const {id} = useParams();
   const offer = offersByLocation.find((item) => item.id === Number(id));
 
