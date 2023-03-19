@@ -42,9 +42,10 @@ export const MAX_IMAGES_PROPERTIES = 6;
 
 export enum SortType {
   Popular = 'Popular',
-  lowPrice = 'Price: low to high',
-  hightPrice = 'Price: high to low',
-  rating = 'Top rated first'
+  LowPrice = 'Price: low to high',
+  HightPrice = 'Price: high to low',
+  Rating = 'Top rated first'
 }
 
 export const DEFAULT_SORT = SortType.Popular;
+export const MAX_RATING = 5;

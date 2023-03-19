@@ -5,12 +5,16 @@ import Map from '../../components/map/map';
 import { CardType} from '../../const';
 import LocationList from '../../components/location-list/location-list';
 import { useAppSelector } from '../../hooks';
+import { getOffers } from '../../utils';
 
 
 export default function MainPage(): JSX.Element {
 
   const location = useAppSelector((state) => state.location);
-  const offers = useAppSelector((state) => state.offers);
+  const offersState = useAppSelector((state) => state.offers);
+  const sortType = useAppSelector((state) => state.sortType);
+
+  const offers = getOffers(offersState, location, sortType);
 
 
   return (

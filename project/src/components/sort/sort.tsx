@@ -1,22 +1,30 @@
 import clsx from 'clsx';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { SortType } from '../../const';
 import { changeSort, updateOffers } from '../../store/actions';
+import useOnClickOutside from '../../hooks/useOnClickOutside/useOnClickOutside';
 
 export default function Sort(): JSX.Element {
 
-  const [isShowSort, setIsShowSort] = useState<boolean>(false);
+  const [open, setOpen] = useState(false);
   const sortType = useAppSelector((state) => state.sortType);
   const dispatch = useAppDispatch();
+  const refOne = useRef<HTMLDivElement>(null);
+
+  const clickOutsideHandler = () => {
+    setOpen(false);
+  };
+  useOnClickOutside(refOne, clickOutsideHandler);
 
   return (
     <form className="places__sorting" action="#" method="get">
-      <span className="places__sorting-caption">Sort by</span>
+      <span className="places__sorting-caption">Sort by </span>
       <span
         className="places__sorting-type"
         tabIndex={0}
-        onClick={() => {setIsShowSort(!isShowSort);}}
+        onClick={() => setOpen(!open)}
+        ref={refOne}
       >
         {sortType}
         <svg className="places__sorting-arrow" width="7" height="4">
@@ -25,10 +33,10 @@ export default function Sort(): JSX.Element {
       </span>
       <ul
         className={clsx ('places__options places__options--custom', {
-          'places__options--opened': isShowSort
+          'places__options--opened': open
         })}
       >
-        {Object.entries(SortType).map(([, value]) => (
+        {Object.entries(SortType).map(([,value]) => (
           <li
             key={value}
             className={clsx('places__option', {
@@ -36,7 +44,7 @@ export default function Sort(): JSX.Element {
             })}
             tabIndex={0}
             onClick={() => {
-              setIsShowSort(false);
+              setOpen(false);
               dispatch(changeSort(value));
               dispatch(updateOffers());
             }}

@@ -1,7 +1,7 @@
 import {createReducer} from '@reduxjs/toolkit';
 import { DEFAULT_LOCATION, DEFAULT_SORT, SortType} from '../const';
 import { Offers } from '../types/offer';
-import { getOffers } from '../utils';
+import { offers } from '../mocks/offers';
 
 import {changeLocation, changeSort, updateOffers, selectOffer} from './actions';
 
@@ -16,7 +16,7 @@ const initialState: InitialState = {
   selectedOfferId: null,
   location: DEFAULT_LOCATION,
   sortType: DEFAULT_SORT,
-  offers: getOffers()
+  offers,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -34,7 +34,7 @@ const reducer = createReducer(initialState, (builder) => {
     })
 
     .addCase(updateOffers, (state) => {
-      state.offers = getOffers(state.location, state.sortType);
+      state.offers = offers;
     });
 
 });
