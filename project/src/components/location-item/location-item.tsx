@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeLocation } from '../../store/actions';
+import { changeLocation, updateOffers } from '../../store/actions';
 
 
 type LocationItemProps = {
@@ -22,6 +22,7 @@ export default function LocationItem({location}: LocationItemProps): JSX.Element
         onClick={(event) => {
           event.preventDefault();
           dispatch(changeLocation(location));
+          dispatch(updateOffers());
         }}
       >
         <span>{location}</span>

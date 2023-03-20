@@ -2,16 +2,20 @@ import Layout from '../../components/layout/layout';
 import OfferList from '../../components/offer-list/offer-list';
 import Sort from '../../components/sort/sort';
 import Map from '../../components/map/map';
-import { CardType } from '../../const';
+import { CardType} from '../../const';
 import LocationList from '../../components/location-list/location-list';
 import { useAppSelector } from '../../hooks';
-import { getOffersByLocation } from '../../utils';
+import { getOffers } from '../../utils';
 
 
 export default function MainPage(): JSX.Element {
 
   const location = useAppSelector((state) => state.location);
-  const offersByLocation = getOffersByLocation(location);
+  const offersState = useAppSelector((state) => state.offers);
+  const sortType = useAppSelector((state) => state.sortType);
+
+  const offers = getOffers(offersState, location, sortType);
+
 
   return (
     <Layout className="page--gray page--main" >
@@ -23,17 +27,17 @@ export default function MainPage(): JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
-                {offersByLocation.length} places to stay in {location}
+                {offers.length} places to stay in {location}
               </b>
               <Sort/>
               <OfferList
                 classNames={'places__list cities__places-list'}
                 cardType={CardType.Cities}
-                offers={offersByLocation}
+                offers={offers}
               />
             </section>
             <div className="cities__right-section">
-              <Map className="cities__map" offers={offersByLocation} />
+              <Map className="cities__map" offers={offers} />
             </div>
           </div>
         </div>
