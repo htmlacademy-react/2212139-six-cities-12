@@ -36,6 +36,7 @@ export default function PropertyPage(): JSX.Element {
   const nearOffers = useAppSelector((state) => state.nearOffers);
   const isDataLoading = useAppSelector((state) => state.isDataLoading);
 
+
   if (!offerById || isDataLoading) {
     return <LoadingScreen />;
   }

@@ -23,7 +23,7 @@ export default function LoginPage(): JSX.Element {
 
     if (emailRef.current !== null && passwordRef.current !== null) {
       onSubmit({
-        email: emailRef.current.value,
+        login: emailRef.current.value,
         password: passwordRef.current.value,
       });
     }
@@ -45,7 +45,7 @@ export default function LoginPage(): JSX.Element {
                 <input
                   ref={emailRef}
                   className="login__input form__input"
-                  type="text"
+                  type="email"
                   name="email"
                   id="email"
                   placeholder="Email"
