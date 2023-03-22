@@ -54,4 +54,4 @@ export enum SortType {
 
 export const DEFAULT_SORT = SortType.Popular;
 export const MAX_RATING = 5;
-export const TIMEOUT_SHOW_ERROR = 2000;
+
