@@ -20,7 +20,7 @@ export default function PropertyPage(): JSX.Element {
   const offerId = Number(id);
 
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const shouldDisplayReviews = authorizationStatus === AuthorizationStatus.Auth;
+  const shouldDisplayReviews = authorizationStatus === AuthorizationStatus.NoAuth;
 
   useEffect(() => {
     store.dispatch(fetchOfferByIdAction(offerId));
