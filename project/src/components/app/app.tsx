@@ -9,6 +9,8 @@ import Page404 from '../../pages/page-404/page-404';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
 import { Offers } from '../../types/offer';
 import { Reviews } from '../../types/review';
+import {useAppSelector} from '../../hooks';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 type AppProps = {
   offers: Offers;
@@ -17,6 +19,14 @@ type AppProps = {
 }
 
 export default function App({offers, nearOffers, reviews}: AppProps): JSX.Element {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
+
+  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
+    return (
+      <LoadingScreen />
+    );
+  }
   return (
     <BrowserRouter>
       <ScrollToTop/>
@@ -25,7 +35,7 @@ export default function App({offers, nearOffers, reviews}: AppProps): JSX.Elemen
         <Route path={AppRoute.Login} element={<LoginPage />} />
         <Route path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+            <PrivateRoute authorizationStatus={authorizationStatus}>
               <FavoritesPage />
             </PrivateRoute>
           }

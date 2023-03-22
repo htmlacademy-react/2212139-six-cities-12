@@ -1,5 +1,7 @@
 import {createAction} from '@reduxjs/toolkit';
 import { SortType } from '../const';
+import { Offers } from '../types/offer';
+import {AuthorizationStatus} from '../const';
 
 
 export const changeLocation = createAction(
@@ -17,6 +19,18 @@ export const changeSort = createAction(
   (sort: SortType) => ({payload: sort})
 );
 
-export const updateOffers = createAction(
-  'offers/updateOffers'
+export const loadOffers = createAction<Offers>(
+  'data/loadOffers'
+);
+
+export const requireAuthorization = createAction<AuthorizationStatus>(
+  'user/requireAuthorization'
+);
+
+export const setError = createAction<string | null>(
+  'game/setError'
+);
+
+export const setOffersDataLoadingStatus = createAction<boolean>(
+  'data/setOffersDataLoadingStatus'
 );
