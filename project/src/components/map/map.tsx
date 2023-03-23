@@ -12,6 +12,12 @@ type MapProps = {
   offers: Offers;
 }
 
+const DEFAULT_COORDINATE = {
+  latitude: 48.85661,
+  longitude: 2.351499,
+  zoom: 11
+};
+
 const defaultMarkerIcon = new Icon({
   iconUrl: './img/pin.svg',
   iconSize: [28, 40],
@@ -28,7 +34,7 @@ function Map({className, offers}: MapProps): JSX.Element {
 
   const mapRef = useRef(null);
   const selectedOfferId = useAppSelector((state) => state.selectedOfferId);
-  const cityLocation = offers[0].city.location;
+  const cityLocation = offers[0]?.city?.location ?? DEFAULT_COORDINATE;
   const map = useMap(mapRef, cityLocation);
 
   useEffect(() => {

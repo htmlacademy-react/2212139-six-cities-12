@@ -1,10 +1,9 @@
 import Layout from '../../components/layout/layout';
 import {useRef, FormEvent} from 'react';
-import {useNavigate} from 'react-router-dom';
 import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
 import {AuthData} from '../../types/auth-data';
-import {AppRoute} from '../../const';
+
 
 export default function LoginPage(): JSX.Element {
 
@@ -12,7 +11,6 @@ export default function LoginPage(): JSX.Element {
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
@@ -20,6 +18,7 @@ export default function LoginPage(): JSX.Element {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+
 
     if (emailRef.current !== null && passwordRef.current !== null) {
       onSubmit({
@@ -37,7 +36,7 @@ export default function LoginPage(): JSX.Element {
             <h1 className="login__title">Sign in</h1>
             <form
               className="login__form form"
-              action="#" method="post"
+              action="" method="post"
               onSubmit={handleSubmit}
             >
               <div className="login__input-wrapper form__input-wrapper">
@@ -66,8 +65,7 @@ export default function LoginPage(): JSX.Element {
               </div>
               <button
                 className="login__submit form__submit button"
-                type="button"
-                onClick={() => navigate(AppRoute.Root)}
+                type="submit"
               >
                 Sign in
               </button>

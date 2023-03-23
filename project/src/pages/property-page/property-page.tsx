@@ -6,11 +6,10 @@ import PropertyList from '../../components/property-list/property-list';
 import ReviewList from '../../components/review-list/review-list';
 import OfferList from '../../components/offer-list/offer-list';
 import Map from '../../components/map/map';
-import {AppRoute, AuthorizationStatus, CardType} from '../../const';
-import { useAppSelector } from '../../hooks';
+import {AppRoute, CardType} from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchReviewAction, fetchNearOffersAction, fetchOfferByIdAction} from '../../store/api-actions';
 import { useEffect } from 'react';
-import { store } from '../../store';
 import LoadingScreen from '../loading-screen/loading-screen';
 
 
@@ -18,18 +17,20 @@ export default function PropertyPage(): JSX.Element {
 
   const {id} = useParams();
   const offerId = Number(id);
-
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const shouldDisplayReviews = authorizationStatus === AuthorizationStatus.NoAuth;
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    store.dispatch(fetchOfferByIdAction(offerId));
-    store.dispatch(fetchNearOffersAction(offerId));
+    let isMounted = true;
 
-    if (shouldDisplayReviews) {
-      store.dispatch(fetchReviewAction(offerId));
+    if (isMounted) {
+      dispatch(fetchOfferByIdAction(offerId));
+      dispatch(fetchNearOffersAction(offerId));
+      dispatch(fetchReviewAction(offerId));
     }
-  }, [offerId, shouldDisplayReviews]);
+    return () => {
+      isMounted = false;
+    };
+  }, [dispatch, offerId]);
 
   const offerById = useAppSelector((state) => state.offerById);
   const reviews = useAppSelector((state) => state.reviews);
@@ -42,7 +43,8 @@ export default function PropertyPage(): JSX.Element {
   }
 
   if (!offerById) {
-    return (<Navigate to={AppRoute.Root} />);
+    return <LoadingScreen />;
+    //(<Navigate to={AppRoute.Root} />);
   }
 
   return (
