@@ -43,8 +43,7 @@ export default function PropertyPage(): JSX.Element {
   }
 
   if (!offerById) {
-    return <LoadingScreen />;
-    //(<Navigate to={AppRoute.Root} />);
+    (<Navigate to={AppRoute.Root} />);
   }
 
   return (
