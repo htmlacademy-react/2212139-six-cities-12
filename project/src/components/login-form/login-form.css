@@ -1,0 +1,4 @@
+.error__email .error__password {
+  color: red;
+  border: 1px solid red;
+}

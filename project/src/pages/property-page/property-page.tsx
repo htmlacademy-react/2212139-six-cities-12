@@ -10,7 +10,7 @@ import {AppRoute, CardType} from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchReviewAction, fetchNearOffersAction, fetchOfferByIdAction} from '../../store/api-actions';
 import { useEffect } from 'react';
-import LoadingScreen from '../loading-screen/loading-screen';
+import LoadingScreenPage from '../loading-screen-page/loading-screen-page';
 
 
 export default function PropertyPage(): JSX.Element {
@@ -39,7 +39,7 @@ export default function PropertyPage(): JSX.Element {
 
 
   if (!offerById || isDataLoading) {
-    return <LoadingScreen />;
+    return <LoadingScreenPage />;
   }
 
   if (!offerById) {
