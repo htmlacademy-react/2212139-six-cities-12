@@ -48,7 +48,6 @@ export const fetchOfferByIdAction = createAsyncThunk<void, OfferId, {
   }
 );
 
-
 export const fetchNearOffersAction = createAsyncThunk<void, OfferId, {
   dispatch: AppDispatch;
   state: State;

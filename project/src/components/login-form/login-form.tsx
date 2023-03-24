@@ -4,7 +4,7 @@ import {AppRoute} from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { upperFirstLetter } from '../../utils';
-import './login-form';
+import './login-form.css';
 
 
 export default function LoginForm() {
@@ -19,36 +19,45 @@ export default function LoginForm() {
   const validateForm = (formField: FormData): boolean => {
     const isEmailCorrect: boolean = (/^([a-z0-9_.-]+)@([\da-z.-]+).([a-z.]{2,6})$/).test(formField.email);
     const isPasswordCorrect: boolean = (/([0-9].*[a-z])|([a-z].*[0-9])/).test(formField.password);
-    console.log(222);
+
+    showError(isEmailCorrect, isPasswordCorrect);
 
     if (!isEmailCorrect) {
-      showError('email');
       return false;
     }
     if (!isPasswordCorrect) {
-      showError('password');
       return false;
     }
-
     return true;
   };
 
-  function showError(field: string) {
-    console.log(111);
-
-    if(field === 'email') {
+  function showError(isEmail: boolean, isPassword: boolean) {
+    if(!isEmail) {
       emailRef.current?.classList.add('error__email');
-      console.log(emailRef);
-
+      emailSpanRef.current?.classList.remove('span__hidden');
     } else {
+      emailRef.current?.classList.remove('error__email');
+      emailSpanRef.current?.classList.add('span__hidden');
+    }
+    if(!isPassword) {
       passwordRef.current?.classList.add('error__password');
+      passwordSpanRef.current?.classList.remove('span__hidden');
+    } else {
+      passwordRef.current?.classList.remove('error__password');
+      passwordSpanRef.current?.classList.add('span__hidden');
     }
   }
 
-
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-  const refArray = [emailRef, passwordRef];
+  const refInputs = [emailRef, passwordRef];
+  const emailSpanRef = useRef<HTMLInputElement | null>(null);
+  const passwordSpanRef = useRef<HTMLInputElement | null>(null);
+  const refSpans = [emailSpanRef, passwordSpanRef];
+  const spanTexts = [
+    'Incorrect Email address',
+    'At least one letter and one number',
+  ];
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -60,7 +69,6 @@ export default function LoginForm() {
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = event.target;
     setFormData({...formData, [name]: value});
-    console.log(value);
   };
 
   const handleFormSubmit = (event: FormEvent) => {
@@ -90,15 +98,20 @@ export default function LoginForm() {
           <div key={field} className="login__input-wrapper form__input-wrapper">
             <label className="visually-hidden">{upperFirstLetter(field)}</label>
             <input
-              ref={refArray[index]}
+              ref={refInputs[index]}
               className="login__input form__input"
-              type={field}
+              type='text' //{field}
               name={field}
               placeholder={upperFirstLetter(field)}
               onChange={handleInputChange}
               required
             />
-            <span className="error hidden"></span>
+            <span
+              className="span__error span__hidden"
+              ref={refSpans[index]}
+            >
+              {`${spanTexts[index]}`}
+            </span>
           </div>
         ))}
 
