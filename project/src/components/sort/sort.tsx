@@ -2,8 +2,8 @@ import clsx from 'clsx';
 import { useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { SortType } from '../../const';
-import { changeSort, updateOffers } from '../../store/actions';
-import useOnClickOutside from '../../hooks/useOnClickOutside/useOnClickOutside';
+import { changeSort } from '../../store/actions';
+import useOnClickOutside from '../../hooks/useOnClickOutside/use-on-click-outside';
 
 export default function Sort(): JSX.Element {
 
@@ -12,10 +12,7 @@ export default function Sort(): JSX.Element {
   const dispatch = useAppDispatch();
   const refOne = useRef<HTMLDivElement>(null);
 
-  const clickOutsideHandler = () => {
-    setOpen(false);
-  };
-  useOnClickOutside(refOne, clickOutsideHandler);
+  useOnClickOutside(refOne, () => setOpen(false));
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -46,7 +43,6 @@ export default function Sort(): JSX.Element {
             onClick={() => {
               setOpen(false);
               dispatch(changeSort(value));
-              dispatch(updateOffers());
             }}
           >
             {value}

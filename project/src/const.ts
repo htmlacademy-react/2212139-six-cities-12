@@ -3,7 +3,13 @@ export enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
   Room = '/offer/:id',
+}
 
+export enum APIRoute {
+  Offers = '/hotels',
+  Reviews = '/comments',
+  Login = '/login',
+  Logout = '/logout'
 }
 
 export enum AuthorizationStatus {
@@ -49,3 +55,4 @@ export enum SortType {
 
 export const DEFAULT_SORT = SortType.Popular;
 export const MAX_RATING = 5;
+

@@ -16,7 +16,6 @@ export default function MainPage(): JSX.Element {
 
   const offers = getOffers(offersState, location, sortType);
 
-
   return (
     <Layout className="page--gray page--main" >
       <main className="page__main page__main--index">

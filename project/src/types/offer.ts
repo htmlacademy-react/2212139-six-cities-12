@@ -44,3 +44,5 @@ export type Point = {
 export type Points = Point[];
 
 export type Offers = Offer[];
+export type OfferId = number;
+
