@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Logo from '../logo/logo';
-import {useAppDispatch} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {logoutAction} from '../../store/api-actions';
 
 export default function Header(): JSX.Element {
 
   const dispatch = useAppDispatch();
+  const userData = useAppSelector((state) => state.userData);
 
   return (
     <header className="header">
@@ -24,7 +25,7 @@ export default function Header(): JSX.Element {
                 >
                   <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                   <span className="header__user-name user__name">
-                      Oliver.conner@gmail.com
+                    {userData.email}
                   </span>
                   <span className="header__favorite-count">3</span>
                 </Link>
