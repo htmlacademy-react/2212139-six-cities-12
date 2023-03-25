@@ -21,7 +21,7 @@ type InitialState = {
   reviews: Reviews;
   authorizationStatus: AuthorizationStatus;
   isDataLoading: boolean;
-  userData: UserData;
+  userData: UserData | null;
 };
 
 const initialState: InitialState = {
@@ -34,7 +34,7 @@ const initialState: InitialState = {
   reviews: [],
   authorizationStatus: AuthorizationStatus.Unknown,
   isDataLoading: false,
-  userData: {} as UserData,
+  userData: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {

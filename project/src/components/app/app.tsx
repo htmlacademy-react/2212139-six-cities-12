@@ -8,7 +8,7 @@ import PrivateRoute from '../private-route/private-route';
 import Page404 from '../../pages/page-404/page-404';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
 import {useAppSelector} from '../../hooks';
-import LoadingScreenPage from '../../pages/loading-screen-page/loading-screen-page';
+import LoadingPage from '../../pages/loading-page/loading-page';
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
 
@@ -19,7 +19,7 @@ export default function App(): JSX.Element {
 
   if (authorizationStatus === AuthorizationStatus.Unknown || isDataLoading) {
     return (
-      <LoadingScreenPage />
+      <LoadingPage />
     );
   }
   return (

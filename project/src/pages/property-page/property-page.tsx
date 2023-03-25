@@ -10,7 +10,7 @@ import {AppRoute, CardType} from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchReviewAction, fetchNearOffersAction, fetchOfferByIdAction} from '../../store/api-actions';
 import { useEffect } from 'react';
-import LoadingScreenPage from '../loading-screen-page/loading-screen-page';
+import LoadingScreenPage from '../loading-page/loading-page';
 
 
 export default function PropertyPage(): JSX.Element {
