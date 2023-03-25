@@ -1,117 +1,81 @@
-import {useState, FormEvent, ChangeEvent, useRef} from 'react';
-import {useNavigate} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import clsx from 'clsx';
+import {useState, ChangeEvent, FormEvent} from 'react';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
-import { upperFirstLetter } from '../../utils';
 import './login-form.css';
 
-
-export default function LoginForm() {
-
-  type FormData = {
-  email: string;
-  password: string;
+const LOGIN_FIELDS: Record<string, string> = {
+  email: 'E-mail',
+  password: 'Password'
 };
 
-  const LOGIN_FIELDS = ['email', 'password'];
+type Field = {
+  value: string;
+  error: boolean;
+  regExp: RegExp;
+  errorMessage: string;
+};
 
-  const validateForm = (formField: FormData): boolean => {
-    const isEmailCorrect: boolean = (/^([a-z0-9_.-]+)@([\da-z.-]+).([a-z.]{2,6})$/).test(formField.email);
-    const isPasswordCorrect: boolean = (/([0-9].*[a-z])|([a-z].*[0-9])/).test(formField.password);
+export default function LoginForm(): JSX.Element {
 
-    showError(isEmailCorrect, isPasswordCorrect);
-
-    if (!isEmailCorrect) {
-      return false;
-    }
-    if (!isPasswordCorrect) {
-      return false;
-    }
-    return true;
-  };
-
-  function showError(isEmail: boolean, isPassword: boolean) {
-    if(!isEmail) {
-      emailRef.current?.classList.add('error__email');
-      emailSpanRef.current?.classList.remove('span__hidden');
-    } else {
-      emailRef.current?.classList.remove('error__email');
-      emailSpanRef.current?.classList.add('span__hidden');
-    }
-    if(!isPassword) {
-      passwordRef.current?.classList.add('error__password');
-      passwordSpanRef.current?.classList.remove('span__hidden');
-    } else {
-      passwordRef.current?.classList.remove('error__password');
-      passwordSpanRef.current?.classList.add('span__hidden');
-    }
-  }
-
-  const emailRef = useRef<HTMLInputElement | null>(null);
-  const passwordRef = useRef<HTMLInputElement | null>(null);
-  const refInputs = [emailRef, passwordRef];
-  const emailSpanRef = useRef<HTMLInputElement | null>(null);
-  const passwordSpanRef = useRef<HTMLInputElement | null>(null);
-  const refSpans = [emailSpanRef, passwordSpanRef];
-  const spanTexts = [
-    'Incorrect Email address',
-    'At least one letter and one number',
-  ];
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
+  const [formData, setFormData] = useState<Record<string, Field>>({
+    email: {
+      value: '',
+      error: false,
+      regExp: /^([a-z0-9_.-]+)@([\da-z.-]+).([a-z.]{2,6})$/,
+      errorMessage: 'Incorrect Email address',
+    },
+    password: {
+      value: '',
+      error: false,
+      regExp: /([0-9].*[a-z])|([a-z].*[0-9])/,
+      errorMessage:  'At least one letter and one number'
+    },
   });
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = event.target;
-    setFormData({...formData, [name]: value});
+
+    const isCorrectField = (formData[name].regExp).test(value);
+    setFormData({...formData, [name]: {...formData[name], error: isCorrectField, value }});
   };
 
   const handleFormSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-    if (validateForm(formData)) {
+    if (formData.email.error && formData.password.error) {
       dispatch(loginAction({
-        login: formData.email,
-        password: formData.password
+        login: formData.email.value,
+        password: formData.password.value
       }));
-
-      setFormData({
-        email: '',
-        password: ''
-      });
-
-      navigate(AppRoute.Root);
     }
   };
+
 
   return (
     <section className="login">
       <h1 className="login__title">Sign in</h1>
 
       <form className="login__form form" action="#" method="post" onSubmit={handleFormSubmit}>
-        {LOGIN_FIELDS.map((field, index) => (
-          <div key={field} className="login__input-wrapper form__input-wrapper">
-            <label className="visually-hidden">{upperFirstLetter(field)}</label>
+        {Object.entries(LOGIN_FIELDS).map(([name, label]) => (
+          <div key={name} className="login__input-wrapper form__input-wrapper">
+            <label className="visually-hidden">{label}</label>
             <input
-              ref={refInputs[index]}
-              className="login__input form__input"
-              type='text' //{field}
-              name={field}
-              placeholder={upperFirstLetter(field)}
+              className={clsx( 'login__input form__input', {
+                'error-login': !formData[name].error
+              })}
+              type={name}
+              name={name}
+              placeholder={label}
               onChange={handleInputChange}
               required
             />
-            <span
-              className="span__error span__hidden"
-              ref={refSpans[index]}
-            >
-              {`${spanTexts[index]}`}
-            </span>
+            {!formData[name].error && (
+              <span className="error">
+                {formData[name].errorMessage}
+              </span>)}
           </div>
         ))}
 

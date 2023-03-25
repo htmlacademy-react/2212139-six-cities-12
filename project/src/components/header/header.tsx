@@ -8,6 +8,7 @@ export default function Header(): JSX.Element {
 
   const dispatch = useAppDispatch();
   const userData = useAppSelector((state) => state.userData);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   return (
     <header className="header">
@@ -23,7 +24,16 @@ export default function Header(): JSX.Element {
                   className="header__nav-link header__nav-link--profile"
                   to={AppRoute.Favorites}
                 >
-                  <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                  <div className="header__avatar-wrapper user__avatar-wrapper">
+                    {authorizationStatus && (
+                      <img
+                        className="header__avatar-image"
+                        src={userData.avatarUrl ?? './img/avatar.svg'}
+                        width="20"
+                        height="20"
+                        alt={userData.name ?? 'User avatar.'}
+                      />)}
+                  </div>
                   <span className="header__user-name user__name">
                     {userData.email}
                   </span>

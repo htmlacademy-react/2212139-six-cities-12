@@ -1,15 +1,12 @@
-.error__email, .error__password {
-
+.error-login{
+  outline: none;
   border: 2px solid red;
 }
 
-.span__error {
+.error {
   display: block;
   position: absolute;
   color: red;
   font-size: 16px;
   margin: -22px 0 0 40px;
-}
-.span__hidden {
-  display: none;
 }
