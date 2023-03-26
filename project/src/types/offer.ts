@@ -1,9 +1,4 @@
-type User = {
-  id: number;
-  name: string;
-  isPro: boolean;
-  avatarUrl: string;
-};
+import { User } from './user';
 
 export type Location = {
   zoom: number;

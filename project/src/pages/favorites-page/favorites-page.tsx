@@ -16,12 +16,12 @@ type OfferGroupedByCity = {
 export default function FavoritesPage(): JSX.Element {
 
   const location = useAppSelector((state) => state.location);
-  const offersState = useAppSelector((state) => state.offers);
+  const offers = useAppSelector((state) => state.offers);
   const sortType = useAppSelector((state) => state.sortType);
-  const offers = getOffers(offersState, location, sortType);
+  const currentOffers = getOffers(offers, location, sortType);
 
 
-  const offersGroupedByCity = offers.reduce((acc: OfferGroupedByCity, offer: Offer) => {
+  const offersGroupedByCity = currentOffers.reduce((acc: OfferGroupedByCity, offer: Offer) => {
     const cityName = offer.city.name;
 
     if (!acc[cityName]) {

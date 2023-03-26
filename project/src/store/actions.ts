@@ -3,6 +3,7 @@ import { SortType } from '../const';
 import { Offer, Offers } from '../types/offer';
 import {AppRoute, AuthorizationStatus} from '../const';
 import { Reviews } from '../types/review';
+import { UserData } from '../types/user';
 
 
 export const changeLocation = createAction(
@@ -46,4 +47,9 @@ export const setDataLoadingStatus = createAction<boolean>(
 
 export const redirectToRoute = createAction<AppRoute>(
   'app/redirectToRoute'
+);
+
+export const loadUserData = createAction(
+  'user/loadUserData',
+  (userData: UserData) => ({payload: userData})
 );

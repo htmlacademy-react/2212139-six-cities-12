@@ -6,11 +6,12 @@ import {loadOffers, requireAuthorization, redirectToRoute,
   setDataLoadingStatus,
   loadNearOffers,
   loadReviews,
-  loadOfferById} from './actions';
+  loadOfferById,
+  loadUserData} from './actions';
 import {saveToken, dropToken} from '../services/token';
 import {APIRoute, AuthorizationStatus, AppRoute} from '../const';
 import {AuthData} from '../types/auth-data';
-import {UserData} from '../types/user-data';
+import {UserData} from '../types/user';
 import { Reviews } from '../types/review.js';
 
 
@@ -48,7 +49,6 @@ export const fetchOfferByIdAction = createAsyncThunk<void, OfferId, {
   }
 );
 
-
 export const fetchNearOffersAction = createAsyncThunk<void, OfferId, {
   dispatch: AppDispatch;
   state: State;
@@ -81,8 +81,9 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   'user/checkAuth',
   async (_arg, {dispatch, extra: api}) => {
     try {
-      await api.get(APIRoute.Login);
+      const {data} = await api.get<UserData>(APIRoute.Login);
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      dispatch(loadUserData(data));
     } catch {
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }

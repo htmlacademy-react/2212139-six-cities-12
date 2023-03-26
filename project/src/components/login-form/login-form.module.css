@@ -1,0 +1,12 @@
+.errorLogin {
+  outline: none;
+  border: 2px solid red;
+}
+
+.error {
+  display: block;
+  position: absolute;
+  color: red;
+  font-size: 16px;
+  margin: -22px 0 0 40px;
+}
