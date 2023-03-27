@@ -1,11 +1,11 @@
 import {createReducer} from '@reduxjs/toolkit';
-import { DEFAULT_LOCATION, DEFAULT_SORT, SortType, AuthorizationStatus} from '../const';
+import { DEFAULT_LOCATION, DEFAULT_SORT, SortType } from '../const';
 import { Offer, Offers } from '../types/offer';
 import { Reviews } from '../types/review';
 import { UserData } from '../types/user';
 import {
   changeLocation, changeSort, setDataLoadingStatus,
-  selectOffer, loadOffers, requireAuthorization, loadNearOffers,
+  selectOffer, loadOffers, loadNearOffers,
   loadReviews,
   loadOfferById,
   loadUserData
@@ -19,7 +19,6 @@ type InitialState = {
   offerById: Offer | null;
   nearOffers: Offers;
   reviews: Reviews;
-  authorizationStatus: AuthorizationStatus;
   isDataLoading: boolean;
   userData: UserData | null;
 };
@@ -32,7 +31,6 @@ const initialState: InitialState = {
   offerById: null,
   nearOffers: [],
   reviews: [],
-  authorizationStatus: AuthorizationStatus.Unknown,
   isDataLoading: false,
   userData: null,
 };
@@ -65,9 +63,6 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadUserData, (state, action) => {
       state.userData = action.payload;
-    })
-    .addCase(requireAuthorization, (state, action) => {
-      state.authorizationStatus = action.payload;
     });
 });
 

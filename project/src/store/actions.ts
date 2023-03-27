@@ -1,7 +1,7 @@
 import {createAction} from '@reduxjs/toolkit';
 import { SortType } from '../const';
 import { Offer, Offers } from '../types/offer';
-import {AppRoute, AuthorizationStatus} from '../const';
+import {AppRoute} from '../const';
 import { Reviews } from '../types/review';
 import { UserData } from '../types/user';
 
@@ -35,10 +35,6 @@ export const loadNearOffers = createAction<Offers>(
 
 export const loadReviews = createAction<Reviews>(
   'data/loadReviews'
-);
-
-export const requireAuthorization = createAction<AuthorizationStatus>(
-  'user/requireAuthorization'
 );
 
 export const setDataLoadingStatus = createAction<boolean>(
