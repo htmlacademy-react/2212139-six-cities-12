@@ -8,7 +8,7 @@ import OfferList from '../../components/offer-list/offer-list';
 import Map from '../../components/map/map';
 import {AppRoute, CardType} from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchReviewAction, fetchNearOffersAction, fetchOfferByIdAction} from '../../store/api-actions';
+import { fetchReviewAction, fetchNearOffersAction, fetchOfferByIdAction} from '../../store/api-actions-delete';
 import { useEffect } from 'react';
 import LoadingPage from '../loading-page/loading-page';
 

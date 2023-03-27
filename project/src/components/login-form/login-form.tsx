@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import {useState, ChangeEvent, FormEvent} from 'react';
 import { useAppDispatch } from '../../hooks';
-import { loginAction } from '../../store/api-actions';
+import { loginAction } from '../../store/api-actions-delete';
 import styles from './login-form.module.css';
 
 const LOGIN_FIELDS: Record<string, string> = {

@@ -54,10 +54,17 @@ export enum SortType {
 }
 
 export enum NameSpace {
-  Offer = 'OFFER',
+  Data = 'DATA',
   User = 'USER',
+  OfferProperty = 'OFFER_PROPERTY',
 }
 
 export const DEFAULT_SORT = SortType.Popular;
 export const MAX_RATING = 5;
 
+export enum FetchStatus {
+  Idle = 'Idle',
+  Loading = 'Loading',
+  Success = 'Success',
+  Failed = 'Failed',
+}

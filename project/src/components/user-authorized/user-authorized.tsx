@@ -1,7 +1,7 @@
 import { MouseEvent} from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { logoutAction } from '../../store/api-actions';
+import { logoutAction } from '../../store/api-actions-delete';
 import styles from './user-authorized.module.css';
 
 export default function UserAuthorized(): JSX.Element {
