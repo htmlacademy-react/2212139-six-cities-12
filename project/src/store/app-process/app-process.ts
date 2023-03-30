@@ -25,7 +25,7 @@ export const appProcess = createSlice({
     changeSort: (state, action: PayloadAction<SortType>) => {
       state.sortType = action.payload;
     },
-    selectOffer: (state, action: PayloadAction<OfferId>) => {
+    selectOffer: (state, action: PayloadAction<OfferId | null>) => {
       state.selectedOfferId = action.payload;
     }
   }

@@ -1,13 +1,15 @@
 import { ChangeEvent, useState, Fragment } from 'react';
 import { RATING_STARS } from '../../const';
-
+import { useAppSelector } from '../../hooks';
+import {getReviewFormBlockedStatus} from '../../store/offer-property-data/selectors';
 
 export default function ReviewForm(): JSX.Element {
-
   const [formData, setFormData] = useState({
     rating: '',
     review: ''
   });
+
+  const isReviewFormBlocked = useAppSelector(getReviewFormBlockedStatus);
 
   const handleFieldChange = (event:ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
@@ -56,7 +58,7 @@ export default function ReviewForm(): JSX.Element {
                   To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
         <button className="reviews__submit form__submit button" type="submit" disabled >
-          Submit
+          {!isReviewFormBlocked ? 'Submit' : 'Sending...'}
         </button>
       </div>
     </form>

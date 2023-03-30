@@ -9,7 +9,7 @@ const initialState: UserProcess = {
   userData: null,
 };
 
-export const userProcess = createSlice({
+export const userData = createSlice({
   name: NameSpace.User,
   initialState,
   reducers: {},

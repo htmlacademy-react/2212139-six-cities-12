@@ -1,17 +1,17 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {fetchOffersAction} from './api-action';
+import {fetchOffersAction} from './api-actions';
 
 
 import { FetchStatus, NameSpace } from '../../const';
 import {Offers} from '../../types/offer';
 
 export type OffersData = {
-  offers: Offers | null;
+  offers: Offers;
   offersStatus: FetchStatus;
 };
 
 const initialState: OffersData = {
-  offers: null,
+  offers: [],
   offersStatus: FetchStatus.Idle,
 };
 

@@ -3,12 +3,12 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 
 import {AppDispatch, State} from '../../types/state';
 import {Reviews, ReviewData} from '../../types/review';
-import {Offers, Offer, OfferId} from '../../types/offer';
+import {Offers, Offer} from '../../types/offer';
 
 import {APIRoute,} from '../../const';
 
 
-export const fetchOfferPropertyAction = createAsyncThunk<Offer, OfferId, {
+export const fetchOfferPropertyAction = createAsyncThunk<Offer, number, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -20,7 +20,7 @@ export const fetchOfferPropertyAction = createAsyncThunk<Offer, OfferId, {
   }
 );
 
-export const fetchNearOffersAction = createAsyncThunk<Offers, OfferId, {
+export const fetchNearOffersAction = createAsyncThunk<Offers, number, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -32,7 +32,7 @@ export const fetchNearOffersAction = createAsyncThunk<Offers, OfferId, {
   }
 );
 
-export const fetchReviewAction = createAsyncThunk<Reviews, OfferId, {
+export const fetchReviewAction = createAsyncThunk<Reviews, number, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;

@@ -4,11 +4,12 @@ import {Icon, Marker} from 'leaflet';
 import useMap from '../../hooks/useMap/useMap';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import {useAppSelector} from '../../hooks';
-import { Offers } from '../../types/offer';
+import { OfferId, Offers } from '../../types/offer';
+
 
 type MapProps = {
   className: string;
+  selectedOfferId: OfferId | null;
   offers: Offers;
 }
 
@@ -30,10 +31,9 @@ const activeMarkerIcon = new Icon({
   iconAnchor: [14, 40]
 });
 
-function Map({className, offers}: MapProps): JSX.Element {
+function Map({className, selectedOfferId, offers}: MapProps): JSX.Element {
 
   const mapRef = useRef(null);
-  const selectedOfferId = useAppSelector((state) => state.selectedOfferId);
   const cityLocation = offers[0]?.city?.location ?? DEFAULT_COORDINATE;
   const map = useMap(mapRef, cityLocation);
 

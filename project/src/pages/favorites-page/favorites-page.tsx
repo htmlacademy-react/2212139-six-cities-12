@@ -6,7 +6,9 @@ import { AppRoute } from '../../const';
 import { Offer, Offers } from '../../types/offer';
 import OfferListFavorites from '../../components/offer-list-favorites/offer-list-favorites';
 import { useAppSelector } from '../../hooks';
-import { getOffers } from '../../utils';
+import { getCurrentOffers } from '../../utils';
+import { getLocation, getSortType } from '../../store/app-process/selectors';
+import { getOffers } from '../../store/offers-data/selectors';
 
 
 type OfferGroupedByCity = {
@@ -15,10 +17,10 @@ type OfferGroupedByCity = {
 
 export default function FavoritesPage(): JSX.Element {
 
-  const location = useAppSelector((state) => state.location);
-  const offers = useAppSelector((state) => state.offers);
-  const sortType = useAppSelector((state) => state.sortType);
-  const currentOffers = getOffers(offers, location, sortType);
+  const location = useAppSelector(getLocation);
+  const offers = useAppSelector(getOffers);
+  const sortType = useAppSelector(getSortType);
+  const currentOffers = getCurrentOffers(offers, location, sortType);
 
 
   const offersGroupedByCity = currentOffers.reduce((acc: OfferGroupedByCity, offer: Offer) => {

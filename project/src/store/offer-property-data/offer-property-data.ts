@@ -1,19 +1,30 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {fetchOfferPropertyAction, fetchNearOffersAction, fetchReviewAction, sendReviewAction} from './api-actions';
-
-
-import {OfferPropertyData} from '../../types/state';
+import {fetchOfferPropertyAction, fetchNearOffersAction,
+  fetchReviewAction, sendReviewAction} from './api-actions';
 import {NameSpace} from '../../const';
+import { Offer, Offers } from '../../types/offer';
+import { Reviews } from '../../types/review';
+
+export type OfferPropertyData = {
+  offerProperty: Offer | null;
+  isOfferPropertyLoading: boolean;
+  nearOffers: Offers;
+  isNearOffersLoading: boolean;
+  reviews: Reviews;
+  isReviewsLoading: boolean;
+  isReviewFormBlocked: boolean;
+  isOfferPropertyError: boolean;
+};
 
 const initialState: OfferPropertyData = {
   offerProperty: null,
   isOfferPropertyLoading: false,
-  nearOffers: null,
+  nearOffers: [],
   isNearOffersLoading: false,
-  reviews: null,
+  reviews: [],
   isReviewsLoading: false,
   isReviewFormBlocked: false,
-  hasError: false
+  isOfferPropertyError: false
 };
 
 
@@ -25,7 +36,7 @@ export const offerPropertyData = createSlice({
     builder
       .addCase(fetchOfferPropertyAction.pending, (state) => {
         state.isOfferPropertyLoading = true;
-        state.hasError = false;
+        state.isOfferPropertyError = false;
       })
       .addCase(fetchOfferPropertyAction.fulfilled, (state, action) => {
         state.isOfferPropertyLoading = false;
@@ -33,7 +44,7 @@ export const offerPropertyData = createSlice({
       })
       .addCase(fetchOfferPropertyAction.rejected, (state) => {
         state.isOfferPropertyLoading = false;
-        state.hasError = true;
+        state.isOfferPropertyError = true;
       })
       .addCase(fetchNearOffersAction.pending, (state) => {
         state.isNearOffersLoading = true;
