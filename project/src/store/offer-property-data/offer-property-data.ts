@@ -1,11 +1,9 @@
 import {createSlice} from '@reduxjs/toolkit';
+import {fetchOfferPropertyAction, fetchNearOffersAction, fetchReviewAction, sendReviewAction} from './api-actions';
 
-import {store} from '../store';
-import {fetchOfferPropertyAction, fetchNearOffersAction, fetchReviewAction, sendReviewAction} from './api-action';
-import {redirectToRoute} from '../actions';
 
 import {OfferPropertyData} from '../../types/state';
-import {AppRoute, NameSpace} from '../../const';
+import {NameSpace} from '../../const';
 
 const initialState: OfferPropertyData = {
   offerProperty: null,
@@ -36,7 +34,6 @@ export const offerPropertyData = createSlice({
       .addCase(fetchOfferPropertyAction.rejected, (state) => {
         state.isOfferPropertyLoading = false;
         state.hasError = true;
-        store.dispatch(redirectToRoute(AppRoute.NotFound)); // TODO переделать редиректы!
       })
       .addCase(fetchNearOffersAction.pending, (state) => {
         state.isNearOffersLoading = true;

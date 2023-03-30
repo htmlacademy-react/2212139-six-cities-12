@@ -9,7 +9,6 @@ const initialState: UserProcess = {
   userData: null,
 };
 
-
 export const userProcess = createSlice({
   name: NameSpace.User,
   initialState,

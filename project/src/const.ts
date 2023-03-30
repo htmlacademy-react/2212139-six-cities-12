@@ -57,6 +57,7 @@ export enum NameSpace {
   Data = 'DATA',
   User = 'USER',
   OfferProperty = 'OFFER_PROPERTY',
+  App = 'APP',
 }
 
 export const DEFAULT_SORT = SortType.Popular;

@@ -2,7 +2,7 @@ import {createSlice} from '@reduxjs/toolkit';
 import {fetchOffersAction} from './api-action';
 
 
-import {FetchStatus, NameSpace} from '../../const';
+import { FetchStatus, NameSpace } from '../../const';
 import {Offers} from '../../types/offer';
 
 export type OffersData = {
@@ -19,17 +19,7 @@ const initialState: OffersData = {
 export const offersData = createSlice({
   name: NameSpace.Data,
   initialState,
-  reducers: {
-    changeSorting: (state, action) => {
-      const {sorting} = action.payload;
-      state.sorting = sorting;
-    },
-    changeCity: (state, action) => {
-      const {city} = action.payload;
-      state.city = city;
-    },
-
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchOffersAction.pending, (state) => {
@@ -45,4 +35,4 @@ export const offersData = createSlice({
   }
 });
 
-export const {changeSorting, changeCity} = offersData.actions;
+
