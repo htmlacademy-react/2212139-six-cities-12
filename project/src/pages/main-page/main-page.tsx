@@ -2,11 +2,11 @@ import Layout from '../../components/layout/layout';
 import OfferList from '../../components/offer-list/offer-list';
 import Sort from '../../components/sort/sort';
 import Map from '../../components/map/map';
-import {CardType, FetchStatus} from '../../const';
+import {CardType} from '../../const';
 import LocationList from '../../components/location-list/location-list';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
-import {getOffers, getStatus} from '../../store/offers-data/selectors';
+import {getOffers, getOffersStatus} from '../../store/offers-data/selectors';
 import {useEffect} from 'react';
 import {checkAuthAction} from '../../store/user-process/api-actions';
 import LoadingPage from '../loading-page/loading-page';
@@ -22,13 +22,9 @@ export default function MainPage(): JSX.Element {
   const location = useAppSelector(getLocation);
   const sortType = useAppSelector(getSortType);
   const selectedOfferId = useAppSelector(getSelectedOfferId);
-
-
-  const offers = offersState ? getCurrentOffers(offersState, location, sortType) : [];
-
+  const offers = getCurrentOffers(offersState, location, sortType);
   const isAuthorizationChecked = useAppSelector(getAuthorizationStatus);
-  const status = useAppSelector(getStatus);
-
+  const status = useAppSelector(getOffersStatus);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -36,7 +32,7 @@ export default function MainPage(): JSX.Element {
     dispatch(fetchOffersAction());
   }, [dispatch]);
 
-  if (!isAuthorizationChecked || status === FetchStatus.Loading) {
+  if (!isAuthorizationChecked || status.isLoading) {
     return (
       <LoadingPage/>
     );
@@ -56,7 +52,7 @@ export default function MainPage(): JSX.Element {
           'page__main',
           'page__main--index',
           {'page__main--index-empty': !offers.length},
-          {'page__main--index-error': status === FetchStatus.Failed})
+          {'page__main--index-error': status.isError})
       }
       >
         <h1 className="visually-hidden">Cities</h1>
