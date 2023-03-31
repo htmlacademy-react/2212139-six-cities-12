@@ -13,3 +13,4 @@ export const getOffersStatus = createSelector([getStatus], (status) => ({
   isError: status === FetchStatus.Failed,
 }));
 
+

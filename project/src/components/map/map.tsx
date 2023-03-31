@@ -1,10 +1,9 @@
 import clsx from 'clsx';
 import {useEffect, useRef} from 'react';
-import {Icon, Marker} from 'leaflet';
+import leaflet, {Icon, Marker} from 'leaflet';
 import useMap from '../../hooks/useMap/useMap';
-import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { OfferId, Offers } from '../../types/offer';
+import {OfferId, Offers} from '../../types/offer';
 
 
 type MapProps = {
@@ -39,7 +38,7 @@ function Map({className, selectedOfferId, offers}: MapProps): JSX.Element {
 
   useEffect(() => {
     if (map) {
-      const { latitude, longitude, zoom } = cityLocation;
+      const {latitude, longitude, zoom} = cityLocation;
       map.flyTo([latitude, longitude], zoom);
     }
   }, [map, cityLocation]);
@@ -72,7 +71,7 @@ function Map({className, selectedOfferId, offers}: MapProps): JSX.Element {
     <section
       className={clsx('map', {className})}
       ref={mapRef}
-      style={{height: '500px', width: '100%', maxWidth: '1144px', margin: '0 auto'}}
+      style={{height: '100%', width: '100%', maxWidth: '1144px', margin: '0 auto'}}
     >
     </section>
   );

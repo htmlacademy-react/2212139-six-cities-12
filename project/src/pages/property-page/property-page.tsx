@@ -7,14 +7,22 @@ import ReviewList from '../../components/review-list/review-list';
 import OfferList from '../../components/offer-list/offer-list';
 import Map from '../../components/map/map';
 import {CardType} from '../../const';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { useEffect } from 'react';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useEffect} from 'react';
 import LoadingPage from '../loading-page/loading-page';
-import {getOfferProperty, getOfferPropertyLoadingStatus,
-  getOfferPropertyError, getReviews, getNearOffers}
-  from '../../store/offer-property-data/selectors';
-import { fetchNearOffersAction, fetchOfferPropertyAction,
-  fetchReviewAction } from '../../store/offer-property-data/api-actions';
+import {
+  getNearOffers,
+  getNearOffersStatus,
+  getOfferProperty,
+  getOfferPropertyStatus,
+  getReviews,
+  getReviewsStatus
+} from '../../store/offer-property-data/selectors';
+import {
+  fetchNearOffersAction,
+  fetchOfferPropertyAction,
+  fetchReviewAction
+} from '../../store/offer-property-data/api-actions';
 import Page404 from '../page-404/page-404';
 
 
@@ -24,31 +32,27 @@ export default function PropertyPage(): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    let isMounted = true;
-
-    if (isMounted) {
-      dispatch(fetchOfferPropertyAction(offerId));
-      dispatch(fetchNearOffersAction(offerId));
-      dispatch(fetchReviewAction(offerId));
-    }
-    return () => {
-      isMounted = false;
-    };
+    dispatch(fetchOfferPropertyAction(offerId));
+    dispatch(fetchNearOffersAction(offerId));
+    dispatch(fetchReviewAction(offerId));
   }, [dispatch, offerId]);
 
   const offerProperty = useAppSelector(getOfferProperty);
   const reviews = useAppSelector(getReviews);
   const nearOffers = useAppSelector(getNearOffers);
-  const isDataLoading = useAppSelector(getOfferPropertyLoadingStatus);
-  const isOfferPropertyError = useAppSelector(getOfferPropertyError);
+  const offerPropertyStatus = useAppSelector(getOfferPropertyStatus);
+  const nearOffersStatus = useAppSelector(getNearOffersStatus);
+  const reviewsStatus = useAppSelector(getReviewsStatus);
 
 
-  if (!offerProperty || isDataLoading) {
-    return <LoadingPage />;
+  if ((!offerProperty || offerPropertyStatus.isLoading) ||
+    (!nearOffers || nearOffersStatus.isLoading) ||
+    (!reviews || reviewsStatus.isLoading)) {
+    return <LoadingPage/>;
   }
 
-  if (isOfferPropertyError) {
-    return <Page404 />;
+  if (offerPropertyStatus.isError) {
+    return <Page404/>;
   }
 
   return (
@@ -60,7 +64,7 @@ export default function PropertyPage(): JSX.Element {
             <div className="property__wrapper">
               <PropertyList offer={offerProperty}/>
               <PropertyHost offer={offerProperty}/>
-              <ReviewList reviews={reviews} />
+              <ReviewList reviews={reviews}/>
             </div>
           </div>
           <Map

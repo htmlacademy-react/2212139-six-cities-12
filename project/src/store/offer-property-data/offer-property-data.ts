@@ -1,32 +1,28 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {fetchOfferPropertyAction, fetchNearOffersAction,
-  fetchReviewAction, sendReviewAction} from './api-actions';
-import {NameSpace} from '../../const';
-import { Offer, Offers } from '../../types/offer';
-import { Reviews } from '../../types/review';
+import {fetchNearOffersAction, fetchOfferPropertyAction, fetchReviewAction, sendReviewAction} from './api-actions';
+import {FetchStatus, NameSpace} from '../../const';
+import {Offer, Offers} from '../../types/offer';
+import {Reviews} from '../../types/review';
 
 export type OfferPropertyData = {
   offerProperty: Offer | null;
-  isOfferPropertyLoading: boolean;
+  isOfferPropertyStatus: FetchStatus;
   nearOffers: Offers;
-  isNearOffersLoading: boolean;
+  isNearStatus: FetchStatus;
   reviews: Reviews;
-  isReviewsLoading: boolean;
-  isReviewFormBlocked: boolean;
-  isOfferPropertyError: boolean;
+  isReviewsStatus: FetchStatus;
+  isReviewFormBlocked: FetchStatus;
 };
 
 const initialState: OfferPropertyData = {
   offerProperty: null,
-  isOfferPropertyLoading: false,
+  isOfferPropertyStatus: FetchStatus.Idle,
   nearOffers: [],
-  isNearOffersLoading: false,
+  isNearStatus: FetchStatus.Idle,
   reviews: [],
-  isReviewsLoading: false,
-  isReviewFormBlocked: false,
-  isOfferPropertyError: false
+  isReviewsStatus: FetchStatus.Idle,
+  isReviewFormBlocked: FetchStatus.Idle
 };
-
 
 export const offerPropertyData = createSlice({
   name: NameSpace.OfferProperty,
@@ -35,39 +31,39 @@ export const offerPropertyData = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchOfferPropertyAction.pending, (state) => {
-        state.isOfferPropertyLoading = true;
-        state.isOfferPropertyError = false;
+        state.isOfferPropertyStatus = FetchStatus.Loading;
+
       })
       .addCase(fetchOfferPropertyAction.fulfilled, (state, action) => {
-        state.isOfferPropertyLoading = false;
+        state.isOfferPropertyStatus = FetchStatus.Success;
         state.offerProperty = action.payload;
       })
       .addCase(fetchOfferPropertyAction.rejected, (state) => {
-        state.isOfferPropertyLoading = false;
-        state.isOfferPropertyError = true;
+        state.isOfferPropertyStatus = FetchStatus.Failed;
+
       })
       .addCase(fetchNearOffersAction.pending, (state) => {
-        state.isNearOffersLoading = true;
+        state.isNearStatus = FetchStatus.Loading;
       })
       .addCase(fetchNearOffersAction.fulfilled, (state, action) => {
-        state.isNearOffersLoading = false;
+        state.isNearStatus = FetchStatus.Success;
         state.nearOffers = action.payload;
       })
       .addCase(fetchReviewAction.pending, (state) => {
-        state.isReviewsLoading = true;
+        state.isReviewsStatus = FetchStatus.Loading;
       })
       .addCase(fetchReviewAction.fulfilled, (state, action) => {
-        state.isReviewsLoading = false;
+        state.isReviewsStatus = FetchStatus.Success;
         state.reviews = action.payload;
       })
       .addCase(sendReviewAction.pending, (state) => {
-        state.isReviewFormBlocked = true;
+        state.isReviewFormBlocked = FetchStatus.Failed;
       })
       .addCase(sendReviewAction.fulfilled, (state) => {
-        state.isReviewFormBlocked = false;
+        state.isReviewFormBlocked = FetchStatus.Success;
       })
       .addCase(sendReviewAction.rejected, (state) => {
-        state.isReviewFormBlocked = false;
+        state.isReviewFormBlocked = FetchStatus.Failed;
       });
   }
 });

@@ -8,14 +8,12 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {getOffers, getOffersStatus} from '../../store/offers-data/selectors';
 import {useEffect} from 'react';
-import {checkAuthAction} from '../../store/user-process/api-actions';
 import LoadingPage from '../loading-page/loading-page';
-import { fetchOffersAction } from '../../store/offers-data/api-actions';
-import { getLocation, getSelectedOfferId, getSortType } from '../../store/app-process/selectors';
-import { getCurrentOffers } from '../../utils';
+import {fetchOffersAction} from '../../store/offers-data/api-actions';
+import {getLocation, getSelectedOfferId, getSortType} from '../../store/app-process/selectors';
+import {getCurrentOffers} from '../../utils';
 import NoPlaces from '../../components/no-places/no-places';
 import clsx from 'clsx';
-
 
 export default function MainPage(): JSX.Element {
   const offersState = useAppSelector(getOffers);
@@ -28,9 +26,10 @@ export default function MainPage(): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(checkAuthAction());
-    dispatch(fetchOffersAction());
-  }, [dispatch]);
+    if (!offersState) {
+      dispatch(fetchOffersAction());
+    }
+  }, [dispatch, offersState]);
 
   if (!isAuthorizationChecked || status.isLoading) {
     return (
@@ -38,9 +37,9 @@ export default function MainPage(): JSX.Element {
     );
   }
 
-  // if (status === FetchStatus.Failed) {
+  // if (status.isError) {
   //   return (
-  //     <ErrorFetch/>
+  //     <NetworkError/>
   //   );
   // }
 
@@ -56,7 +55,9 @@ export default function MainPage(): JSX.Element {
       }
       >
         <h1 className="visually-hidden">Cities</h1>
+
         <LocationList/>
+
         {!offers.length ? <NoPlaces location={location}/> : (
           <div className="cities">
             <div className="cities__places-container container">
@@ -65,19 +66,24 @@ export default function MainPage(): JSX.Element {
                 <b className="places__found">
                   {offers.length} places to stay in {location}
                 </b>
+
                 <Sort/>
+
                 <OfferList
                   classNames={'places__list cities__places-list'}
                   cardType={CardType.Cities}
                   offers={offers}
                 />
+
               </section>
               <div className="cities__right-section">
+
                 <Map
                   className="cities__map"
                   offers={offers}
                   selectedOfferId={selectedOfferId}
                 />
+
               </div>
             </div>
           </div>
