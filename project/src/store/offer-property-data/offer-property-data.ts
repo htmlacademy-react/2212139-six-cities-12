@@ -8,9 +8,7 @@ export type OfferPropertyData = {
   offerProperty: Offer | null;
   isOfferPropertyStatus: FetchStatus;
   nearOffers: Offers;
-  isNearStatus: FetchStatus;
   reviews: Reviews;
-  isReviewsStatus: FetchStatus;
   isReviewFormBlocked: FetchStatus;
 };
 
@@ -18,9 +16,7 @@ const initialState: OfferPropertyData = {
   offerProperty: null,
   isOfferPropertyStatus: FetchStatus.Idle,
   nearOffers: [],
-  isNearStatus: FetchStatus.Idle,
   reviews: [],
-  isReviewsStatus: FetchStatus.Idle,
   isReviewFormBlocked: FetchStatus.Idle
 };
 
@@ -40,20 +36,11 @@ export const offerPropertyData = createSlice({
       })
       .addCase(fetchOfferPropertyAction.rejected, (state) => {
         state.isOfferPropertyStatus = FetchStatus.Failed;
-
-      })
-      .addCase(fetchNearOffersAction.pending, (state) => {
-        state.isNearStatus = FetchStatus.Loading;
       })
       .addCase(fetchNearOffersAction.fulfilled, (state, action) => {
-        state.isNearStatus = FetchStatus.Success;
         state.nearOffers = action.payload;
       })
-      .addCase(fetchReviewAction.pending, (state) => {
-        state.isReviewsStatus = FetchStatus.Loading;
-      })
       .addCase(fetchReviewAction.fulfilled, (state, action) => {
-        state.isReviewsStatus = FetchStatus.Success;
         state.reviews = action.payload;
       })
       .addCase(sendReviewAction.pending, (state) => {

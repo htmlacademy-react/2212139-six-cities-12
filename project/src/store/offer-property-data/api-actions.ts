@@ -6,7 +6,7 @@ import {ReviewData, Reviews} from '../../types/review';
 import {Offer, Offers} from '../../types/offer';
 
 import {APIRoute,} from '../../const';
-import {toast} from "react-toastify";
+import {toast} from 'react-toastify';
 
 
 export const fetchOfferPropertyAction = createAsyncThunk<Offer, number, {
@@ -16,6 +16,7 @@ export const fetchOfferPropertyAction = createAsyncThunk<Offer, number, {
 }>(
   'data/fetchOfferItem',
   async (offerId, {extra: api}) => {
+    // eslint-disable-next-line no-useless-catch
     try {
       const {data} = await api.get<Offer>(`${APIRoute.Offers}/${offerId}`);
       return data;
@@ -36,7 +37,7 @@ export const fetchNearOffersAction = createAsyncThunk<Offers, number, {
       const {data} = await api.get<Offers>(`${APIRoute.Offers}/${offerId}/nearby`);
       return data;
     } catch (err) {
-      toast.error('Near places not loaded')
+      toast.error('Near places not loaded');
       throw err;
     }
   }
@@ -53,7 +54,7 @@ export const fetchReviewAction = createAsyncThunk<Reviews, number, {
       const {data} = await api.get<Reviews>(`${APIRoute.Reviews}/${offerId}`);
       return data;
     } catch (err) {
-      toast.error('Review not loaded')
+      toast.error('Review not loaded');
       throw err;
     }
   }
@@ -70,8 +71,8 @@ export const sendReviewAction = createAsyncThunk<void, ReviewData, {
       await api.post(`${APIRoute.Reviews}/${id}`, {rating, comment});
       dispatch(fetchReviewAction(id));
     } catch (err) {
-      toast.error('Attempt to send a message failed')
-      throw  err;
+      toast.error('Attempt to send a message failed');
+      throw err;
     }
   }
 );

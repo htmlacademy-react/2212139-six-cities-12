@@ -5,6 +5,7 @@ import {AppDispatch, State} from '../../types/state';
 import {UserData} from '../../types/user';
 import {APIRoute} from '../../const';
 import {AuthData} from '../../types/auth-data';
+import { toast } from 'react-toastify';
 
 
 export const checkAuthAction = createAsyncThunk<UserData, undefined, {
@@ -14,8 +15,13 @@ export const checkAuthAction = createAsyncThunk<UserData, undefined, {
 }>(
   'user/checkAuth',
   async (_arg, {extra: api}) => {
-    const {data} = await api.get<UserData>(APIRoute.Login);
-    return data;
+    try {
+      const {data} = await api.get<UserData>(APIRoute.Login);
+      return data;
+    } catch (error) {
+      toast.error('Не удалось проверить авторизацию');
+      throw error;
+    }
   }
 );
 

@@ -11,9 +11,9 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
-import {Suspense, useEffect} from "react";
-import {checkAuthAction} from "../../store/user-process/api-actions";
-import LoadingPage from "../../pages/loading-page/loading-page";
+import {Suspense, useEffect} from 'react';
+import {checkAuthAction} from '../../store/user-process/api-actions';
+import LoadingPage from '../../pages/loading-page/loading-page';
 
 
 export default function App(): JSX.Element {
@@ -31,16 +31,16 @@ export default function App(): JSX.Element {
           <Route path={AppRoute.Root} element={<MainPage/>}/>
           <Route path={AppRoute.Login} element={<LoginPage/>}/>
           <Route path={AppRoute.Favorites}
-                 element={
-                   <PrivateRoute authorizationStatus={authorizationStatus}>
-                     <FavoritesPage/>
-                   </PrivateRoute>
-                 }
+            element={
+              <PrivateRoute authorizationStatus={authorizationStatus}>
+                <FavoritesPage/>
+              </PrivateRoute>
+            }
           />
           <Route path={`${AppRoute.Room}`}
-                 element={
-                   <PropertyPage/>
-                 }
+            element={
+              <PropertyPage/>
+            }
           />
           <Route path="*" element={<Page404/>}/>
         </Routes>

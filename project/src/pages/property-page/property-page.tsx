@@ -12,11 +12,9 @@ import {useEffect} from 'react';
 import LoadingPage from '../loading-page/loading-page';
 import {
   getNearOffers,
-  getNearOffersStatus,
   getOfferProperty,
   getOfferPropertyStatus,
   getReviews,
-  getReviewsStatus
 } from '../../store/offer-property-data/selectors';
 import {
   fetchNearOffersAction,
@@ -41,13 +39,8 @@ export default function PropertyPage(): JSX.Element {
   const reviews = useAppSelector(getReviews);
   const nearOffers = useAppSelector(getNearOffers);
   const offerPropertyStatus = useAppSelector(getOfferPropertyStatus);
-  const nearOffersStatus = useAppSelector(getNearOffersStatus);
-  const reviewsStatus = useAppSelector(getReviewsStatus);
 
-
-  if ((!offerProperty || offerPropertyStatus.isLoading) ||
-    (!nearOffers || nearOffersStatus.isLoading) ||
-    (!reviews || reviewsStatus.isLoading)) {
+  if (!offerProperty || offerPropertyStatus.isLoading){
     return <LoadingPage/>;
   }
 
