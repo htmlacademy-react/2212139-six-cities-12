@@ -9,7 +9,7 @@ export const getOfferProperty = (state: State): Offer | null =>
   state[NameSpace.OfferProperty].offerProperty;
 
 const getOfferStatus = (state: State): FetchStatus =>
-  state[NameSpace.OfferProperty].isOfferPropertyStatus;
+  state[NameSpace.OfferProperty].offerPropertyStatus;
 
 export const getNearOffers = (state: State): Offers =>
   state[NameSpace.OfferProperty].nearOffers;
@@ -17,11 +17,17 @@ export const getNearOffers = (state: State): Offers =>
 export const getReviews = (state: State): Reviews =>
   state[NameSpace.OfferProperty].reviews;
 
-export const getReviewFormBlockedStatus = (state: State): FetchStatus =>
-  state[NameSpace.OfferProperty].isReviewFormBlocked;
+export const getBlockedStatus = (state: State): FetchStatus =>
+  state[NameSpace.OfferProperty].reviewFormBlockedStatus;
 
 export const getOfferPropertyStatus = createSelector([getOfferStatus], (status) => ({
-  isLoading: [FetchStatus.Idle, FetchStatus.Loading].includes(status),
-  isSuccess: status === FetchStatus.Success,
-  isError: status === FetchStatus.Failed,
+  isLoading:[FetchStatus.Idle, FetchStatus.Loading].includes(status),
+  isSuccess:status === FetchStatus.Success,
+  isError:status === FetchStatus.Failed,
+}));
+
+export const getReviewFormBlockedStatus = createSelector([getBlockedStatus], (status) => ({
+  isLoading:[FetchStatus.Idle, FetchStatus.Loading].includes(status),
+  isSuccess:status === FetchStatus.Success,
+  isError:status === FetchStatus.Failed,
 }));

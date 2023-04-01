@@ -1,12 +1,14 @@
 import clsx from 'clsx';
-import {useState, ChangeEvent, FormEvent} from 'react';
-import { useAppDispatch } from '../../hooks';
-import { loginAction } from '../../store/user-process/api-actions';
+import {ChangeEvent, FormEvent, useState} from 'react';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {loginAction} from '../../store/user-process/api-actions';
 import styles from './login-form.module.css';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {AuthorizationStatus} from '../../const';
 
 const LOGIN_FIELDS: Record<string, string> = {
-  email: 'E-mail',
-  password: 'Password'
+  email:'E-mail',
+  password:'Password'
 };
 
 type Field = {
@@ -17,21 +19,22 @@ type Field = {
 };
 
 export default function LoginForm(): JSX.Element {
-
   const dispatch = useAppDispatch();
+  const loadingStatus = useAppSelector(getAuthorizationStatus);
+  const isLoading = loadingStatus === AuthorizationStatus.Loading;
 
   const [formData, setFormData] = useState<Record<string, Field>>({
-    email: {
-      value: '',
-      error: false,
-      regExp: /^([a-z0-9_.-]+)@([\da-z.-]+).([a-z.]{2,6})$/,
-      errorMessage: 'Incorrect Email address',
+    email:{
+      value:'',
+      error:false,
+      regExp:/^([a-z0-9_.-]+)@([\da-z.-]+).([a-z.]{2,6})$/,
+      errorMessage:'Incorrect Email address',
     },
-    password: {
-      value: '',
-      error: false,
-      regExp: /([0-9].*[a-z])|([a-z].*[0-9])/,
-      errorMessage:  'At least one letter and one number'
+    password:{
+      value:'',
+      error:false,
+      regExp:/([0-9].*[a-z])|([a-z].*[0-9])/,
+      errorMessage:'At least one letter and one number'
     },
   });
 
@@ -39,15 +42,15 @@ export default function LoginForm(): JSX.Element {
     const {name, value} = event.target;
 
     const isValid = (formData[name].regExp).test(value);
-    setFormData({...formData, [name]: {...formData[name], error: isValid, value }});
+    setFormData({...formData, [name]:{...formData[name], error:isValid, value}});
   };
 
   const handleFormSubmit = (event: FormEvent) => {
     event.preventDefault();
 
     dispatch(loginAction({
-      login: formData.email.value,
-      password: formData.password.value
+      login:formData.email.value,
+      password:formData.password.value
     }));
   };
 
@@ -60,8 +63,8 @@ export default function LoginForm(): JSX.Element {
           <div key={name} className="login__input-wrapper form__input-wrapper">
             <label className="visually-hidden">{label}</label>
             <input
-              className={clsx( 'login__input form__input', {
-                [styles.errorLogin] : !formData[name].error
+              className={clsx('login__input form__input', {
+                [styles.errorLogin]:!formData[name].error
               })}
               type={name}
               name={name}
@@ -77,11 +80,14 @@ export default function LoginForm(): JSX.Element {
         ))}
 
         <button
-          className="login__submit form__submit button"
+          className={clsx('login__submit form__submit button', {
+            [styles.btn_submit]:isLoading,
+            [styles.button__loading]:isLoading
+          })}
           type="submit"
           disabled={!formData.email.error && !formData.password.error}
         >
-          Sign in
+          <span className="button__text">Sign in</span>
         </button>
       </form>
     </section>

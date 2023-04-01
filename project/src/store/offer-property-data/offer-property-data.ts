@@ -5,37 +5,29 @@ import {Offer, Offers} from '../../types/offer';
 import {Reviews} from '../../types/review';
 
 export type OfferPropertyData = {
-  offerProperty: Offer | null;
-  isOfferPropertyStatus: FetchStatus;
-  nearOffers: Offers;
-  reviews: Reviews;
-  isReviewFormBlocked: FetchStatus;
+  offerProperty: Offer | null; offerPropertyStatus: FetchStatus; nearOffers: Offers; reviews: Reviews; reviewFormBlockedStatus: FetchStatus;
 };
 
 const initialState: OfferPropertyData = {
-  offerProperty: null,
-  isOfferPropertyStatus: FetchStatus.Idle,
-  nearOffers: [],
-  reviews: [],
-  isReviewFormBlocked: FetchStatus.Idle
+  offerProperty:null,
+  offerPropertyStatus:FetchStatus.Idle,
+  nearOffers:[],
+  reviews:[],
+  reviewFormBlockedStatus:FetchStatus.Idle
 };
 
 export const offerPropertyData = createSlice({
-  name: NameSpace.OfferProperty,
-  initialState,
-  reducers: {},
-  extraReducers(builder) {
+  name:NameSpace.OfferProperty, initialState, reducers:{}, extraReducers(builder) {
     builder
       .addCase(fetchOfferPropertyAction.pending, (state) => {
-        state.isOfferPropertyStatus = FetchStatus.Loading;
-
+        state.offerPropertyStatus = FetchStatus.Loading;
       })
       .addCase(fetchOfferPropertyAction.fulfilled, (state, action) => {
-        state.isOfferPropertyStatus = FetchStatus.Success;
+        state.offerPropertyStatus = FetchStatus.Success;
         state.offerProperty = action.payload;
       })
       .addCase(fetchOfferPropertyAction.rejected, (state) => {
-        state.isOfferPropertyStatus = FetchStatus.Failed;
+        state.offerPropertyStatus = FetchStatus.Failed;
       })
       .addCase(fetchNearOffersAction.fulfilled, (state, action) => {
         state.nearOffers = action.payload;
@@ -44,13 +36,13 @@ export const offerPropertyData = createSlice({
         state.reviews = action.payload;
       })
       .addCase(sendReviewAction.pending, (state) => {
-        state.isReviewFormBlocked = FetchStatus.Failed;
+        state.reviewFormBlockedStatus = FetchStatus.Loading;
       })
       .addCase(sendReviewAction.fulfilled, (state) => {
-        state.isReviewFormBlocked = FetchStatus.Success;
+        state.reviewFormBlockedStatus = FetchStatus.Success;
       })
       .addCase(sendReviewAction.rejected, (state) => {
-        state.isReviewFormBlocked = FetchStatus.Failed;
+        state.reviewFormBlockedStatus = FetchStatus.Failed;
       });
   }
 });

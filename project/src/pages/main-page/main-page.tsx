@@ -5,7 +5,7 @@ import Map from '../../components/map/map';
 import {CardType} from '../../const';
 import LocationList from '../../components/location-list/location-list';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {checkAuthorizationStatus} from '../../store/user-process/selectors';
 import {getOffers, getOffersStatus} from '../../store/offers-data/selectors';
 import {useEffect} from 'react';
 import LoadingPage from '../loading-page/loading-page';
@@ -14,6 +14,7 @@ import {getLocation, getSelectedOfferId, getSortType} from '../../store/app-proc
 import {getCurrentOffers} from '../../utils';
 import NoPlaces from '../../components/no-places/no-places';
 import clsx from 'clsx';
+import FullPageError from '../../components/full-page-error/full-page-error';
 
 export default function MainPage(): JSX.Element {
   const offersState = useAppSelector(getOffers);
@@ -21,7 +22,7 @@ export default function MainPage(): JSX.Element {
   const sortType = useAppSelector(getSortType);
   const selectedOfferId = useAppSelector(getSelectedOfferId);
   const offers = getCurrentOffers(offersState, location, sortType);
-  const isAuthorizationChecked = useAppSelector(getAuthorizationStatus);
+  const isAuthorizationChecked = useAppSelector(checkAuthorizationStatus);
   const status = useAppSelector(getOffersStatus);
   const dispatch = useAppDispatch();
 
@@ -37,12 +38,11 @@ export default function MainPage(): JSX.Element {
     );
   }
 
-  // if (status.isError) {
-  //   return (
-  //     <NetworkError/>
-  //   );
-  // }
-
+  if (status.isError) {
+    return (
+      <FullPageError/>
+    );
+  }
 
   return (
     <Layout className="page--gray page--main">
@@ -50,8 +50,8 @@ export default function MainPage(): JSX.Element {
         clsx(
           'page__main',
           'page__main--index',
-          {'page__main--index-empty': !offers.length},
-          {'page__main--index-error': status.isError})
+          {'page__main--index-empty':!offers.length},
+          {'page__main--index-error':status.isError})
       }
       >
         <h1 className="visually-hidden">Cities</h1>

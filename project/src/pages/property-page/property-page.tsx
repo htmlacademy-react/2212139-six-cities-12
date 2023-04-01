@@ -21,7 +21,7 @@ import {
   fetchOfferPropertyAction,
   fetchReviewAction
 } from '../../store/offer-property-data/api-actions';
-import Page404 from '../page-404/page-404';
+import FullPageError from '../../components/full-page-error/full-page-error';
 
 
 export default function PropertyPage(): JSX.Element {
@@ -40,26 +40,32 @@ export default function PropertyPage(): JSX.Element {
   const nearOffers = useAppSelector(getNearOffers);
   const offerPropertyStatus = useAppSelector(getOfferPropertyStatus);
 
-  if (!offerProperty || offerPropertyStatus.isLoading){
+  if (offerPropertyStatus.isLoading) {
     return <LoadingPage/>;
   }
 
-  if (offerPropertyStatus.isError) {
-    return <Page404/>;
+  if (!offerProperty || offerPropertyStatus.isError) {
+    return <FullPageError/>;
   }
 
   return (
     <Layout className="">
       <main className="page__main page__main--property">
         <section className="property">
+
           <PropertyGallery offer={offerProperty}/>
           <div className="property__container container">
             <div className="property__wrapper">
+
               <PropertyList offer={offerProperty}/>
+
               <PropertyHost offer={offerProperty}/>
+
               <ReviewList reviews={reviews}/>
+
             </div>
           </div>
+
           <Map
             className="property__map"
             offers={[...nearOffers, offerProperty]}
