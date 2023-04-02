@@ -5,7 +5,6 @@ import Map from '../../components/map/map';
 import {CardType} from '../../const';
 import LocationList from '../../components/location-list/location-list';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {checkAuthorizationStatus} from '../../store/user-process/selectors';
 import {getOffers, getOffersStatus} from '../../store/offers-data/selectors';
 import {useEffect} from 'react';
 import LoadingPage from '../loading-page/loading-page';
@@ -22,19 +21,18 @@ export default function MainPage(): JSX.Element {
   const sortType = useAppSelector(getSortType);
   const selectedOfferId = useAppSelector(getSelectedOfferId);
   const offers = getCurrentOffers(offersState, location, sortType);
-  const isAuthorizationChecked = useAppSelector(checkAuthorizationStatus);
   const status = useAppSelector(getOffersStatus);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!offersState) {
-      dispatch(fetchOffersAction());
-    }
-  }, [dispatch, offersState]);
 
-  if (!isAuthorizationChecked || status.isLoading) {
+      dispatch(fetchOffersAction());
+    
+  }, [dispatch]);
+
+  if (status.isLoading) {
     return (
-      <LoadingPage/>
+      <LoadingPage />
     );
   }
 
