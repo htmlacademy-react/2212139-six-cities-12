@@ -7,6 +7,7 @@ import {Offer, Offers} from '../../types/offer';
 
 import {APIRoute,} from '../../const';
 import {toast} from 'react-toastify';
+import { pushNotification } from '../notifications/notification';
 
 
 export const fetchOfferPropertyAction = createAsyncThunk<Offer, number, {
@@ -15,12 +16,13 @@ export const fetchOfferPropertyAction = createAsyncThunk<Offer, number, {
   extra: AxiosInstance;
 }>(
   'data/fetchOfferItem',
-  async (offerId, {extra: api}) => {
-    // eslint-disable-next-line no-useless-catch
+  async (offerId, {dispatch, extra: api}) => {
+
     try {
       const {data} = await api.get<Offer>(`${APIRoute.Offers}/${offerId}`);
       return data;
     } catch (err) {
+      dispatch(pushNotification({type:'error', message:'Failed to fetch offer'}));
       throw err;
     }
   }
@@ -32,12 +34,12 @@ export const fetchNearOffersAction = createAsyncThunk<Offers, number, {
   extra: AxiosInstance;
 }>(
   'data/fetchNearOffers',
-  async (offerId, {extra: api}) => {
+  async (offerId, {dispatch, extra: api}) => {
     try {
       const {data} = await api.get<Offers>(`${APIRoute.Offers}/${offerId}/nearby`);
       return data;
     } catch (err) {
-      toast.error('Near places not loaded');
+      dispatch(pushNotification({type:'error', message:'Near offers loaded failed'}));
       throw err;
     }
   }
@@ -49,12 +51,12 @@ export const fetchReviewAction = createAsyncThunk<Reviews, number, {
   extra: AxiosInstance;
 }>(
   'data/fetchReviewAction',
-  async (offerId, {extra: api}) => {
+  async (offerId, {dispatch, extra: api}) => {
     try {
       const {data} = await api.get<Reviews>(`${APIRoute.Reviews}/${offerId}`);
       return data;
     } catch (err) {
-      toast.error('Review not loaded');
+      dispatch(pushNotification({type:'error', message:'Review not loaded'}))
       throw err;
     }
   }
@@ -71,7 +73,7 @@ export const sendReviewAction = createAsyncThunk<void, ReviewData, {
       await api.post(`${APIRoute.Reviews}/${id}`, {rating, comment});
       dispatch(fetchReviewAction(id));
     } catch (err) {
-      toast.error('Attempt to send a message failed');
+      dispatch(pushNotification({type:'error', message:'Attempt to send a message failed'}));
       throw err;
     }
   }

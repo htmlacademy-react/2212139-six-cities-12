@@ -59,6 +59,7 @@ export enum NameSpace {
   User = 'USER',
   OfferProperty = 'OFFER_PROPERTY',
   App = 'APP',
+  Notifications = 'NOTIFICATIONS',
 }
 
 export const DEFAULT_SORT = SortType.Popular;
