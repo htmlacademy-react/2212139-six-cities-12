@@ -1,9 +1,8 @@
-import { useAppDispatch, useAppSelector } from '../../hooks'
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { clearNotification } from '../../store/notifications/notification';
-import { getNotifications } from '../../store/notifications/selectors'
+import { getNotifications } from '../../store/notifications/selectors';
 import { Notification } from '../../types/notification';
 import { toast } from 'react-toastify';
-
 
 export default function Notification(): JSX.Element {
   const notifications = useAppSelector(getNotifications);
@@ -13,10 +12,10 @@ export default function Notification(): JSX.Element {
     notifications.forEach((notification: Notification) => {
       const toastOptions = {
         autoClose: notification.duration || 4000,
-        onClose: () => dispatch( clearNotification(notification.id)),
+        onClose: () => dispatch(clearNotification(notification.id)),
       };
 
-      if(toast.isActive(notification.id)){
+      if (toast.isActive(notification.id)) {
         return;
       }
 
@@ -34,13 +33,10 @@ export default function Notification(): JSX.Element {
           toast.warning(notification.message, toastOptions);
           break;
         default:
-        return null;
+          return null;
       }
-
     });
-  };
+  }
 
-  return (
-    <>{renderNotifications()}</>
-  )
+  return <>{renderNotifications()}</>;
 }

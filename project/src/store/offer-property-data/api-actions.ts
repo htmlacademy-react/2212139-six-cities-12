@@ -1,12 +1,9 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-
 import {AppDispatch, State} from '../../types/state';
 import {ReviewData, Reviews} from '../../types/review';
 import {Offer, Offers} from '../../types/offer';
-
 import {APIRoute,} from '../../const';
-import {toast} from 'react-toastify';
 import { pushNotification } from '../notifications/notification';
 
 
@@ -17,7 +14,6 @@ export const fetchOfferPropertyAction = createAsyncThunk<Offer, number, {
 }>(
   'data/fetchOfferItem',
   async (offerId, {dispatch, extra: api}) => {
-
     try {
       const {data} = await api.get<Offer>(`${APIRoute.Offers}/${offerId}`);
       return data;
@@ -56,7 +52,7 @@ export const fetchReviewAction = createAsyncThunk<Reviews, number, {
       const {data} = await api.get<Reviews>(`${APIRoute.Reviews}/${offerId}`);
       return data;
     } catch (err) {
-      dispatch(pushNotification({type:'error', message:'Review not loaded'}))
+      dispatch(pushNotification({type:'error', message:'Review not loaded'}));
       throw err;
     }
   }

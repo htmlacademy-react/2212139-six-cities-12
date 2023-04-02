@@ -1,4 +1,5 @@
 
+
 import Card from '../card/card';
 import {CardType} from '../../const';
 import { Offers } from '../../types/offer';
