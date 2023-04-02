@@ -34,16 +34,16 @@ export enum CardType {
 }
 
 
-export const LOCATIONS = [
-  'Paris',
-  'Cologne',
-  'Brussels',
-  'Amsterdam',
-  'Hamburg',
-  'Dusseldorf'
-];
+export enum Location {
+  Paris = 'Paris',
+  Cologne = 'Cologne',
+  Brussels = 'Brussels',
+  Amsterdam = 'Amsterdam',
+  Hamburg = 'Hamburg',
+  Dusseldorf = 'Dusseldorf'
+}
 
-export const DEFAULT_LOCATION = LOCATIONS[0];
+export const DEFAULT_LOCATION = Location.Paris;
 
 export const MAX_IMAGES_PROPERTIES = 6;
 
