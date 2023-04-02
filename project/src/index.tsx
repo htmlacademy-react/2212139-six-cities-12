@@ -5,7 +5,7 @@ import {Provider} from 'react-redux';
 import {store} from './store';
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Notification from './components/notification/notification';
+import NotificationToast from './components/notification-toast/notification-toast';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -14,9 +14,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ToastContainer />
-      <Notification />
-      <App />
+      <ToastContainer/>
+      <NotificationToast/>
+      <App/>
     </Provider>
   </React.StrictMode>
 );
