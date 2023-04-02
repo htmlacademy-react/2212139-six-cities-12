@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getLocation } from '../../store/app-process/selectors';
 import { changeLocation } from '../../store/app-process/app-process';
+import {Location} from '../../const';
+
 
 type LocationItemProps = {
-  location: string;
+  location: Location;
 };
 
 export default function LocationItem({location}: LocationItemProps): JSX.Element {
