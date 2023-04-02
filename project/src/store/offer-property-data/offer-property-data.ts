@@ -5,7 +5,11 @@ import {Offer, Offers} from '../../types/offer';
 import {Reviews} from '../../types/review';
 
 export type OfferPropertyData = {
-  offerProperty: Offer | null; offerPropertyStatus: FetchStatus; nearOffers: Offers; reviews: Reviews; reviewFormBlockedStatus: FetchStatus;
+  offerProperty: Offer | null;
+  offerPropertyStatus: FetchStatus;
+  nearOffers: Offers;
+  reviews: Reviews;
+  reviewFormBlockedStatus: FetchStatus;
 };
 
 const initialState: OfferPropertyData = {

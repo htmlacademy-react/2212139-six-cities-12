@@ -21,13 +21,13 @@ export const getBlockedStatus = (state: State): FetchStatus =>
   state[NameSpace.OfferProperty].reviewFormBlockedStatus;
 
 export const getOfferPropertyStatus = createSelector([getOfferStatus], (status) => ({
-  isLoading:[FetchStatus.Idle, FetchStatus.Loading].includes(status),
-  isSuccess:status === FetchStatus.Success,
-  isError:status === FetchStatus.Failed,
+  isLoading: [FetchStatus.Idle, FetchStatus.Loading].includes(status),
+  isSuccess: status === FetchStatus.Success,
+  isError: status === FetchStatus.Failed,
 }));
 
 export const getReviewFormBlockedStatus = createSelector([getBlockedStatus], (status) => ({
-  isLoading:[FetchStatus.Idle, FetchStatus.Loading].includes(status),
-  isSuccess:status === FetchStatus.Success,
-  isError:status === FetchStatus.Failed,
+  isLoading: status === FetchStatus.Loading,
+  isSuccess: status === FetchStatus.Success,
+  isError: status === FetchStatus.Failed,
 }));

@@ -16,19 +16,19 @@ import clsx from 'clsx';
 import FullPageError from '../../components/full-page-error/full-page-error';
 
 export default function MainPage(): JSX.Element {
-  const offersState = useAppSelector(getOffers);
+  const offers = useAppSelector(getOffers);
   const location = useAppSelector(getLocation);
   const sortType = useAppSelector(getSortType);
   const selectedOfferId = useAppSelector(getSelectedOfferId);
-  const offers = getCurrentOffers(offersState, location, sortType);
+  const currentOffers = getCurrentOffers(offers, location, sortType);
   const status = useAppSelector(getOffersStatus);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-
+    if (!offers.length){
       dispatch(fetchOffersAction());
-    
-  }, [dispatch]);
+    }
+  }, [dispatch, offers]);
 
   if (status.isLoading) {
     return (
@@ -48,7 +48,7 @@ export default function MainPage(): JSX.Element {
         clsx(
           'page__main',
           'page__main--index',
-          {'page__main--index-empty':!offers.length},
+          {'page__main--index-empty':!currentOffers.length},
           {'page__main--index-error':status.isError})
       }
       >
@@ -62,7 +62,7 @@ export default function MainPage(): JSX.Element {
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">
-                  {offers.length} places to stay in {location}
+                  {currentOffers.length} places to stay in {location}
                 </b>
 
                 <Sort/>
@@ -70,7 +70,7 @@ export default function MainPage(): JSX.Element {
                 <OfferList
                   classNames={'places__list cities__places-list'}
                   cardType={CardType.Cities}
-                  offers={offers}
+                  offers={currentOffers}
                 />
 
               </section>
@@ -78,7 +78,7 @@ export default function MainPage(): JSX.Element {
 
                 <Map
                   className="cities__map"
-                  offers={offers}
+                  offers={currentOffers}
                   selectedOfferId={selectedOfferId}
                 />
 

@@ -25,8 +25,7 @@ import FullPageError from '../../components/full-page-error/full-page-error';
 
 
 export default function PropertyPage(): JSX.Element {
-  const {id} = useParams();
-  const offerId = Number(id);
+  const offerId = Number(useParams().id);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -61,7 +60,7 @@ export default function PropertyPage(): JSX.Element {
 
               <PropertyHost offer={offerProperty}/>
 
-              <ReviewList reviews={reviews}/>
+              <ReviewList offerId={offerId} reviews={reviews}/>
 
             </div>
           </div>
