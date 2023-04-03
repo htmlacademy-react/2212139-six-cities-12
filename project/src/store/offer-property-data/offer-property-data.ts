@@ -1,8 +1,13 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {fetchNearOffersAction, fetchOfferPropertyAction, fetchReviewAction, sendReviewAction} from './api-actions';
-import {FetchStatus, NameSpace} from '../../const';
-import {Offer, Offers} from '../../types/offer';
-import {Reviews} from '../../types/review';
+import { createSlice } from '@reduxjs/toolkit';
+import {
+  fetchNearOffersAction,
+  fetchOfferPropertyAction,
+  fetchReviewAction,
+  sendReviewAction,
+} from './api-actions';
+import { FetchStatus, NameSpace } from '../../const';
+import { Offer, Offers } from '../../types/offer';
+import { Reviews } from '../../types/review';
 
 export type OfferPropertyData = {
   offerProperty: Offer | null;
@@ -13,15 +18,18 @@ export type OfferPropertyData = {
 };
 
 const initialState: OfferPropertyData = {
-  offerProperty:null,
-  offerPropertyStatus:FetchStatus.Idle,
-  nearOffers:[],
-  reviews:[],
-  reviewFormBlockedStatus:FetchStatus.Idle
+  offerProperty: null,
+  offerPropertyStatus: FetchStatus.Idle,
+  nearOffers: [],
+  reviews: [],
+  reviewFormBlockedStatus: FetchStatus.Idle,
 };
 
 export const offerPropertyData = createSlice({
-  name:NameSpace.OfferProperty, initialState, reducers:{}, extraReducers(builder) {
+  name: NameSpace.OfferProperty,
+  initialState,
+  reducers: {},
+  extraReducers(builder) {
     builder
       .addCase(fetchOfferPropertyAction.pending, (state) => {
         state.offerPropertyStatus = FetchStatus.Loading;
@@ -42,11 +50,12 @@ export const offerPropertyData = createSlice({
       .addCase(sendReviewAction.pending, (state) => {
         state.reviewFormBlockedStatus = FetchStatus.Loading;
       })
-      .addCase(sendReviewAction.fulfilled, (state) => {
+      .addCase(sendReviewAction.fulfilled, (state, action) => {
         state.reviewFormBlockedStatus = FetchStatus.Success;
+        state.reviews = action.payload;
       })
       .addCase(sendReviewAction.rejected, (state) => {
         state.reviewFormBlockedStatus = FetchStatus.Failed;
       });
-  }
+  },
 });

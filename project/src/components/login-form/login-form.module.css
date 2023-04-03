@@ -11,7 +11,7 @@
   margin: -22px 0 0 40px;
 }
 
-.btn_submit {
+.btn__loading {
   position: relative;
   cursor: pointer;
 }

@@ -1,6 +1,6 @@
-import { AuthorizationStatus } from '../../const';
+
 import { useAppSelector } from '../../hooks';
-import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { getIsAuthorized } from '../../store/user-process/selectors';
 import {Reviews} from '../../types/review';
 import ReviewForm from '../review-form/review-form';
 import ReviewItem from '../review-item/review-item';
@@ -11,8 +11,8 @@ type ReviewListProps = {
 };
 
 export default function ReviewList({reviews, offerId}: ReviewListProps): JSX.Element {
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const isAuthStatus = authorizationStatus === AuthorizationStatus.Auth;
+  const isAuth = useAppSelector(getIsAuthorized);
+
 
   return (
     <section className="property__reviews reviews">
@@ -28,7 +28,7 @@ export default function ReviewList({reviews, offerId}: ReviewListProps): JSX.Ele
           />
         ))}
       </ul>
-      {isAuthStatus && <ReviewForm offerId={offerId}/>}
+      {isAuth && <ReviewForm offerId={offerId}/>}
     </section>
   );
 }
