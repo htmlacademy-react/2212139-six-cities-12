@@ -1,4 +1,4 @@
-import {Navigate, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import Layout from '../../components/layout/layout';
 import PropertyGallery from '../../components/property-gallery/property-gallery';
 import PropertyHost from '../../components/property-host/property-host';
@@ -6,61 +6,69 @@ import PropertyList from '../../components/property-list/property-list';
 import ReviewList from '../../components/review-list/review-list';
 import OfferList from '../../components/offer-list/offer-list';
 import Map from '../../components/map/map';
-import {AppRoute, CardType} from '../../const';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchReviewAction, fetchNearOffersAction, fetchOfferByIdAction} from '../../store/api-actions';
-import { useEffect } from 'react';
-import LoadingScreenPage from '../loading-page/loading-page';
+import {CardType} from '../../const';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useEffect} from 'react';
+import LoadingPage from '../loading-page/loading-page';
+import {
+  getNearOffers,
+  getOfferProperty,
+  getOfferPropertyStatus,
+  getReviews,
+} from '../../store/offer-property-data/selectors';
+import {
+  fetchNearOffersAction,
+  fetchOfferPropertyAction,
+  fetchReviewAction
+} from '../../store/offer-property-data/api-actions';
+import FullPageError from '../../components/full-page-error/full-page-error';
 
 
 export default function PropertyPage(): JSX.Element {
-
-  const {id} = useParams();
-  const offerId = Number(id);
+  const offerId = Number(useParams().id);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    let isMounted = true;
-
-    if (isMounted) {
-      dispatch(fetchOfferByIdAction(offerId));
-      dispatch(fetchNearOffersAction(offerId));
-      dispatch(fetchReviewAction(offerId));
-    }
-    return () => {
-      isMounted = false;
-    };
+    dispatch(fetchOfferPropertyAction(offerId));
+    dispatch(fetchNearOffersAction(offerId));
+    dispatch(fetchReviewAction(offerId));
   }, [dispatch, offerId]);
 
-  const offerById = useAppSelector((state) => state.offerById);
-  const reviews = useAppSelector((state) => state.reviews);
-  const nearOffers = useAppSelector((state) => state.nearOffers);
-  const isDataLoading = useAppSelector((state) => state.isDataLoading);
+  const offerProperty = useAppSelector(getOfferProperty);
+  const reviews = useAppSelector(getReviews);
+  const nearOffers = useAppSelector(getNearOffers);
+  const offerPropertyStatus = useAppSelector(getOfferPropertyStatus);
 
-
-  if (!offerById || isDataLoading) {
-    return <LoadingScreenPage />;
+  if (offerPropertyStatus.isLoading) {
+    return <LoadingPage/>;
   }
 
-  if (!offerById) {
-    (<Navigate to={AppRoute.Root} />);
+  if (!offerProperty || offerPropertyStatus.isError) {
+    return <FullPageError/>;
   }
 
   return (
     <Layout className="">
       <main className="page__main page__main--property">
         <section className="property">
-          <PropertyGallery offer={offerById}/>
+
+          <PropertyGallery offer={offerProperty}/>
           <div className="property__container container">
             <div className="property__wrapper">
-              <PropertyList offer={offerById}/>
-              <PropertyHost offer={offerById}/>
-              <ReviewList reviews={reviews}/>
+
+              <PropertyList offer={offerProperty}/>
+
+              <PropertyHost offer={offerProperty}/>
+
+              <ReviewList offerId={offerId} reviews={reviews}/>
+
             </div>
           </div>
+
           <Map
             className="property__map"
-            offers={nearOffers}
+            offers={[...nearOffers, offerProperty]}
+            selectedOfferId={offerProperty.id}
           />
         </section>
         <div className="container">

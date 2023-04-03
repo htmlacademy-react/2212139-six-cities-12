@@ -1,38 +1,94 @@
-import { ChangeEvent, useState, Fragment } from 'react';
+import { ChangeEvent, useState, Fragment, FormEvent } from 'react';
 import { RATING_STARS } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getReviewFormBlockedStatus } from '../../store/offer-property-data/selectors';
+import { sendReviewAction } from '../../store/offer-property-data/api-actions';
 
+enum ReviewLength {
+  Min = 50,
+  Max = 300,
+}
 
-export default function ReviewForm(): JSX.Element {
+type FormData = {
+  rating: string;
+  review: string;
+};
 
-  const [formData, setFormData] = useState({
+type ReviewFormProps = {
+  offerId: number;
+};
+
+export default function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
+  const reviewFormStatus = useAppSelector(getReviewFormBlockedStatus);
+  const dispatch = useAppDispatch();
+
+  const [formData, setFormData] = useState<FormData>({
     rating: '',
-    review: ''
+    review: '',
   });
 
-  const handleFieldChange = (event:ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleFieldChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = event.target;
-    setFormData({...formData, [name]: value });
+    setFormData({ ...formData, [name]: value });
   };
 
+  const handleFormSubmit = (event: FormEvent) => {
+    event.preventDefault();
+
+    dispatch(
+      sendReviewAction({
+        id: offerId,
+        rating: Number(formData.rating),
+        comment: formData.review,
+      })
+    );
+  };
+
+  // const resetForm = () => {
+  //   setFormData({
+  //     rating: '',
+  //     review: '',
+  //   });
+  // };
+
+  const isButtonBlocked =
+    !formData.rating ||
+    formData.review.length < ReviewLength.Min ||
+    formData.review.length > ReviewLength.Max ||
+    reviewFormStatus.isLoading;
+
   return (
-    <form className="reviews__form form" action="#" method="post">
-      <label className="reviews__label form__label" htmlFor="review">Your review</label>
+    <form
+      className="reviews__form form"
+      action="#"
+      method="post"
+      onSubmit={handleFormSubmit}
+    >
+      <label className="reviews__label form__label" htmlFor="review">
+        Your review
+      </label>
       <div className="reviews__rating-form form__rating">
-        {RATING_STARS.map((еvaluation, index) => {
+        {RATING_STARS.map((evaluation, index) => {
           const evaluationValue: number = RATING_STARS.length - index;
+
           return (
-            <Fragment key={еvaluation}>
-              <input className="form__rating-input visually-hidden"
+            <Fragment key={evaluation}>
+              <input
+                className="form__rating-input visually-hidden"
                 name="rating"
                 value={evaluationValue}
                 id={`${evaluationValue}-stars`}
                 type="radio"
                 checked={Number(formData.rating) === evaluationValue}
                 onChange={handleFieldChange}
+                disabled={reviewFormStatus.isLoading}
               />
-              <label htmlFor={`${evaluationValue}-stars`}
+              <label
+                htmlFor={`${evaluationValue}-stars`}
                 className="reviews__rating-label form__rating-label"
-                title={еvaluation}
+                title={evaluation}
               >
                 <svg className="form__star-image" width="37" height="33">
                   <use xlinkHref="#icon-star"></use>
@@ -43,20 +99,29 @@ export default function ReviewForm(): JSX.Element {
         })}
       </div>
 
-      <textarea className="reviews__textarea form__textarea"
+      <textarea
+        className="reviews__textarea form__textarea"
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={formData.review}
         onChange={handleFieldChange}
+        disabled={reviewFormStatus.isLoading}
       >
       </textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
-                  To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
+          To submit review please make sure to set{' '}
+          <span className="reviews__star">rating</span>
+          and describe your stay with at least{' '}
+          <b className="reviews__text-amount">{ReviewLength.Min} characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled >
-          Submit
+        <button
+          className="reviews__submit form__submit button"
+          type="submit"
+          disabled={isButtonBlocked}
+        >
+          {!reviewFormStatus.isLoading ? 'Submit' : 'Sending...'}
         </button>
       </div>
     </form>

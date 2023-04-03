@@ -1,5 +1,5 @@
 import LocationItem from '../location-item/location-item';
-import {LOCATIONS} from '../../const';
+import {Location} from '../../const';
 
 
 export default function LocationList(): JSX.Element {
@@ -7,7 +7,7 @@ export default function LocationList(): JSX.Element {
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          {LOCATIONS.map((location) => (
+          {Object.entries(Location).map(([_,location]) => (
             <LocationItem
               key={location}
               location={location}

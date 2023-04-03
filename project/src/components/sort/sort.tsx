@@ -2,13 +2,14 @@ import clsx from 'clsx';
 import { useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { SortType } from '../../const';
-import { changeSort } from '../../store/actions';
 import useOnClickOutside from '../../hooks/useOnClickOutside/use-on-click-outside';
+import { getSortType } from '../../store/app-process/selectors';
+import { changeSort } from '../../store/app-process/app-process';
 
 export default function Sort(): JSX.Element {
 
   const [open, setOpen] = useState(false);
-  const sortType = useAppSelector((state) => state.sortType);
+  const sortType = useAppSelector(getSortType);
   const dispatch = useAppDispatch();
   const refOne = useRef<HTMLDivElement>(null);
 

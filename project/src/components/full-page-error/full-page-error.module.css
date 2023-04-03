@@ -1,0 +1,16 @@
+
+.container_error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: #4481c3;
+  font-size: 32px;
+}
+
+.btn_error {
+  padding: 10px;
+  margin: 20px;
+  color: #4481c3;
+}

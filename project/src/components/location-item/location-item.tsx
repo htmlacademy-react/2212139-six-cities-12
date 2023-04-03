@@ -1,17 +1,19 @@
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeLocation } from '../../store/actions';
+import { getLocation } from '../../store/app-process/selectors';
+import { changeLocation } from '../../store/app-process/app-process';
+import {Location} from '../../const';
 
 
 type LocationItemProps = {
-  location: string;
+  location: Location;
 };
 
 export default function LocationItem({location}: LocationItemProps): JSX.Element {
 
   const dispatch = useAppDispatch();
-  const currentLocation = useAppSelector((state) => state.location);
+  const currentLocation = useAppSelector(getLocation);
 
   return (
     <li className="locations__item">

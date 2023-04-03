@@ -1,14 +1,14 @@
 import clsx from 'clsx';
 import {useEffect, useRef} from 'react';
-import {Icon, Marker} from 'leaflet';
+import leaflet, {Icon, Marker} from 'leaflet';
 import useMap from '../../hooks/useMap/useMap';
-import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import {useAppSelector} from '../../hooks';
-import { Offers } from '../../types/offer';
+import {OfferId, Offers} from '../../types/offer';
+
 
 type MapProps = {
   className: string;
+  selectedOfferId: OfferId | null;
   offers: Offers;
 }
 
@@ -30,16 +30,15 @@ const activeMarkerIcon = new Icon({
   iconAnchor: [14, 40]
 });
 
-function Map({className, offers}: MapProps): JSX.Element {
+function Map({className, selectedOfferId, offers}: MapProps): JSX.Element {
 
   const mapRef = useRef(null);
-  const selectedOfferId = useAppSelector((state) => state.selectedOfferId);
   const cityLocation = offers[0]?.city?.location ?? DEFAULT_COORDINATE;
   const map = useMap(mapRef, cityLocation);
 
   useEffect(() => {
     if (map) {
-      const { latitude, longitude, zoom } = cityLocation;
+      const {latitude, longitude, zoom} = cityLocation;
       map.flyTo([latitude, longitude], zoom);
     }
   }, [map, cityLocation]);
@@ -72,7 +71,7 @@ function Map({className, offers}: MapProps): JSX.Element {
     <section
       className={clsx('map', {className})}
       ref={mapRef}
-      style={{height: '500px', width: '100%', maxWidth: '1144px', margin: '0 auto'}}
+      style={{height: '100%', width: '100%', maxWidth: '1144px', margin: '0 auto'}}
     >
     </section>
   );

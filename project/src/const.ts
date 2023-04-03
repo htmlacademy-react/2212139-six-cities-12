@@ -16,6 +16,7 @@ export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
+  Loading = 'LOADING',
 }
 
 export const RATING_STARS: string[] = [
@@ -33,16 +34,16 @@ export enum CardType {
 }
 
 
-export const LOCATIONS = [
-  'Paris',
-  'Cologne',
-  'Brussels',
-  'Amsterdam',
-  'Hamburg',
-  'Dusseldorf'
-];
+export enum Location {
+  Paris = 'Paris',
+  Cologne = 'Cologne',
+  Brussels = 'Brussels',
+  Amsterdam = 'Amsterdam',
+  Hamburg = 'Hamburg',
+  Dusseldorf = 'Dusseldorf'
+}
 
-export const DEFAULT_LOCATION = LOCATIONS[0];
+export const DEFAULT_LOCATION = Location.Paris;
 
 export const MAX_IMAGES_PROPERTIES = 6;
 
@@ -53,6 +54,20 @@ export enum SortType {
   Rating = 'Top rated first'
 }
 
+export enum NameSpace {
+  Data = 'DATA',
+  User = 'USER',
+  OfferProperty = 'OFFER_PROPERTY',
+  App = 'APP',
+  Notifications = 'NOTIFICATIONS',
+}
+
 export const DEFAULT_SORT = SortType.Popular;
 export const MAX_RATING = 5;
 
+export enum FetchStatus {
+  Idle = 'Idle',
+  Loading = 'Loading',
+  Success = 'Success',
+  Failed = 'Failed',
+}

@@ -13,7 +13,7 @@ export const formatDate = (date: string, locales = 'en-US'): string =>
 const getOffersByLocation = (location: string, offers: Offers) =>
   offers.filter((offer) => offer.city.name === location);
 
-export const getOffers = ( offers: Offers, location = DEFAULT_LOCATION, sortType = DEFAULT_SORT): Offers => {
+export const getCurrentOffers = ( offers: Offers, location = DEFAULT_LOCATION, sortType = DEFAULT_SORT): Offers => {
 
   const offersByLocation = getOffersByLocation(location, offers);
 
