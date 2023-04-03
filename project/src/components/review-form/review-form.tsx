@@ -1,7 +1,7 @@
-import { ChangeEvent, useState, Fragment, FormEvent } from 'react';
+import { ChangeEvent, useState, Fragment, FormEvent, useEffect } from 'react';
 import { RATING_STARS } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getReviewFormBlockedStatus } from '../../store/offer-property-data/selectors';
+import { getReviewStatus } from '../../store/offer-property-data/selectors';
 import { sendReviewAction } from '../../store/offer-property-data/api-actions';
 
 enum ReviewLength {
@@ -19,13 +19,26 @@ type ReviewFormProps = {
 };
 
 export default function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
-  const reviewFormStatus = useAppSelector(getReviewFormBlockedStatus);
+  const reviewStatus = useAppSelector(getReviewStatus);
   const dispatch = useAppDispatch();
 
   const [formData, setFormData] = useState<FormData>({
     rating: '',
     review: '',
   });
+
+  useEffect(() => {
+    if(reviewStatus.isSuccess){
+      resetForm();
+    }
+  }, [reviewStatus]);
+
+  const resetForm = () => {
+    setFormData({
+      rating: '',
+      review: '',
+    });
+  };
 
   const handleFieldChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -46,18 +59,11 @@ export default function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
     );
   };
 
-  // const resetForm = () => {
-  //   setFormData({
-  //     rating: '',
-  //     review: '',
-  //   });
-  // };
-
   const isButtonBlocked =
     !formData.rating ||
     formData.review.length < ReviewLength.Min ||
     formData.review.length > ReviewLength.Max ||
-    reviewFormStatus.isLoading;
+    reviewStatus.isLoading;
 
   return (
     <form
@@ -83,7 +89,7 @@ export default function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
                 type="radio"
                 checked={Number(formData.rating) === evaluationValue}
                 onChange={handleFieldChange}
-                disabled={reviewFormStatus.isLoading}
+                disabled={reviewStatus.isLoading}
               />
               <label
                 htmlFor={`${evaluationValue}-stars`}
@@ -106,7 +112,7 @@ export default function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={formData.review}
         onChange={handleFieldChange}
-        disabled={reviewFormStatus.isLoading}
+        disabled={reviewStatus.isLoading}
       >
       </textarea>
       <div className="reviews__button-wrapper">
@@ -121,7 +127,7 @@ export default function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
           type="submit"
           disabled={isButtonBlocked}
         >
-          {!reviewFormStatus.isLoading ? 'Submit' : 'Sending...'}
+          {!reviewStatus.isLoading ? 'Submit' : 'Sending...'}
         </button>
       </div>
     </form>

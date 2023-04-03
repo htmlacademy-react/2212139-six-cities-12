@@ -26,7 +26,7 @@ export const getOfferPropertyStatus = createSelector([getOfferStatus], (status) 
   isError: status === FetchStatus.Failed,
 }));
 
-export const getReviewFormBlockedStatus = createSelector([getBlockedStatus], (status) => ({
+export const getReviewStatus = createSelector([getBlockedStatus], (status) => ({
   isLoading: status === FetchStatus.Loading,
   isSuccess: status === FetchStatus.Success,
   isError: status === FetchStatus.Failed,
