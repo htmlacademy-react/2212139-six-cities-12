@@ -32,5 +32,3 @@ export default function ReviewList({reviews, offerId}: ReviewListProps): JSX.Ele
     </section>
   );
 }
-
-

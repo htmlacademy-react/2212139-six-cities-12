@@ -1,5 +1,6 @@
 import { Offers } from './types/offer';
 import {DEFAULT_LOCATION, DEFAULT_SORT, SortType, MAX_RATING} from './const';
+import { Reviews } from './types/review';
 
 export const calculateRatingWidth = (rating: number ): string =>
   `${Math.round( rating ) * (100 / MAX_RATING)}%`;
@@ -28,3 +29,6 @@ export const getCurrentOffers = ( offers: Offers, location = DEFAULT_LOCATION, s
       return offersByLocation;
   }
 };
+
+export const sortReviews = (reviews: Reviews): Reviews =>
+  [...reviews].sort((a, b) => Date.parse(b.date) - Date.parse(a.date));

@@ -1,13 +1,8 @@
 import { ChangeEvent, useState, Fragment, FormEvent, useEffect } from 'react';
-import { RATING_STARS } from '../../const';
+import { RATING_STARS, ReviewLength } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getReviewStatus } from '../../store/offer-property-data/selectors';
 import { sendReviewAction } from '../../store/offer-property-data/api-actions';
-
-enum ReviewLength {
-  Min = 50,
-  Max = 300,
-}
 
 type FormData = {
   rating: string;

@@ -64,10 +64,16 @@ export enum NameSpace {
 
 export const DEFAULT_SORT = SortType.Popular;
 export const MAX_RATING = 5;
+export const MAX_REVIEWS = 10;
 
 export enum FetchStatus {
   Idle = 'Idle',
   Loading = 'Loading',
   Success = 'Success',
   Failed = 'Failed',
+}
+
+export enum ReviewLength {
+  Min = 50,
+  Max = 300,
 }
