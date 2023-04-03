@@ -3,8 +3,7 @@ import {ChangeEvent, FormEvent, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {loginAction} from '../../store/user-process/api-actions';
 import styles from './login-form.module.css';
-import {getAuthorizationStatus} from '../../store/user-process/selectors';
-import {AuthorizationStatus} from '../../const';
+import {getIsLoading} from '../../store/user-process/selectors';
 
 const LOGIN_FIELDS: Record<string, string> = {
   email:'E-mail',
@@ -21,8 +20,7 @@ type Field = {
 
 export default function LoginForm(): JSX.Element {
   const dispatch = useAppDispatch();
-  const loadingStatus = useAppSelector(getAuthorizationStatus);
-  const isLoading = loadingStatus === AuthorizationStatus.Loading;
+  const isLoading = useAppSelector(getIsLoading);
 
   const [formData, setFormData] = useState<Record<string, Field>>({
     email:{
