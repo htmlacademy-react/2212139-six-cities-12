@@ -5,8 +5,6 @@ import Logo from '../../components/logo/logo';
 import {Offer, Offers} from '../../types/offer';
 import OfferListFavorites from '../../components/offer-list-favorites/offer-list-favorites';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {getCurrentOffers} from '../../utils';
-import {getLocation, getSortType} from '../../store/app-process/selectors';
 import { useEffect } from 'react';
 import { fetchFavoritesAction } from '../../store/favorite-data/api-actions';
 import { getFavorites, getFavoriteFetchStatus } from '../../store/favorite-data/selector';
@@ -29,9 +27,6 @@ export default function FavoritesPage(): JSX.Element {
 
   const fetchStatus = useAppSelector(getFavoriteFetchStatus);
   const favoriteOffers = useAppSelector(getFavorites);
-  const location = useAppSelector(getLocation);
-  const sortType = useAppSelector(getSortType);
-  const currentOffers = getCurrentOffers(favoriteOffers, location, sortType);
 
   if(fetchStatus.isLoading){
     return <LoadingPage />;
@@ -41,7 +36,7 @@ export default function FavoritesPage(): JSX.Element {
     return <FullPageError />;
   }
 
-  const offersGroupedByCity = currentOffers.reduce((acc: OfferGroupedByCity, offer: Offer) => {
+  const offersGroupedByCity = favoriteOffers.reduce((acc: OfferGroupedByCity, offer: Offer) => {
     const cityName = offer.city.name;
 
     if (!acc[cityName]) {
@@ -55,6 +50,7 @@ export default function FavoritesPage(): JSX.Element {
     <Layout className="">
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
+
           {favoriteOffers.length ?
             <section className="favorites">
               <h1 className="favorites__title">Saved listing</h1>
@@ -82,6 +78,7 @@ export default function FavoritesPage(): JSX.Element {
             </section>
             :
             <FavoriteEmpty /> }
+
         </div>
       </main>
       <footer className="footer container">

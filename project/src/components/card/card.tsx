@@ -14,6 +14,7 @@ type CardProps = {
 
 export default function Card({offer, cardType }: CardProps): JSX.Element {
   const dispatch = useAppDispatch();
+  const isBigSize = cardType === CardType.Property;
 
   return (
     <article
@@ -45,7 +46,7 @@ export default function Card({offer, cardType }: CardProps): JSX.Element {
           <BookmarkButton
             offerId={offer.id}
             isFavorite={offer.isFavorite}
-            cardType={cardType}
+            isBigSize={isBigSize}
           />
         </div>
         <div className="place-card__rating rating">
