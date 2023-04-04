@@ -4,10 +4,15 @@ import Layout from '../../components/layout/layout';
 import Logo from '../../components/logo/logo';
 import {Offer, Offers} from '../../types/offer';
 import OfferListFavorites from '../../components/offer-list-favorites/offer-list-favorites';
-import {useAppSelector} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getCurrentOffers} from '../../utils';
 import {getLocation, getSortType} from '../../store/app-process/selectors';
-import {getOffers} from '../../store/offers-data/selectors';
+import { useEffect } from 'react';
+import { fetchFavoritesAction } from '../../store/favorite-data/api-actions';
+import { getFavorites, getFavoriteFetchStatus } from '../../store/favorite-data/selector';
+import LoadingPage from '../loading-page/loading-page';
+import FullPageError from '../../components/full-page-error/full-page-error';
+import FavoriteEmpty from '../../components/favorites-empty/favorites-empty';
 
 
 type OfferGroupedByCity = {
@@ -16,11 +21,25 @@ type OfferGroupedByCity = {
 
 export default function FavoritesPage(): JSX.Element {
 
-  const location = useAppSelector(getLocation);
-  const offers = useAppSelector(getOffers);
-  const sortType = useAppSelector(getSortType);
-  const currentOffers = getCurrentOffers(offers, location, sortType);
+  const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    dispatch(fetchFavoritesAction());
+  }, [dispatch]);
+
+  const fetchStatus = useAppSelector(getFavoriteFetchStatus);
+  const favoriteOffers = useAppSelector(getFavorites);
+  const location = useAppSelector(getLocation);
+  const sortType = useAppSelector(getSortType);
+  const currentOffers = getCurrentOffers(favoriteOffers, location, sortType);
+
+  if(fetchStatus.isLoading){
+    return <LoadingPage />;
+  }
+
+  if(fetchStatus.isError){
+    return <FullPageError />;
+  }
 
   const offersGroupedByCity = currentOffers.reduce((acc: OfferGroupedByCity, offer: Offer) => {
     const cityName = offer.city.name;
@@ -36,30 +55,33 @@ export default function FavoritesPage(): JSX.Element {
     <Layout className="">
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
+          {favoriteOffers.length ?
+            <section className="favorites">
+              <h1 className="favorites__title">Saved listing</h1>
+              <ul className="favorites__list">
 
-              {Object.entries(offersGroupedByCity).map(([cityName, offersMap]) => (
-                <li key={cityName} className="favorites__locations-items">
-                  <div className="favorites__locations locations locations--current">
-                    <div className="locations__item">
-                      <Link className="locations__item-link" to={AppRoute.Root}>
-                        <span>{cityName}</span>
-                      </Link>
+                {Object.entries(offersGroupedByCity).map(([cityName, offersMap]) => (
+                  <li key={cityName} className="favorites__locations-items">
+                    <div className="favorites__locations locations locations--current">
+                      <div className="locations__item">
+                        <Link className="locations__item-link" to={AppRoute.Root}>
+                          <span>{cityName}</span>
+                        </Link>
+                      </div>
                     </div>
-                  </div>
 
-                  <OfferListFavorites
-                    offers={offersMap}
-                    cardType={CardType.Favorites}
-                    classNames="favorites__places"
-                  />
-                </li>
-              ))}
+                    <OfferListFavorites
+                      offers={offersMap}
+                      cardType={CardType.Favorites}
+                      classNames="favorites__places"
+                    />
+                  </li>
+                ))}
 
-            </ul>
-          </section>
+              </ul>
+            </section>
+            :
+            <FavoriteEmpty /> }
         </div>
       </main>
       <footer className="footer container">

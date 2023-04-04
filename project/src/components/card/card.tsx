@@ -6,13 +6,13 @@ import {Offer} from '../../types/offer';
 import {calculateRatingWidth, upperFirstLetter} from '../../utils';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 
+
 type CardProps = {
   offer: Offer;
   cardType: CardType;
 }
 
 export default function Card({offer, cardType }: CardProps): JSX.Element {
-
   const dispatch = useAppDispatch();
 
   return (
@@ -42,7 +42,11 @@ export default function Card({offer, cardType }: CardProps): JSX.Element {
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <BookmarkButton/>
+          <BookmarkButton
+            offerId={offer.id}
+            isFavorite={offer.isFavorite}
+            cardType={cardType}
+          />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

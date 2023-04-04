@@ -3,13 +3,15 @@ export enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
   Room = '/offer/:id',
+  Favorite = '/favorites',
 }
 
 export enum APIRoute {
   Offers = '/hotels',
   Reviews = '/comments',
   Login = '/login',
-  Logout = '/logout'
+  Logout = '/logout',
+  Favorite = '/favorite',
 }
 
 export enum AuthorizationStatus {
@@ -30,7 +32,8 @@ export const RATING_STARS: string[] = [
 export enum CardType {
   Cities = 'cities',
   Favorites = 'favorites',
-  NearPlaces = 'near-places'
+  NearPlaces = 'near-places',
+  Property = 'property',
 }
 
 
@@ -60,6 +63,7 @@ export enum NameSpace {
   OfferProperty = 'OFFER_PROPERTY',
   App = 'APP',
   Notifications = 'NOTIFICATIONS',
+  Favorite = 'FAVORITE',
 }
 
 export const DEFAULT_SORT = SortType.Popular;
