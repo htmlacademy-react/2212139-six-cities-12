@@ -3,6 +3,7 @@ import {fetchOffersAction} from './api-actions';
 import { FetchStatus, NameSpace } from '../../const';
 import {Offers} from '../../types/offer';
 import { setFavoritesAction } from '../favorite-data/api-actions';
+import { logoutAction } from '../user-process/api-actions';
 
 export type OffersData = {
   offers: Offers;
@@ -36,6 +37,11 @@ export const offersData = createSlice({
           if (offer.id === action.payload.id) {
             offer.isFavorite = action.payload.isFavorite;
           }
+        });
+      })
+      .addCase(logoutAction.fulfilled, (state) => {
+        state.offers.forEach((offer) => {
+          offer.isFavorite = false;
         });
       });
   }

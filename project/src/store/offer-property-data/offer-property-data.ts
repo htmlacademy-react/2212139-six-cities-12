@@ -9,6 +9,7 @@ import { FetchStatus, NameSpace } from '../../const';
 import { Offer, Offers } from '../../types/offer';
 import { Reviews } from '../../types/review';
 import { setFavoritesAction } from '../favorite-data/api-actions';
+import { logoutAction } from '../user-process/api-actions';
 
 export type OfferPropertyData = {
   offerProperty: Offer | null;
@@ -67,6 +68,15 @@ export const offerPropertyData = createSlice({
 
         if (state.offerProperty?.id === action.payload.id) {
           state.offerProperty.isFavorite = action.payload.isFavorite;
+        }
+      })
+      .addCase(logoutAction.fulfilled, (state) => {
+        state.nearOffers.forEach((offer) => {
+          offer.isFavorite = false;
+        });
+
+        if( state.offerProperty) {
+          state.offerProperty.isFavorite = false;
         }
       });
   },

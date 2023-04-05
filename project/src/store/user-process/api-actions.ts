@@ -6,35 +6,41 @@ import { UserData } from '../../types/user';
 import { APIRoute } from '../../const';
 import { AuthData } from '../../types/auth-data';
 import { toast } from 'react-toastify';
+import { fetchFavoritesAction } from '../favorite-data/api-actions';
+
+type ThunkOptions = {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+};
 
 export const checkAuthAction = createAsyncThunk<
   UserData,
   undefined,
-  {
-    dispatch: AppDispatch;
-    state: State;
-    extra: AxiosInstance;
+  ThunkOptions
+>('user/checkAuth', async (_arg, { dispatch, extra: api }) => {
+  try {
+    const { data } = await api.get<UserData>(APIRoute.Login);
+    dispatch(fetchFavoritesAction());
+    return data;
+  } catch (e) {
+    toast.error('Failed to check authorization');
+    throw e;
   }
->('user/checkAuth', async (_arg, { extra: api }) => {
-  const { data } = await api.get<UserData>(APIRoute.Login);
-  return data;
 });
 
 export const loginAction = createAsyncThunk<
   UserData,
   AuthData,
-  {
-    dispatch: AppDispatch;
-    state: State;
-    extra: AxiosInstance;
-  }
->('user/login', async ({ login: email, password }, { extra: api }) => {
+  ThunkOptions
+>('user/login', async ({ login: email, password }, { dispatch, extra: api }) => {
   try {
     const { data } = await api.post<UserData>(APIRoute.Login, {
       email,
       password,
     });
     saveToken(data.token);
+    dispatch(fetchFavoritesAction());
     return data;
   } catch (e) {
     toast.error('Failed to authorization');
@@ -45,11 +51,7 @@ export const loginAction = createAsyncThunk<
 export const logoutAction = createAsyncThunk<
   void,
   undefined,
-  {
-    dispatch: AppDispatch;
-    state: State;
-    extra: AxiosInstance;
-  }
+  ThunkOptions
 >('user/logout', async (_arg, { extra: api }) => {
   try {
     await api.delete(APIRoute.Logout);
