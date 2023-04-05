@@ -1,8 +1,9 @@
 import {State} from '../../types/state';
-import {FetchStatus, NameSpace} from '../../const';
+import {FetchStatus, MAX_REVIEWS, NameSpace} from '../../const';
 import {Offer, Offers} from '../../types/offer';
 import {Reviews} from '../../types/review';
 import {createSelector} from '@reduxjs/toolkit';
+import { sortReviews } from '../../utils';
 
 
 export const getOfferProperty = (state: State): Offer | null =>
@@ -26,8 +27,13 @@ export const getOfferPropertyStatus = createSelector([getOfferStatus], (status) 
   isError: status === FetchStatus.Failed,
 }));
 
-export const getReviewFormBlockedStatus = createSelector([getBlockedStatus], (status) => ({
+export const getReviewStatus = createSelector([getBlockedStatus], (status) => ({
   isLoading: status === FetchStatus.Loading,
   isSuccess: status === FetchStatus.Success,
   isError: status === FetchStatus.Failed,
 }));
+
+export const getSortedReviews = createSelector(
+  getReviews,
+  (reviews) => sortReviews(reviews).slice(0, MAX_REVIEWS)
+);

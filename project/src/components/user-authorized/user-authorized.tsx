@@ -5,10 +5,12 @@ import { logoutAction } from '../../store/user-process/api-actions';
 import { getUserData } from '../../store/user-process/selectors';
 
 import styles from './user-authorized.module.css';
+import { getFavoritesCount } from '../../store/favorite-data/selector';
 
 export default function UserAuthorized(): JSX.Element {
   const userData = useAppSelector(getUserData);
   const dispatch = useAppDispatch();
+  const favoritesCount = useAppSelector(getFavoritesCount);
 
   return (
     <>
@@ -26,6 +28,7 @@ export default function UserAuthorized(): JSX.Element {
           <span className="header__user-name user__name">
             {userData?.email}
           </span>
+          <span className="header__favorite-count">{favoritesCount}</span>
         </Link>
       </li>
       <li className="header__nav-item">

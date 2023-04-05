@@ -1,5 +1,6 @@
 import {Offer} from '../../types/offer';
 import {upperFirstLetter, calculateRatingWidth} from '../../utils';
+import BookmarkButton from '../bookmark-button/bookmark-button';
 
 type PropertyListProps = {
   offer: Offer;
@@ -15,6 +16,11 @@ export default function PropertyList({offer}: PropertyListProps): JSX.Element {
 
       <div className="property__name-wrapper">
         <h1 className="property__name">{offer.title}</h1>
+        <BookmarkButton
+          offerId={offer.id}
+          isFavorite={offer.isFavorite}
+          isBigSize
+        />
       </div>
 
       <div className="property__rating rating">

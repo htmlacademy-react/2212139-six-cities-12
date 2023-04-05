@@ -14,7 +14,7 @@ import {
   getNearOffers,
   getOfferProperty,
   getOfferPropertyStatus,
-  getReviews,
+  getSortedReviews,
 } from '../../store/offer-property-data/selectors';
 import {
   fetchNearOffersAction,
@@ -35,7 +35,7 @@ export default function PropertyPage(): JSX.Element {
   }, [dispatch, offerId]);
 
   const offerProperty = useAppSelector(getOfferProperty);
-  const reviews = useAppSelector(getReviews);
+  const reviews = useAppSelector(getSortedReviews);
   const nearOffers = useAppSelector(getNearOffers);
   const offerPropertyStatus = useAppSelector(getOfferPropertyStatus);
 
