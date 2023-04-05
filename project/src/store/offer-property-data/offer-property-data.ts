@@ -8,6 +8,7 @@ import {
 import { FetchStatus, NameSpace } from '../../const';
 import { Offer, Offers } from '../../types/offer';
 import { Reviews } from '../../types/review';
+import { setFavoritesAction } from '../favorite-data/api-actions';
 
 export type OfferPropertyData = {
   offerProperty: Offer | null;
@@ -56,6 +57,17 @@ export const offerPropertyData = createSlice({
       })
       .addCase(sendReviewAction.rejected, (state) => {
         state.reviewFormBlockedStatus = FetchStatus.Failed;
+      })
+      .addCase(setFavoritesAction.fulfilled, (state, action) => {
+        state.nearOffers.forEach((offer) => {
+          if (offer.id === action.payload.id) {
+            offer.isFavorite = action.payload.isFavorite;
+          }
+        });
+
+        if (state.offerProperty?.id === action.payload.id) {
+          state.offerProperty.isFavorite = action.payload.isFavorite;
+        }
       });
   },
 });
