@@ -32,3 +32,9 @@ export const getCurrentOffers = ( offers: Offers, location = DEFAULT_LOCATION, s
 
 export const sortReviews = (reviews: Reviews): Reviews =>
   [...reviews].sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
+
+export function getRandomInt(max: number): number {
+  const min = 0;
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min); // The maximum is inclusive and the minimum is inclusive
+}
