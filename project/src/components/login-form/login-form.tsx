@@ -1,9 +1,9 @@
 import clsx from 'clsx';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { loginAction } from '../../store/user-process/api-actions';
+import { loginAction } from '../../store/user-data/api-actions';
 import styles from './login-form.module.css';
-import { getIsLoading } from '../../store/user-process/selectors';
+import { getIsLoading } from '../../store/user-data/selectors';
 
 const LOGIN_FIELDS: Record<string, string> = {
   email: 'E-mail',

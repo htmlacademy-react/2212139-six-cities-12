@@ -8,9 +8,9 @@ import PrivateRoute from '../private-route/private-route';
 import Page404 from '../../pages/page-404/page-404';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {getAuthorizationStatus} from '../../store/user-data/selectors';
 import {Suspense, useEffect} from 'react';
-import {checkAuthAction} from '../../store/user-process/api-actions';
+import {checkAuthAction} from '../../store/user-data/api-actions';
 import LoadingPage from '../../pages/loading-page/loading-page';
 
 

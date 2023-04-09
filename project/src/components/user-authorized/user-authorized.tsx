@@ -1,8 +1,8 @@
 import { MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { logoutAction } from '../../store/user-process/api-actions';
-import { getUserData } from '../../store/user-process/selectors';
+import { logoutAction } from '../../store/user-data/api-actions';
+import { getUserData } from '../../store/user-data/selectors';
 
 import styles from './user-authorized.module.css';
 import { getFavoritesCount } from '../../store/favorite-data/selector';

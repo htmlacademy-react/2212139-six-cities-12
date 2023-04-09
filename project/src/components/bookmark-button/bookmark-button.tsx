@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setFavoritesAction } from '../../store/favorite-data/api-actions';
-import { getIsAuthorized } from '../../store/user-process/selectors';
+import { getIsAuthorized } from '../../store/user-data/selectors';
 import clsx from 'clsx';
 
 type BookmarkButtonProps = {
