@@ -97,7 +97,7 @@ export default function LoginForm(): JSX.Element {
             [styles.button__loading]: isLoading,
           })}
           type="submit"
-          disabled={!formData.email.error && !formData.password.error}
+          disabled={!formData.email.error || !formData.password.error}
         >
           <span className="button__text">Sign in</span>
         </button>

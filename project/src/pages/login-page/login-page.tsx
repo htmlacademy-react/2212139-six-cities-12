@@ -4,8 +4,8 @@ import { AppRoute, Location } from '../../const';
 import { Link, Navigate } from 'react-router-dom';
 import LoginForm from '../../components/login-form/login-form';
 import { getIsAuthorized } from '../../store/user-process/selectors';
-import { getRandomInt } from '../../utils';
 import { changeLocation } from '../../store/app-process/app-process';
+import { getRandomInt } from '../../utils/utils';
 
 export default function LoginPage(): JSX.Element {
 

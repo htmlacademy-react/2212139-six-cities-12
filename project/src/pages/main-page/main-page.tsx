@@ -10,10 +10,10 @@ import {useEffect} from 'react';
 import LoadingPage from '../loading-page/loading-page';
 import {fetchOffersAction} from '../../store/offers-data/api-actions';
 import {getLocation, getSelectedOfferId, getSortType} from '../../store/app-process/selectors';
-import {getCurrentOffers} from '../../utils';
 import NoPlaces from '../../components/no-places/no-places';
 import clsx from 'clsx';
 import FullPageError from '../../components/full-page-error/full-page-error';
+import { getCurrentOffers } from '../../utils/utils';
 
 export default function MainPage(): JSX.Element {
   const offers = useAppSelector(getOffers);

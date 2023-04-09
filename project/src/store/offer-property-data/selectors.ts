@@ -3,7 +3,7 @@ import {FetchStatus, MAX_REVIEWS, NameSpace} from '../../const';
 import {Offer, Offers} from '../../types/offer';
 import {Reviews} from '../../types/review';
 import {createSelector} from '@reduxjs/toolkit';
-import { sortReviews } from '../../utils';
+import { sortReviews } from '../../utils/utils';
 
 
 export const getOfferProperty = (state: State): Offer | null =>
