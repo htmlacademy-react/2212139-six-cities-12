@@ -3,12 +3,12 @@ import {checkAuthAction, loginAction, logoutAction} from './api-actions';
 import {AuthorizationStatus, NameSpace} from '../../const';
 import { UserData } from '../../types/user';
 
-export type UserProcess = {
+export type UserSlice = {
   authorizationStatus: AuthorizationStatus;
   userData: UserData | null;
 };
 
-const initialState: UserProcess = {
+const initialState: UserSlice = {
   authorizationStatus: AuthorizationStatus.Unknown,
   userData: null,
 };
