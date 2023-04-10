@@ -4,6 +4,7 @@ export enum AppRoute {
   Favorites = '/favorites',
   Room = '/offer/:id',
   Favorite = '/favorites',
+  NotFound = '*',
 }
 
 export enum APIRoute {
