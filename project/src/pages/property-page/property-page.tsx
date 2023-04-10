@@ -49,7 +49,7 @@ export default function PropertyPage(): JSX.Element {
 
   return (
     <Layout className="">
-      <main className="page__main page__main--property">
+      <main className="page__main page__main--property" data-testid="property-page">
         <section className="property">
 
           <PropertyGallery offer={offerProperty}/>

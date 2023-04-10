@@ -20,7 +20,7 @@ export default function LoginPage(): JSX.Element {
 
   return (
     <Layout className='page--gray page--login'>
-      <main className="page__main page__main--login">
+      <main className="page__main page__main--login" data-testid="login-page">
         <div className="page__login-container container">
           <LoginForm />
           <section className="locations locations--login locations--current">

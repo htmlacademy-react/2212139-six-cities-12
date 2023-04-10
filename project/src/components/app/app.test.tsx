@@ -49,12 +49,36 @@ const fakeApp = (
 );
 
 describe('Application Routing', () => {
-  it('should render "MainPage" when user navigate to "/"', () => {
+  it('should render "MainPage" when user navigate to "/" route', () => {
     history.push(AppRoute.Root);
 
     render(fakeApp);
 
     //expect(screen.getByTestId('main-page')).toBeInTheDocument();
     expect(screen.getByText(/Cities/i)).toBeInTheDocument();
+  });
+
+  it('should render "PropertyPage" when user navigate to "/offer/id" route', () => {
+    history.push(`${AppRoute.Room}/${fakeOffer.id}`);
+
+    render(fakeApp);
+
+    expect(screen.getByTestId('property-page')).toBeInTheDocument();
+  });
+
+  it('should render "LoginPage" when user navigate to "/login" route', () => {
+    history.push(AppRoute.Login);
+
+    render(fakeApp);
+
+    expect(screen.getByTestId('login-page')).toBeInTheDocument();
+  });
+
+  it('should render "Page-404" when user navigate to "*" route', () => {
+    history.push('/non-existent_address');
+
+    render(fakeApp);
+
+    expect(screen.getByTestId('page-404')).toBeInTheDocument();
   });
 });
