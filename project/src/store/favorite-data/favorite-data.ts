@@ -16,7 +16,7 @@ const initialState: FavoritesData = {
 };
 
 export const FavoriteData = createSlice({
-  name: NameSpace.Favorite,
+  name: NameSpace.Favorites,
   initialState,
   reducers: {},
   extraReducers(builder) {

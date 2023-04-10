@@ -9,9 +9,9 @@ import { FavoriteData } from './favorite-data/favorite-data';
 
 export const rootReducer = combineReducers({
   [NameSpace.User]: userData.reducer,
-  [NameSpace.Data]: offersData.reducer,
+  [NameSpace.Offers]: offersData.reducer,
   [NameSpace.OfferProperty]: offerPropertyData.reducer,
   [NameSpace.App]: appProcess.reducer,
   [NameSpace.Notifications]: notifications.reducer,
-  [NameSpace.Favorite]: FavoriteData.reducer,
+  [NameSpace.Favorites]: FavoriteData.reducer,
 });

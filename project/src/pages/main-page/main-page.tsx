@@ -44,13 +44,15 @@ export default function MainPage(): JSX.Element {
 
   return (
     <Layout className="page--gray page--main">
-      <main className={
-        clsx(
-          'page__main',
-          'page__main--index',
-          {'page__main--index-empty':!currentOffers.length},
-          {'page__main--index-error':status.isError})
-      }
+      <main
+        data-testid="main-page"
+        className={
+          clsx(
+            'page__main',
+            'page__main--index',
+            {'page__main--index-empty':!currentOffers.length},
+            {'page__main--index-error':status.isError})
+        }
       >
         <h1 className="visually-hidden">Cities</h1>
 

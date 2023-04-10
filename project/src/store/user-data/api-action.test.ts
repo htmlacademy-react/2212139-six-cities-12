@@ -64,7 +64,7 @@ describe('Async actions: userData', () => {
 
     expect(actions).toEqual([
       loginAction.pending.type,
-      fetchFavoritesAction.pending.type, // как jн тут рабjтает
+      fetchFavoritesAction.pending.type,
       loginAction.fulfilled.type
     ]);
 

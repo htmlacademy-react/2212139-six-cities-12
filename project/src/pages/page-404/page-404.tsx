@@ -6,8 +6,11 @@ import styles from './page-404.module.css';
 function Page404(): JSX.Element {
 
   return (
-    <Layout className="page--gray page--main">
-      <main className="page__main page__main--index page__main--index-empty">
+    <Layout className="page--gray page--main" >
+      <main
+        className="page__main page__main--index page__main--index-empty"
+        data-testid="page-404"
+      >
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <LocationList />

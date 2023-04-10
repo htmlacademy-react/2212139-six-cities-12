@@ -59,12 +59,12 @@ export enum SortType {
 }
 
 export enum NameSpace {
-  Data = 'DATA',
+  Offers = 'OFFERS',
   User = 'USER',
   OfferProperty = 'OFFER_PROPERTY',
   App = 'APP',
   Notifications = 'NOTIFICATIONS',
-  Favorite = 'FAVORITE',
+  Favorites = 'FAVORITES',
 }
 
 export const DEFAULT_SORT = SortType.Popular;
