@@ -30,7 +30,7 @@ describe('Async actions: offersData', () => {
     const store = mockStore();
     expect(store.getActions()).toEqual([]);
 
-    await store.dispatch(fetchOffersAction());
+    const {payload} = await store.dispatch(fetchOffersAction());
 
     const actions = store.getActions().map(({type}) => type);
 
@@ -38,5 +38,7 @@ describe('Async actions: offersData', () => {
       fetchOffersAction.pending.type,
       fetchOffersAction.fulfilled.type
     ]);
+
+    expect(payload).toEqual(fakeOffers);
   });
 });

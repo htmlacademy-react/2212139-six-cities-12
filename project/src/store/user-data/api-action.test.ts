@@ -24,7 +24,7 @@ describe('Async actions: userData', () => {
     ThunkDispatch<State, typeof api, Action>
   >(middlewares);
 
-  it('should authorization status is "AUTH" when server return 200', async () => {
+  it('should authorization status is "AUTH" and load userData when server return 200', async () => {
     mockAPI
       .onGet(APIRoute.Login)
       .reply(StatusCodes.OK, fakeUserData);
@@ -32,7 +32,8 @@ describe('Async actions: userData', () => {
     const store = mockStore();
     expect(store.getActions()).toEqual([]);
 
-    await store.dispatch(checkAuthAction());
+
+    const {payload} = await store.dispatch(checkAuthAction());
 
     const actions = store.getActions().map(({type}) => type);
 
@@ -41,9 +42,11 @@ describe('Async actions: userData', () => {
       fetchFavoritesAction.pending.type,
       checkAuthAction.fulfilled.type
     ]);
+
+    expect(payload).toEqual(fakeUserData);
   });
 
-  it('should dispatch required authorization when POST /login', async () => {
+  it('should save token and load userData when POST /login', async () => {
     const fakeUser: AuthData = {
       login: 'test@test.ru',
       password: '123456'};
@@ -55,7 +58,7 @@ describe('Async actions: userData', () => {
     const store = mockStore();
     Storage.prototype.setItem = jest.fn();
 
-    await store.dispatch(loginAction(fakeUser));
+    const{payload} = await store.dispatch(loginAction(fakeUser));
 
     const actions = store.getActions().map(({type}) => type);
 
@@ -64,6 +67,8 @@ describe('Async actions: userData', () => {
       fetchFavoritesAction.pending.type, // как jн тут рабjтает
       loginAction.fulfilled.type
     ]);
+
+    expect(payload).toEqual(fakeUserData);
 
     expect(Storage.prototype.setItem).toBeCalledTimes(1);
     expect(Storage.prototype.setItem).toBeCalledWith('six-city-token', fakeUserData.token);

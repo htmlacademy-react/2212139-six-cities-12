@@ -6,12 +6,11 @@ import {createAPI} from '../../services/api';
 import {fetchOfferPropertyAction, fetchNearOffersAction, fetchReviewAction, sendReviewAction} from './api-actions';
 import {State} from '../../types/state';
 import {StatusCodes} from 'http-status-codes';
-import {makeFakeNearOffers, makeFakeOffer, makeFakeOffers, makeFakeReviews} from '../../utils/mocks';
+import {makeFakeNearOffers, makeFakeOffer, makeFakeReviews} from '../../utils/mocks';
 import {APIRoute} from '../../const';
 
 const fakeOfferId = 1;
 const fakeOffer = makeFakeOffer();
-const fakeOffers = makeFakeOffers();
 const fakeReviews = makeFakeReviews();
 const fakeNearOffers = makeFakeNearOffers();
 
