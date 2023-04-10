@@ -6,13 +6,14 @@ import {createAPI} from '../../services/api';
 import {fetchOfferPropertyAction, fetchNearOffersAction, fetchReviewAction, sendReviewAction} from './api-actions';
 import {State} from '../../types/state';
 import {StatusCodes} from 'http-status-codes';
-import {makeFakeOffer, makeFakeOffers, makeFakeReviews} from '../../utils/mocks';
+import {makeFakeNearOffers, makeFakeOffer, makeFakeOffers, makeFakeReviews} from '../../utils/mocks';
 import {APIRoute} from '../../const';
 
 const fakeOfferId = 1;
 const fakeOffer = makeFakeOffer();
 const fakeOffers = makeFakeOffers();
 const fakeReviews = makeFakeReviews();
+const fakeNearOffers = makeFakeNearOffers();
 
 describe('Async actions: offerProperty', () => {
   const api = createAPI();
@@ -33,7 +34,7 @@ describe('Async actions: offerProperty', () => {
     const store = mockStore();
     expect(store.getActions()).toEqual([]);
 
-    await store.dispatch(fetchOfferPropertyAction(fakeOfferId));
+    const {payload} = await store.dispatch(fetchOfferPropertyAction(fakeOfferId));
 
     const actions = store.getActions().map(({type}) => type);
 
@@ -41,17 +42,19 @@ describe('Async actions: offerProperty', () => {
       fetchOfferPropertyAction.pending.type,
       fetchOfferPropertyAction.fulfilled.type
     ]);
+
+    expect(payload).toEqual(fakeOffer);
   });
 
   it('should loaded nearest offers when server return 200', async () => {
     mockAPI
       .onGet(`${APIRoute.Offers}/${fakeOfferId}/nearby`)
-      .reply(StatusCodes.OK, fakeOffers);
+      .reply(StatusCodes.OK, fakeNearOffers);
 
     const store = mockStore();
     expect(store.getActions()).toEqual([]);
 
-    await store.dispatch(fetchNearOffersAction(fakeOfferId));
+    const {payload} = await store.dispatch(fetchNearOffersAction(fakeOfferId));
 
     const actions = store.getActions().map(({type}) => type);
 
@@ -59,6 +62,8 @@ describe('Async actions: offerProperty', () => {
       fetchNearOffersAction.pending.type,
       fetchNearOffersAction.fulfilled.type
     ]);
+
+    expect(payload).toEqual(fakeNearOffers);
   });
 
   it('should loaded reviews when server return 200', async () => {
@@ -69,7 +74,7 @@ describe('Async actions: offerProperty', () => {
     const store = mockStore();
     expect(store.getActions()).toEqual([]);
 
-    await store.dispatch(fetchReviewAction(fakeOfferId));
+    const {payload} = await store.dispatch(fetchReviewAction(fakeOfferId));
 
     const actions = store.getActions().map(({type}) => type);
 
@@ -77,6 +82,8 @@ describe('Async actions: offerProperty', () => {
       fetchReviewAction.pending.type,
       fetchReviewAction.fulfilled.type
     ]);
+
+    expect(payload).toEqual(fakeReviews);
   });
 
   it('should send review when server return 200', async () => {
@@ -88,7 +95,7 @@ describe('Async actions: offerProperty', () => {
 
     const store = mockStore();
 
-    await store.dispatch(sendReviewAction({...fakeReview, id: fakeOfferId}));
+    const {payload} = await store.dispatch(sendReviewAction({...fakeReview, id: fakeOfferId}));
 
     const actions = store.getActions().map(({type}) => type);
 
@@ -96,5 +103,7 @@ describe('Async actions: offerProperty', () => {
       sendReviewAction.pending.type,
       sendReviewAction.fulfilled.type
     ]);
+
+    expect(payload).toEqual(fakeReview);
   });
 });
