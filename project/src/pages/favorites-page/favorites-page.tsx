@@ -48,7 +48,7 @@ export default function FavoritesPage(): JSX.Element {
 
   return (
     <Layout className="">
-      <main className="page__main page__main--favorites">
+      <main className="page__main page__main--favorites" data-testid="favorite-page">
         <div className="page__favorites-container container">
 
           {favoriteOffers.length ?

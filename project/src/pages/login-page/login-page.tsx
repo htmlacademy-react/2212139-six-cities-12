@@ -30,7 +30,7 @@ export default function LoginPage(): JSX.Element {
                 to={AppRoute.Root}
                 onClick={() => dispatch(changeLocation(Location[randomLocation]))}
               >
-                <span>{Location[randomLocation]}</span>
+                <span data-testid="locations-login">{Location[randomLocation]}</span>
               </Link>
             </div>
           </section>

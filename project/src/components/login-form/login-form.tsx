@@ -69,17 +69,20 @@ export default function LoginForm(): JSX.Element {
         action="#"
         method="post"
         onSubmit={handleFormSubmit}
+        data-testid="form-submit"
       >
         {Object.entries(LOGIN_FIELDS).map(([name, label]) => (
           <div key={name} className="login__input-wrapper form__input-wrapper">
-            <label className="visually-hidden">{label}</label>
+            <label className="visually-hidden" htmlFor={name}>{label}</label>
             <input
               className={clsx('login__input form__input', {
                 [styles.errorLogin]:
                   !formData[name].error && formData[name].touched,
               })}
+              id={name}
               type={name}
               name={name}
+              data-testid={name}
               placeholder={label}
               onChange={handleInputChange}
               required
@@ -97,6 +100,7 @@ export default function LoginForm(): JSX.Element {
             [styles.button__loading]: isLoading,
           })}
           type="submit"
+          data-testid="login-submit"
           disabled={!formData.email.error || !formData.password.error}
         >
           <span className="button__text">Sign in</span>

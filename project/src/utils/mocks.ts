@@ -1,5 +1,4 @@
 import {
-  address,
   commerce,
   datatype,
   date,
@@ -10,6 +9,7 @@ import {
 import { City, Location, Offer, Offers } from '../types/offer';
 import { Review, Reviews } from '../types/review';
 import { User, UserData } from '../types/user';
+import { DEFAULT_LOCATION } from '../const';
 
 export const makeFakeUser = (): User => ({
   id: datatype.number(),
@@ -34,7 +34,7 @@ export const makeFakeLocation = (): Location => ({
 });
 
 export const makeFakeCity = (): City => ({
-  name: address.city(),
+  name: DEFAULT_LOCATION,
   location: makeFakeLocation(),
 });
 
