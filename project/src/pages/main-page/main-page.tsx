@@ -9,7 +9,7 @@ import {getOffers, getOffersStatus} from '../../store/offers-data/selectors';
 import {useEffect} from 'react';
 import LoadingPage from '../loading-page/loading-page';
 import {fetchOffersAction} from '../../store/offers-data/api-actions';
-import {getLocation, getSelectedOfferId, getSortType} from '../../store/app-process/selectors';
+import {getLocation, getSelectedOfferId, getSortType} from '../../store/app-data/selectors';
 import NoPlaces from '../../components/no-places/no-places';
 import clsx from 'clsx';
 import FullPageError from '../../components/full-page-error/full-page-error';

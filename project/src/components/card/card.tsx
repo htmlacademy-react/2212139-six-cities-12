@@ -1,7 +1,7 @@
 import {generatePath, Link} from 'react-router-dom';
 import {AppRoute, CardType} from '../../const';
 import { useAppDispatch } from '../../hooks';
-import { selectOffer } from '../../store/app-process/app-process';
+import { selectOffer } from '../../store/app-data/app-data';
 import {Offer} from '../../types/offer';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 import { calculateRatingWidth, upperFirstLetter } from '../../utils/utils';

@@ -3,7 +3,7 @@ import {AnyAction} from 'redux';
 import {redirect} from './redirect';
 import {State} from '../../types/state';
 import {AppRoute} from '../../const';
-import { redirectToRoute } from '../app-process/api-actions';
+import { redirectToRoute } from '../app-data/api-actions';
 
 const fakeHistory = {
   location: {pathname: ''},
