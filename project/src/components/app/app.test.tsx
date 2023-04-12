@@ -106,7 +106,7 @@ describe('Application Routing', () => {
     history.push('/non-existent_address');
 
     render(fakeApp);
-
-    expect(screen.getByTestId('page-404')).toBeInTheDocument();
+    expect(screen.getByText('404. Page not found')).toBeInTheDocument();
+    expect(screen.getByText('Вернуться на главную')).toBeInTheDocument();
   });
 });

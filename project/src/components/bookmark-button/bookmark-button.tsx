@@ -39,6 +39,7 @@ export default function BookmarkButton({offerId, isFavorite, isBigSize}: Bookmar
       })}
       type="button"
       onClick={handleButtonClick}
+      data-testid="to-bookmarks"
     >
       <svg
         className="place-card__bookmark-icon"

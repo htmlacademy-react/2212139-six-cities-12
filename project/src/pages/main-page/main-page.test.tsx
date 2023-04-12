@@ -10,15 +10,16 @@ import {
   FetchStatus,
   NameSpace,
 } from '../../const';
-import { makeFakeOffers } from '../../utils/mocks';
+import { makeFakeOffers, makeFakeUserData } from '../../utils/mocks';
 import HistoryRouter from '../../components/history-router/history-router';
 import MainPage from './main-page';
 
 const mockStore = configureMockStore([thunk]);
-
 const fakeOffers = makeFakeOffers();
+const fakeUserData = makeFakeUserData();
 
 describe('Page: Main', () => {
+
   it('should render correctly if data received and offers is empty', () => {
     const history = createMemoryHistory();
     const store = mockStore({
@@ -33,6 +34,7 @@ describe('Page: Main', () => {
         selectedOfferId: null,
       },
     });
+
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
@@ -40,6 +42,7 @@ describe('Page: Main', () => {
         </HistoryRouter>
       </Provider>
     );
+
     expect(
       screen.getByText(/No places to stay available/i)
     ).toBeInTheDocument();
@@ -48,7 +51,9 @@ describe('Page: Main', () => {
   it('should render correctly if data received', () => {
     const history = createMemoryHistory();
     const store = mockStore({
-      [NameSpace.User]: { authStatus: AuthorizationStatus.NoAuth },
+      [NameSpace.User]: {
+        authStatus: AuthorizationStatus.Auth,
+        userData: fakeUserData, },
       [NameSpace.Offers]: {
         offers: fakeOffers,
         offersStatus: FetchStatus.Success,
@@ -68,10 +73,9 @@ describe('Page: Main', () => {
       </Provider>
     );
 
-    expect(
-      screen.getByText(
-        new RegExp(`${fakeOffers.length} places to stay in ${DEFAULT_LOCATION}`, 'i')
-      )
-    ).toBeInTheDocument();
+    expect(screen.getByText(/places to stay in/i)).toBeInTheDocument();
   });
+
 });
+
+

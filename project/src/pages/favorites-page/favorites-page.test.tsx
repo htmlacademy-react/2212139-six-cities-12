@@ -4,11 +4,13 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { Provider } from 'react-redux';
 import { makeFakeOffers, makeFakeUserData } from '../../utils/mocks';
 import { AuthorizationStatus, FetchStatus, NameSpace } from '../../const';
-import FavoritesPage from './favorites-page';
 import HistoryRouter from '../../components/history-router/history-router';
+import FavoritesPage from './favorites-page';
+import thunk from 'redux-thunk';
 
-const mockStore = configureMockStore();
-const fakeFavoriteOffers = makeFakeOffers();
+
+const mockStore = configureMockStore([thunk]);
+const fakeOffers = makeFakeOffers();
 const fakeUserData = makeFakeUserData();
 
 describe('Page: Favorites', () => {
@@ -18,9 +20,14 @@ describe('Page: Favorites', () => {
       [NameSpace.Favorites]: {
         favorites: [],
         fetchStatus: FetchStatus.Success,
-        setStatus: FetchStatus.Success
-      }
+        setStatus: FetchStatus.Success,
+      },
+      [NameSpace.User]: {
+        authorizationStatus: AuthorizationStatus.NoAuth,
+        userData: null,
+      },
     });
+
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
@@ -28,6 +35,7 @@ describe('Page: Favorites', () => {
         </HistoryRouter>
       </Provider>
     );
+
     expect(screen.getByText(/Nothing yet saved/i)).toBeInTheDocument();
   });
 
@@ -35,9 +43,9 @@ describe('Page: Favorites', () => {
     const history = createMemoryHistory();
     const store = mockStore({
       [NameSpace.Favorites]: {
-        favorites: fakeFavoriteOffers,
+        favorites: fakeOffers,
         fetchStatus: FetchStatus.Success,
-        setStatus: FetchStatus.Success
+        setStatus: FetchStatus.Success,
       },
       [NameSpace.User]: {
         authorizationStatus: AuthorizationStatus.Auth,
@@ -52,6 +60,7 @@ describe('Page: Favorites', () => {
         </HistoryRouter>
       </Provider>
     );
+
     expect(screen.getByText(/Saved listing/i)).toBeInTheDocument();
   });
 });

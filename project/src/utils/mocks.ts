@@ -9,7 +9,8 @@ import {
 import { City, Location, Offer, Offers } from '../types/offer';
 import { Review, Reviews } from '../types/review';
 import { User, UserData } from '../types/user';
-import { DEFAULT_LOCATION } from '../const';
+import { address } from 'faker/locale/en';
+import { Notification } from '../types/notification';
 
 export const makeFakeUser = (): User => ({
   id: datatype.number(),
@@ -34,7 +35,7 @@ export const makeFakeLocation = (): Location => ({
 });
 
 export const makeFakeCity = (): City => ({
-  name: DEFAULT_LOCATION,
+  name: address.cityName(),
   location: makeFakeLocation(),
 });
 
@@ -75,3 +76,11 @@ export const makeFakeReview = (): Review => ({
 
 export const makeFakeReviews = (): Reviews =>
   Array.from({ length: 5 }, makeFakeReview);
+
+export const makeFakeNotification = (): Notification =>
+  ({
+    id: String(datatype.number()),
+    type: 'info',
+    message: lorem.words(10),
+    duration: datatype.number({ min: 3000, max: 4000 }),
+  } as Notification);
