@@ -5,7 +5,7 @@ import {offersData} from './offers-data/offers-data';
 import { offerPropertyData } from './offer-property-data/offer-property-data';
 import { appProcess } from './app-process/app-process';
 import { notifications } from './notifications/notification';
-import { FavoriteData } from './favorite-data/favorite-data';
+import { favoriteData } from './favorite-data/favorite-data';
 
 export const rootReducer = combineReducers({
   [NameSpace.User]: userData.reducer,
@@ -13,5 +13,5 @@ export const rootReducer = combineReducers({
   [NameSpace.OfferProperty]: offerPropertyData.reducer,
   [NameSpace.App]: appProcess.reducer,
   [NameSpace.Notifications]: notifications.reducer,
-  [NameSpace.Favorites]: FavoriteData.reducer,
+  [NameSpace.Favorites]: favoriteData.reducer,
 });

@@ -2,8 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import { FetchStatus, NameSpace } from '../../const';
 import { fetchFavoritesAction, setFavoritesAction } from './api-actions';
 import { Offers } from '../../types/offer';
+import { logoutAction } from '../user-data/api-actions';
 
-type FavoritesData = {
+export type FavoritesData = {
   favorites: Offers;
   fetchStatus: FetchStatus;
   setStatus: FetchStatus;
@@ -15,7 +16,7 @@ const initialState: FavoritesData = {
   setStatus: FetchStatus.Idle
 };
 
-export const FavoriteData = createSlice({
+export const favoriteData = createSlice({
   name: NameSpace.Favorites,
   initialState,
   reducers: {},
@@ -45,6 +46,9 @@ export const FavoriteData = createSlice({
       })
       .addCase(setFavoritesAction.rejected, (state) => {
         state.setStatus = FetchStatus.Failed;
+      })
+      .addCase(logoutAction.fulfilled, (state) => {
+        state.favorites = [];
       });
   },
 });
