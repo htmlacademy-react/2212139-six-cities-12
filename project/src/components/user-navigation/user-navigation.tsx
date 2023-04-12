@@ -1,5 +1,5 @@
 import { useAppSelector } from '../../hooks';
-import { getIsAuthorized } from '../../store/user-process/selectors';
+import { getIsAuthorized } from '../../store/user-data/selectors';
 import UserAuthorized from '../user-authorized/user-authorized';
 import UserUnauthorized from '../user-unauthorized/user-unauthorized';
 

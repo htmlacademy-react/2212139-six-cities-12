@@ -9,11 +9,11 @@ import {getOffers, getOffersStatus} from '../../store/offers-data/selectors';
 import {useEffect} from 'react';
 import LoadingPage from '../loading-page/loading-page';
 import {fetchOffersAction} from '../../store/offers-data/api-actions';
-import {getLocation, getSelectedOfferId, getSortType} from '../../store/app-process/selectors';
-import {getCurrentOffers} from '../../utils';
+import {getLocation, getSelectedOfferId, getSortType} from '../../store/app-data/selectors';
 import NoPlaces from '../../components/no-places/no-places';
 import clsx from 'clsx';
 import FullPageError from '../../components/full-page-error/full-page-error';
+import { getCurrentOffers } from '../../utils/utils';
 
 export default function MainPage(): JSX.Element {
   const offers = useAppSelector(getOffers);
@@ -44,13 +44,15 @@ export default function MainPage(): JSX.Element {
 
   return (
     <Layout className="page--gray page--main">
-      <main className={
-        clsx(
-          'page__main',
-          'page__main--index',
-          {'page__main--index-empty':!currentOffers.length},
-          {'page__main--index-error':status.isError})
-      }
+      <main
+        data-testid="main-page"
+        className={
+          clsx(
+            'page__main',
+            'page__main--index',
+            {'page__main--index-empty':!currentOffers.length},
+            {'page__main--index-error':status.isError})
+        }
       >
         <h1 className="visually-hidden">Cities</h1>
 

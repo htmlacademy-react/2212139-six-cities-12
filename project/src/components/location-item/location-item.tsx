@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getLocation } from '../../store/app-process/selectors';
-import { changeLocation } from '../../store/app-process/app-process';
+import { getLocation } from '../../store/app-data/selectors';
+import { changeLocation } from '../../store/app-data/app-data';
 import {Location} from '../../const';
 
 

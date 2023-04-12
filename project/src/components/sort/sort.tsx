@@ -3,8 +3,8 @@ import { useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { SortType } from '../../const';
 import useOnClickOutside from '../../hooks/useOnClickOutside/use-on-click-outside';
-import { getSortType } from '../../store/app-process/selectors';
-import { changeSort } from '../../store/app-process/app-process';
+import { getSortType } from '../../store/app-data/selectors';
+import { changeSort } from '../../store/app-data/app-data';
 
 export default function Sort(): JSX.Element {
 

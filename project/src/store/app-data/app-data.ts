@@ -15,7 +15,7 @@ const initialState: AppProcessState = {
 };
 
 
-export const appProcess = createSlice({
+export const appData = createSlice({
   name: NameSpace.App,
   initialState,
   reducers: {
@@ -31,4 +31,4 @@ export const appProcess = createSlice({
   }
 });
 
-export const {changeLocation, changeSort, selectOffer} = appProcess.actions;
+export const {changeLocation, changeSort, selectOffer} = appData.actions;

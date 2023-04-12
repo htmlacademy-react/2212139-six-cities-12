@@ -3,7 +3,7 @@ import {fetchOffersAction} from './api-actions';
 import { FetchStatus, NameSpace } from '../../const';
 import {Offers} from '../../types/offer';
 import { setFavoritesAction } from '../favorite-data/api-actions';
-import { logoutAction } from '../user-process/api-actions';
+import { logoutAction } from '../user-data/api-actions';
 
 export type OffersData = {
   offers: Offers;
@@ -17,7 +17,7 @@ const initialState: OffersData = {
 
 
 export const offersData = createSlice({
-  name: NameSpace.Data,
+  name: NameSpace.Offers,
   initialState,
   reducers: {},
   extraReducers(builder) {

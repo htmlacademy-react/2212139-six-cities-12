@@ -4,17 +4,17 @@ import { Offers } from '../../types/offer';
 import { State } from '../../types/state';
 
 export const getFavorites = (state: State): Offers =>
-  state[NameSpace.Favorite].favorites;
+  state[NameSpace.Favorites].favorites;
 
 export const getFavoritesCount = (state: State): number =>
-  state[NameSpace.Favorite].favorites.length;
+  state[NameSpace.Favorites].favorites.length;
 
 
 export const getFetchStatus = (state: State): FetchStatus =>
-  state[NameSpace.Favorite].fetchStatus;
+  state[NameSpace.Favorites].fetchStatus;
 
 export const getSetStatus = (state: State): FetchStatus =>
-  state[NameSpace.Favorite].setStatus;
+  state[NameSpace.Favorites].setStatus;
 
 export const getFavoriteFetchStatus = createSelector(
   [getFetchStatus], (status) => ({

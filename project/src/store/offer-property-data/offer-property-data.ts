@@ -9,7 +9,7 @@ import { FetchStatus, NameSpace } from '../../const';
 import { Offer, Offers } from '../../types/offer';
 import { Reviews } from '../../types/review';
 import { setFavoritesAction } from '../favorite-data/api-actions';
-import { logoutAction } from '../user-process/api-actions';
+import { logoutAction } from '../user-data/api-actions';
 
 export type OfferPropertyData = {
   offerProperty: Offer | null;

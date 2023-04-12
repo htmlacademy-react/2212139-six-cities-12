@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setFavoritesAction } from '../../store/favorite-data/api-actions';
-import { getIsAuthorized } from '../../store/user-process/selectors';
+import { getIsAuthorized } from '../../store/user-data/selectors';
 import clsx from 'clsx';
 
 type BookmarkButtonProps = {
@@ -39,6 +39,7 @@ export default function BookmarkButton({offerId, isFavorite, isBigSize}: Bookmar
       })}
       type="button"
       onClick={handleButtonClick}
+      data-testid="to-bookmarks"
     >
       <svg
         className="place-card__bookmark-icon"

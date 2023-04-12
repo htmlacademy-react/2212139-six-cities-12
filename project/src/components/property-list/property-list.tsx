@@ -1,5 +1,5 @@
 import {Offer} from '../../types/offer';
-import {upperFirstLetter, calculateRatingWidth} from '../../utils';
+import { calculateRatingWidth, upperFirstLetter } from '../../utils/utils';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 
 type PropertyListProps = {
