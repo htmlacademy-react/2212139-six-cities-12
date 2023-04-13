@@ -16,12 +16,14 @@ const sizes = {
 };
 
 export default function Logo({ type }: LogoProps): JSX.Element {
-
   const { width, height } = sizes[type];
 
   return (
-    <Link className={`${type}__logo-link ${type}__logo-link--active`} to="/">
-
+    <Link
+      className={`${type}__logo-link ${type}__logo-link--active`}
+      to="/"
+      data-testid="logo-link"
+    >
       <img
         className={`${type}__logo`}
         src="/img/logo.svg"
