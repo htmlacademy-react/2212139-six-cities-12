@@ -4,7 +4,7 @@ import {Location} from '../../const';
 
 export default function LocationList(): JSX.Element {
   return (
-    <div className="tabs">
+    <div className="tabs" data-testid="location-list">
       <section className="locations container">
         <ul className="locations__list tabs__list">
           {Object.entries(Location).map(([_,location]) => (

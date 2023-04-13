@@ -16,7 +16,7 @@ export default function LocationItem({location}: LocationItemProps): JSX.Element
   const currentLocation = useAppSelector(getLocation);
 
   return (
-    <li className="locations__item">
+    <li className="locations__item" data-testid="locations-item">
       <Link
         className={clsx('locations__item-link tabs__item', {
           'tabs__item--active': location === currentLocation
