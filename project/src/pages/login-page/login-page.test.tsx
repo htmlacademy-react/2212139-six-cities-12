@@ -9,6 +9,7 @@ import { AuthorizationStatus, NameSpace } from '../../const';
 import { makeFakeOffers } from '../../utils/mocks';
 import HistoryRouter from '../../components/history-router/history-router';
 import LoginPage from './login-page';
+import { act } from 'react-dom/test-utils';
 
 const mockStore = configureMockStore([thunk]);
 const history = createMemoryHistory();
@@ -32,8 +33,8 @@ describe('Component: Login', () => {
     expect(screen.getByLabelText(/E-mail/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Password/i)).toBeInTheDocument();
 
-    await userEvent.type(screen.getByTestId('email'), 'keks@mail.ru');
-    await userEvent.type(screen.getByTestId('password'), '123456f');
+    await act(async () => await userEvent.type(screen.getByTestId('email'), 'keks@mail.ru'));
+    await act(async () => await userEvent.type(screen.getByTestId('password'), '123456f'));
 
     expect(screen.getByDisplayValue(/keks@mail.ru/i)).toBeInTheDocument();
     expect(screen.getByDisplayValue(/123456/i)).toBeInTheDocument();
@@ -51,8 +52,8 @@ describe('Component: Login', () => {
     expect(screen.getByLabelText(/E-mail/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Password/i)).toBeInTheDocument();
 
-    await userEvent.type(screen.getByTestId('email'), 'keks@mail.ru');
-    await userEvent.type(screen.getByTestId('password'), '123456f');
+    await act(async () => await userEvent.type(screen.getByTestId('email'), 'keks@mail.ru'));
+    await act(async () => await userEvent.type(screen.getByTestId('password'), '123456f'));
 
     expect(screen.getByTestId('login-submit')).toBeInTheDocument();
     screen.getByTestId('form-submit').onsubmit = fakeSingIn;
