@@ -1,33 +1,51 @@
-import {render, screen} from '@testing-library/react';
-import {configureMockStore} from '@jedmao/redux-mock-store';
-import {Provider} from 'react-redux';
-import {createMemoryHistory} from 'history';
-import LocationList from './location-list';
-import { DEFAULT_LOCATION, DEFAULT_SORT } from '../../const';
+import { render, screen } from '@testing-library/react';
+import { configureMockStore } from '@jedmao/redux-mock-store';
+import { Provider } from 'react-redux';
+import { createMemoryHistory } from 'history';
+import {
+  AuthorizationStatus,
+  CardType,
+  FetchStatus,
+  NameSpace,
+} from '../../const';
 import HistoryRouter from '../history-router/history-router';
+import {
+  makeFakeOffers,
+  makeFakeUserData,
+} from '../../utils/mocks';
+import thunk from 'redux-thunk';
+import OfferList from '../offer-list/offer-list';
 
-const mockStore = configureMockStore();
 const history = createMemoryHistory();
+const fakeOffers = makeFakeOffers();
+const mockStore = configureMockStore([thunk]);
+const fakeUserData = makeFakeUserData();
 
 const store = mockStore({
-  APP: {
-    location: DEFAULT_LOCATION,
-    sortType: DEFAULT_SORT,
-    selectedOfferId: null
+  [NameSpace.User]: {
+    authorizationStatus: AuthorizationStatus.Auth,
+    userData: fakeUserData,
+  },
+  [NameSpace.Offers]: {
+    offers: fakeOffers,
+    offersStatus: FetchStatus.Success,
   },
 });
 
-describe('Component: LocationList', () => {
+describe('Component: OfferList', () => {
   it('should render correctly', () => {
-
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <LocationList />
+          <OfferList
+            cardType={CardType.Cities}
+            classNames={'places__list cities__places-list'}
+            offers={fakeOffers}
+          />
         </HistoryRouter>
       </Provider>
     );
 
-    expect(screen.getByTestId('location-list')).toBeInTheDocument();
+    expect(screen.getByTestId('offer-list')).toBeInTheDocument();
   });
 });

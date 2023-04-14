@@ -1,16 +1,16 @@
-import {Action} from 'redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import {render, screen} from '@testing-library/react';
-import { Provider } from 'react-redux';
+import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
-import HistoryRouter from '../history-router/history-router';
+import { Provider } from 'react-redux';
+import { generatePath } from 'react-router-dom';
+import { Action } from 'redux';
+import thunk, { ThunkDispatch } from 'redux-thunk';
 import { AppRoute, AuthorizationStatus, FetchStatus, Location, NameSpace, SortType } from '../../const';
-import { makeFakeNearOffers, makeFakeOffer, makeFakeOffers, makeFakeReviews, makeFakeUserData } from '../../utils/mocks';
-import App from './app';
-import { State } from '../../types/state';
-import thunk, {ThunkDispatch} from 'redux-thunk';
 import { createAPI } from '../../services/api';
-import {generatePath} from 'react-router-dom';
+import { State } from '../../types/state';
+import { makeFakeNearOffers, makeFakeOffer, makeFakeOffers, makeFakeReviews, makeFakeUserData } from '../../utils/mocks';
+import HistoryRouter from '../history-router/history-router';
+import App from './app';
 
 const fakeOffer = makeFakeOffer();
 const fakeOffers = makeFakeOffers();
@@ -23,10 +23,10 @@ const api = createAPI();
 const middlewares = [thunk.withExtraArgument(api)];
 
 const mockStore = configureMockStore<
-    State,
-    Action<string>,
-    ThunkDispatch<State, typeof api, Action>
-  >(middlewares);
+  State,
+  Action<string>,
+  ThunkDispatch<State, typeof api, Action>
+>(middlewares);
 
 
 const store = mockStore({

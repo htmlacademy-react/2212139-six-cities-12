@@ -45,7 +45,9 @@ describe('Component: Card', () => {
         userData: fakeUserData,
       },
     });
+
     const fakeHandleFavorite = jest.fn();
+
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
@@ -53,6 +55,7 @@ describe('Component: Card', () => {
         </HistoryRouter>
       </Provider>
     );
+
     expect(screen.getByTestId('to-bookmarks')).toBeInTheDocument();
     screen.getByTestId('to-bookmarks').onclick = fakeHandleFavorite;
     await act(async () => await userEvent.click(screen.getByTestId('to-bookmarks')));
