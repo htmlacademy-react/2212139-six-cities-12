@@ -16,7 +16,7 @@ export default function Sort(): JSX.Element {
   useOnClickOutside(refOne, () => setOpen(false));
 
   return (
-    <form className="places__sorting" action="#" method="get">
+    <form className="places__sorting" action="#" method="get" data-testid="sort-form">
       <span className="places__sorting-caption">Sort by </span>
       <span
         className="places__sorting-type"
@@ -45,6 +45,7 @@ export default function Sort(): JSX.Element {
               setOpen(false);
               dispatch(changeSort(value));
             }}
+            data-testid="sort-item"
           >
             {value}
           </li>
