@@ -11,7 +11,7 @@ export default function PropertyGallery({offer}: PropertyGalleryProps): JSX.Elem
   sixImages = images.slice(0, MAX_IMAGES_PROPERTIES);
 
   return (
-    <div className="property__gallery-container container">
+    <div className="property__gallery-container container" data-testid="gallery">
       <div className="property__gallery">
         { sixImages.map((source) => (
           <div className="property__image-wrapper" key={source}>
