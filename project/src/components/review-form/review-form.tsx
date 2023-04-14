@@ -66,6 +66,7 @@ export default function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
       action="#"
       method="post"
       onSubmit={handleFormSubmit}
+      data-testid="review-form"
     >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
@@ -85,6 +86,7 @@ export default function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
                 checked={Number(formData.rating) === evaluationValue}
                 onChange={handleFieldChange}
                 disabled={reviewStatus.isLoading}
+                data-testid="rating"
               />
               <label
                 htmlFor={`${evaluationValue}-stars`}
@@ -108,6 +110,7 @@ export default function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
         value={formData.review}
         onChange={handleFieldChange}
         disabled={reviewStatus.isLoading}
+        data-testid="review"
       >
       </textarea>
       <div className="reviews__button-wrapper">
