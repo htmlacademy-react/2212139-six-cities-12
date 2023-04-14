@@ -74,6 +74,6 @@ describe('Component: Sort', () => {
     const sortOption = screen.getAllByTestId('sort-item')[1];
     await act(async () => await userEvent.click(sortOption));
     const action = store.getActions();
-    expect(action[0].type).toBe('APP/changeSort');
+    expect(action[0].payload).toBe('Price: low to high');
   });
 });
