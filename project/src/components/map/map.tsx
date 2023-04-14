@@ -7,7 +7,7 @@ import {OfferId, Offers} from '../../types/offer';
 
 
 type MapProps = {
-  className: string;
+  className: 'property__map' | 'cities__map';
   selectedOfferId: OfferId | null;
   offers: Offers;
 }
@@ -30,7 +30,7 @@ const activeMarkerIcon = new Icon({
   iconAnchor: [14, 40]
 });
 
-function Map({className, selectedOfferId, offers}: MapProps): JSX.Element {
+export default function Map({className, selectedOfferId, offers}: MapProps): JSX.Element {
 
   const mapRef = useRef(null);
   const cityLocation = offers[0]?.city?.location ?? DEFAULT_COORDINATE;
@@ -72,9 +72,8 @@ function Map({className, selectedOfferId, offers}: MapProps): JSX.Element {
       className={clsx('map', {className})}
       ref={mapRef}
       style={{height: '100%', width: '100%', maxWidth: '1144px', margin: '0 auto'}}
+      data-testid="map"
     >
     </section>
   );
 }
-
-export default Map;

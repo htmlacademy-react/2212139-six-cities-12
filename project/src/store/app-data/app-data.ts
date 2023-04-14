@@ -14,7 +14,6 @@ const initialState: AppProcessState = {
   selectedOfferId: null
 };
 
-
 export const appData = createSlice({
   name: NameSpace.App,
   initialState,

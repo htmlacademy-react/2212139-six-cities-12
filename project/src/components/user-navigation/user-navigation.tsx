@@ -9,7 +9,7 @@ export default function UserNavigation(): JSX.Element {
   const isAuth = useAppSelector(getIsAuthorized);
 
   return (
-    <nav className="header__nav">
+    <nav className="header__nav" data-testid="user-navigation">
       <ul className="header__nav-list">
         {(isAuth)
           ? <UserAuthorized />

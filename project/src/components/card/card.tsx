@@ -21,6 +21,7 @@ export default function Card({offer, cardType }: CardProps): JSX.Element {
       className={`${cardType}__card place-card`}
       onMouseEnter={() => dispatch(selectOffer(offer.id))}
       onMouseLeave={() => dispatch(selectOffer(null))}
+      data-testid="card-article"
     >
       {offer.isPremium && (
         <div className="place-card__mark">

@@ -13,7 +13,7 @@ type OfferListProps = {
 export default function OfferListFavorites({offers, cardType, classNames}: OfferListProps): JSX.Element {
 
   return (
-    <div className={classNames}>
+    <div className={classNames} data-testid="favorite-list">
       {offers.map((offer) => (
         <Card
           key={offer.id}

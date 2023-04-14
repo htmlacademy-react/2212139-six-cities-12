@@ -10,7 +10,7 @@ import { fetchFavoritesAction } from '../../store/favorite-data/api-actions';
 import { getFavorites, getFavoriteFetchStatus } from '../../store/favorite-data/selector';
 import LoadingPage from '../loading-page/loading-page';
 import FullPageError from '../../components/full-page-error/full-page-error';
-import FavoriteEmpty from '../../components/favorites-empty/favorites-empty';
+import FavoriteEmpty from '../../components/favorite-empty/favorite-empty';
 
 
 type OfferGroupedByCity = {

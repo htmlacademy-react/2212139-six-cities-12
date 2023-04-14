@@ -12,7 +12,7 @@ type OfferListProps = {
 export default function OfferList({cardType, classNames, offers}: OfferListProps): JSX.Element {
 
   return (
-    <div className={classNames}>
+    <div className={classNames} data-testid='offer-list'>
       {offers.map((offer) => (
         <Card
           key={offer.id}
