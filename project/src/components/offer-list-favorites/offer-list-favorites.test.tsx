@@ -14,7 +14,7 @@ import {
   makeFakeUserData,
 } from '../../utils/mocks';
 import thunk from 'redux-thunk';
-import OfferList from '../offer-list/offer-list';
+import OfferListFavorites from './offer-list-favorites';
 
 const history = createMemoryHistory();
 const fakeOffers = makeFakeOffers();
@@ -32,20 +32,20 @@ const store = mockStore({
   },
 });
 
-describe('Component: OfferList', () => {
+describe('Component: FavoriteList', () => {
   it('should render correctly', () => {
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <OfferList
-            cardType={CardType.Cities}
-            classNames={'places__list cities__places-list'}
+          <OfferListFavorites
+            cardType={CardType.Favorites}
+            classNames="favorites__places"
             offers={fakeOffers}
           />
         </HistoryRouter>
       </Provider>
     );
 
-    expect(screen.getByTestId('offer-list')).toBeInTheDocument();
+    expect(screen.getByTestId('favorite-list')).toBeInTheDocument();
   });
 });
