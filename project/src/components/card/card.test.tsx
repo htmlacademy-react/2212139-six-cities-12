@@ -76,7 +76,8 @@ describe('Component: Card', () => {
         <HistoryRouter history={history}>
           <Card cardType={CardType.Cities} offer={fakeOffer} />
           <Routes>
-            <Route path="/login" element={<h1>This is login page</h1>} />
+             <Route path="/login" element={<h1>This is login page</h1>} />
+             <Route path="/" element={<h1>This is main page</h1>} />
           </Routes>
         </HistoryRouter>
       </Provider>
