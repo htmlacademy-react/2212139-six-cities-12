@@ -19,8 +19,8 @@ export default function Card({offer, cardType }: CardProps): JSX.Element {
   return (
     <article
       className={`${cardType}__card place-card`}
-      onMouseEnter={() => dispatch(selectOffer(offer.id))}
-      onMouseLeave={() => dispatch(selectOffer(null))}
+      onMouseEnter={(cardType !== CardType.NearPlaces) ? () => dispatch(selectOffer(offer.id)) : undefined}
+      onMouseLeave={(cardType !== CardType.NearPlaces) ? () => dispatch(selectOffer(null)) : undefined}
       data-testid="card-article"
     >
       {offer.isPremium && (

@@ -68,7 +68,6 @@ export default function PropertyPage(): JSX.Element {
           <Map
             className="property__map"
             offers={[...nearOffers, offerProperty]}
-            selectedOfferId={offerProperty.id}
           />
         </section>
         <div className="container">

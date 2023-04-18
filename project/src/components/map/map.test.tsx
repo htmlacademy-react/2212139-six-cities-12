@@ -21,7 +21,6 @@ describe('Component: Map', () => {
           <Map
             className="cities__map"
             offers={fakeOffers}
-            selectedOfferId={fakeOffers[0].id}
           />
         </HistoryRouter>
       </Provider>
