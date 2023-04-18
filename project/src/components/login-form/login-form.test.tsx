@@ -18,7 +18,7 @@ const store = mockStore({
     authorizationStatus: AuthorizationStatus.NoAuth,
     userData: fakeUserData,
   },
-  [NameSpace.Offers]: { offers: fakeOffers }
+  [NameSpace.Offers]: { offers: fakeOffers },
 });
 
 describe('Component: LoginForm', () => {
@@ -44,11 +44,22 @@ describe('Component: LoginForm', () => {
       </Provider>
     );
 
-    await userEvent.type(screen.getByPlaceholderText(/E-mail/i), 'test');
-    await userEvent.type(screen.getByPlaceholderText(/Password/i), '222');
-    await userEvent.click(screen.getByRole('button', { name: 'Sign in' }));
+    await act(
+      async () =>
+        await userEvent.type(screen.getByPlaceholderText(/E-mail/i), 'test')
+    );
+    await act(
+      async () =>
+        await userEvent.type(screen.getByPlaceholderText(/Password/i), '222')
+    );
+    await act(
+      async () =>
+        await userEvent.click(screen.getByRole('button', { name: 'Sign in' }))
+    );
     expect(screen.getByText(/Incorrect Email address/i)).toBeInTheDocument();
-    expect(screen.getByText(/At least one letter and one number/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/At least one letter and one number/i)
+    ).toBeInTheDocument();
   });
 
   it('should display no error', async () => {
@@ -60,11 +71,27 @@ describe('Component: LoginForm', () => {
       </Provider>
     );
 
-    await userEvent.type(screen.getByPlaceholderText(/E-mail/i), 'test@mail.ru');
-    await userEvent.type(screen.getByPlaceholderText(/Password/i), '222a');
-    await userEvent.click(screen.getByRole('button', { name: 'Sign in' }));
-    expect(screen.queryByText(/Incorrect Email address/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/At least one letter and one number/i)).not.toBeInTheDocument();
+    await act(
+      async () =>
+        await userEvent.type(
+          screen.getByPlaceholderText(/E-mail/i),
+          'test@mail.ru'
+        )
+    );
+    await act(
+      async () =>
+        await userEvent.type(screen.getByPlaceholderText(/Password/i), '222a')
+    );
+    await act(
+      async () =>
+        await userEvent.click(screen.getByRole('button', { name: 'Sign in' }))
+    );
+    expect(
+      screen.queryByText(/Incorrect Email address/i)
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/At least one letter and one number/i)
+    ).not.toBeInTheDocument();
   });
 
   it('should render correctly and type email/password', async () => {
@@ -79,8 +106,14 @@ describe('Component: LoginForm', () => {
     expect(screen.getByLabelText(/E-mail/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Password/i)).toBeInTheDocument();
 
-    await act(async () => await userEvent.type(screen.getByTestId('email'), 'keks@mail.ru'));
-    await act(async () => await userEvent.type(screen.getByTestId('password'), '123456f'));
+    await act(
+      async () =>
+        await userEvent.type(screen.getByTestId('email'), 'keks@mail.ru')
+    );
+    await act(
+      async () =>
+        await userEvent.type(screen.getByTestId('password'), '123456f')
+    );
 
     expect(screen.getByDisplayValue(/keks@mail.ru/i)).toBeInTheDocument();
     expect(screen.getByDisplayValue(/123456/i)).toBeInTheDocument();
@@ -99,8 +132,14 @@ describe('Component: LoginForm', () => {
     expect(screen.getByLabelText(/E-mail/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Password/i)).toBeInTheDocument();
 
-    await act(async () => await userEvent.type(screen.getByTestId('email'), 'keks@mail.ru'));
-    await act(async () => await userEvent.type(screen.getByTestId('password'), '123456f'));
+    await act(
+      async () =>
+        await userEvent.type(screen.getByTestId('email'), 'keks@mail.ru')
+    );
+    await act(
+      async () =>
+        await userEvent.type(screen.getByTestId('password'), '123456f')
+    );
 
     expect(screen.getByTestId('login-submit')).toBeInTheDocument();
     screen.getByTestId('form-submit').onsubmit = fakeSingIn;

@@ -1,28 +1,39 @@
 import { render, screen } from '@testing-library/react';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { Provider } from 'react-redux';
-import { createMemoryHistory } from 'history';
 import Map from './map';
 import { makeFakeOffers } from '../../utils/mocks';
-import HistoryRouter from '../history-router/history-router';
+import { MemoryRouter } from 'react-router-dom';
+import { AuthorizationStatus, DEFAULT_LOCATION, DEFAULT_SORT, FetchStatus, NameSpace } from '../../const';
+import thunk from 'redux-thunk';
 
 const fakeOffers = makeFakeOffers();
+const mockStore = configureMockStore([thunk]);
+const store = mockStore({
+  [NameSpace.User]: { authStatus: AuthorizationStatus.NoAuth },
+  [NameSpace.Offers]: {
+    offers: fakeOffers,
+    offersStatus: FetchStatus.Success,
+  },
+  [NameSpace.App]: {
+    location: DEFAULT_LOCATION,
+    sortType: DEFAULT_SORT,
+    selectedOfferId: null,
+  },
+});
 
-const mockStore = configureMockStore();
-const history = createMemoryHistory();
 
 describe('Component: Map', () => {
   it('should render correctly main map', () => {
-    const store = mockStore();
 
     render(
       <Provider store={store}>
-        <HistoryRouter history={history}>
+        <MemoryRouter>
           <Map
             className="cities__map"
             offers={fakeOffers}
           />
-        </HistoryRouter>
+        </MemoryRouter>
       </Provider>
     );
 
