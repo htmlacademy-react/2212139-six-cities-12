@@ -42,7 +42,10 @@ export default function BookmarkButton({offerId, isFavorite, isBigSize}: Bookmar
       data-testid="to-bookmarks"
     >
       <svg
-        className="place-card__bookmark-icon"
+        className={clsx('', {
+          'property__bookmark-icon': isBigSize,
+          'place-card__bookmark-icon': !isBigSize,
+        })}
         width={isBigSize ? '31' : '18'}
         height={isBigSize ? '33' : '19'}
       >
