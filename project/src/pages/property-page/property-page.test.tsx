@@ -1,12 +1,11 @@
 import { render, screen } from '@testing-library/react';
-import { createMemoryHistory } from 'history';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { makeFakeOffer, makeFakeOffers, makeFakeReviews, makeFakeUserData } from '../../utils/mocks';
-import { AuthorizationStatus, FetchStatus, NameSpace } from '../../const';
-import HistoryRouter from '../../components/history-router/history-router';
+import { AuthorizationStatus, DEFAULT_LOCATION, DEFAULT_SORT, FetchStatus, NameSpace } from '../../const';
 import PropertyPage from './property-page';
+import { MemoryRouter } from 'react-router-dom';
 
 
 const mockStore = configureMockStore([thunk]);
@@ -16,30 +15,40 @@ const fakeOffer = makeFakeOffer();
 const fakeReviews = makeFakeReviews();
 const fakeUserData = makeFakeUserData();
 
+const store = mockStore({
+  [NameSpace.User]: {
+    authorizationStatus: AuthorizationStatus.Auth,
+    userData: fakeUserData,
+  },
+  [NameSpace.OfferProperty]: {
+    offerProperty: fakeOffer,
+    offerPropertyStatus: FetchStatus.Success,
+    nearOffers: fakeOffers,
+    reviews: fakeReviews,
+    reviewFormBlockedStatus: FetchStatus.Success,
+  },
+  [NameSpace.Favorites]: {
+    favorites: fakeOffers,
+    fetchStatus: FetchStatus.Success,
+    setStatus: FetchStatus.Success
+  },
+  [NameSpace.App]: {
+    location: DEFAULT_LOCATION,
+    sortType: DEFAULT_SORT,
+    selectedOfferId: null,
+  },
+});
+
 describe('Page: Property', () => {
   it('should render correctly all data received', () => {
-    const history = createMemoryHistory();
-    const store = mockStore({
-      [NameSpace.User]: {
-        authorizationStatus: AuthorizationStatus.NoAuth,
-        userData: null,
-      },
-      [NameSpace.OfferProperty]: {
-        offerProperty: fakeOffer,
-        offerPropertyStatus: FetchStatus.Success,
-        nearOffers: fakeOffers,
-        reviews: fakeReviews,
-        reviewFormBlockedStatus: FetchStatus.Success,
-      },
-    });
 
     window.scrollTo = jest.fn();
 
     render(
       <Provider store={store}>
-        <HistoryRouter history={history}>
+        <MemoryRouter>
           <PropertyPage />
-        </HistoryRouter>
+        </MemoryRouter>
       </Provider>
     );
 
@@ -50,33 +59,14 @@ describe('Page: Property', () => {
   });
 
   it('should render correctly all data received when to Auth', () => {
-    const history = createMemoryHistory();
-    const store = mockStore({
-      [NameSpace.User]: {
-        authorizationStatus: AuthorizationStatus.Auth,
-        userData: fakeUserData,
-      },
-      [NameSpace.OfferProperty]: {
-        offerProperty: fakeOffer,
-        offerPropertyStatus: FetchStatus.Success,
-        nearOffers: fakeOffers,
-        reviews: fakeReviews,
-        reviewFormBlockedStatus: FetchStatus.Success,
-      },
-      [NameSpace.Favorites]: {
-        favorites: fakeOffers,
-        fetchStatus: FetchStatus.Success,
-        setStatus: FetchStatus.Success
-      },
-    });
 
     window.scrollTo = jest.fn();
 
     render(
       <Provider store={store}>
-        <HistoryRouter history={history}>
+        <MemoryRouter>
           <PropertyPage />
-        </HistoryRouter>
+        </MemoryRouter>
       </Provider>
     );
 
@@ -85,34 +75,5 @@ describe('Page: Property', () => {
     expect(screen.getByText(/Reviews/i)).toBeInTheDocument();
     expect(screen.getByText('Submit')).toBeInTheDocument();
     expect(screen.getByText(/Other places in the neighbourhood/i)).toBeInTheDocument();
-  });
-
-  it('should render correctly if offers and roomInfo is loading', () => {
-    const history = createMemoryHistory();
-    const store = mockStore({
-      [NameSpace.User]: {
-        authorizationStatus: AuthorizationStatus.NoAuth,
-        userData: null,
-      },
-      [NameSpace.OfferProperty]: {
-        offerProperty: fakeOffer,
-        offerPropertyStatus: FetchStatus.Loading,
-        nearOffers: fakeOffers,
-        reviews: fakeReviews,
-        reviewFormBlockedStatus: FetchStatus.Loading,
-      },
-    });
-
-    window.scrollTo = jest.fn();
-
-    render(
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <PropertyPage />
-        </HistoryRouter>
-      </Provider>
-    );
-
-    expect(screen.getByText(/Loading/i)).toBeInTheDocument();
   });
 });

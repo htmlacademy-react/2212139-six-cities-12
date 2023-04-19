@@ -23,6 +23,7 @@ export default function Sort(): JSX.Element {
         tabIndex={0}
         onClick={() => setOpen(!open)}
         ref={refOne}
+        data-testid="toggle"
       >
         {sortType}
         <svg className="places__sorting-arrow" width="7" height="4">

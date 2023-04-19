@@ -9,7 +9,7 @@ import {getOffers, getOffersStatus} from '../../store/offers-data/selectors';
 import {useEffect} from 'react';
 import LoadingPage from '../loading-page/loading-page';
 import {fetchOffersAction} from '../../store/offers-data/api-actions';
-import {getLocation, getSelectedOfferId, getSortType} from '../../store/app-data/selectors';
+import {getLocation, getSortType} from '../../store/app-data/selectors';
 import NoPlaces from '../../components/no-places/no-places';
 import clsx from 'clsx';
 import FullPageError from '../../components/full-page-error/full-page-error';
@@ -19,7 +19,6 @@ export default function MainPage(): JSX.Element {
   const offers = useAppSelector(getOffers);
   const location = useAppSelector(getLocation);
   const sortType = useAppSelector(getSortType);
-  const selectedOfferId = useAppSelector(getSelectedOfferId);
   const currentOffers = getCurrentOffers(offers, location, sortType);
   const status = useAppSelector(getOffersStatus);
   const dispatch = useAppDispatch();
@@ -81,7 +80,6 @@ export default function MainPage(): JSX.Element {
                 <Map
                   className="cities__map"
                   offers={currentOffers}
-                  selectedOfferId={selectedOfferId}
                 />
 
               </div>

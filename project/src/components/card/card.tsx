@@ -1,8 +1,8 @@
-import {generatePath, Link} from 'react-router-dom';
-import {AppRoute, CardType} from '../../const';
+import { generatePath, Link } from 'react-router-dom';
+import { AppRoute, CardType } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { selectOffer } from '../../store/app-data/app-data';
-import {Offer} from '../../types/offer';
+import { Offer } from '../../types/offer';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 import { calculateRatingWidth, upperFirstLetter } from '../../utils/utils';
 
@@ -12,14 +12,22 @@ type CardProps = {
   cardType: CardType;
 }
 
-export default function Card({offer, cardType }: CardProps): JSX.Element {
+export default function Card({ offer, cardType }: CardProps): JSX.Element {
   const dispatch = useAppDispatch();
   const isBigSize = cardType === CardType.Property;
+
+  function handleMouseEnter() {
+    if (cardType !== CardType.Cities) {
+      return;
+    }
+
+    dispatch(selectOffer(offer.id));
+  }
 
   return (
     <article
       className={`${cardType}__card place-card`}
-      onMouseEnter={() => dispatch(selectOffer(offer.id))}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={() => dispatch(selectOffer(null))}
       data-testid="card-article"
     >
@@ -28,7 +36,7 @@ export default function Card({offer, cardType }: CardProps): JSX.Element {
           <span>Premium</span>
         </div>)}
       <div className={`place-card__image-wrapper ${cardType}__image-wrapper`}>
-        <Link to={generatePath(AppRoute.Room, {id: `${offer.id}`})}>
+        <Link to={generatePath(AppRoute.Room, { id: `${offer.id}` })}>
           <img
             className="place-card__image"
             src={offer.previewImage}
@@ -52,12 +60,12 @@ export default function Card({offer, cardType }: CardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: calculateRatingWidth(offer.rating)}}></span>
+            <span style={{ width: calculateRatingWidth(offer.rating) }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={generatePath(AppRoute.Room, {id: `${offer.id}`})}>
+          <Link to={generatePath(AppRoute.Room, { id: `${offer.id}` })}>
             {offer.title}
           </Link>
         </h2>
